@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:share_my_apk/src/services/upload_service.dart';
-import 'package:snug_logger/snug_logger.dart';
+import 'package:logging/logging.dart';
 
 class GofileUploadService implements UploadService {
   final String? apiToken;
+  static final Logger _logger = Logger('GofileUploadService');
 
   GofileUploadService({this.apiToken});
 
@@ -23,11 +24,11 @@ class GofileUploadService implements UploadService {
 
   @override
   Future<String> upload(String filePath) async {
-    snugLog('Uploading to gofile.io...', logType: LogType.info);
+    _logger.info('Uploading to gofile.io...');
 
     final file = File(filePath);
     if (!await file.exists()) {
-      snugLog('File not found: $filePath', logType: LogType.error);
+      _logger.severe('File not found: $filePath');
       throw Exception('File not found.');
     }
 
@@ -47,22 +48,21 @@ class GofileUploadService implements UploadService {
         final jsonResponse = json.decode(responseBody);
         if (jsonResponse['status'] == 'ok') {
           final downloadLink = jsonResponse['data']['downloadPage'];
-          snugLog('Upload successful: $downloadLink', logType: LogType.info);
+          _logger.info('Upload successful: $downloadLink');
           return downloadLink;
         } else {
           final reason = jsonResponse['status'];
-          snugLog('gofile.io upload failed: $reason', logType: LogType.error);
+          _logger.severe('gofile.io upload failed: $reason');
           throw Exception('gofile.io upload failed.');
         }
       } else {
-        snugLog(
+        _logger.severe(
           'gofile.io upload failed with status: ${response.statusCode}',
-          logType: LogType.error,
         );
         throw Exception('gofile.io upload failed.');
       }
     } catch (e) {
-      snugLog('Error uploading to gofile.io: $e', logType: LogType.error);
+      _logger.severe('Error uploading to gofile.io: $e');
       throw Exception('Error uploading to gofile.io.');
     }
   }

@@ -13,7 +13,7 @@ dependencies:
   http: ^1.2.2
   process_run: ^1.0.0
   args: ^2.5.0
-  snug_logger: ^1.0.0+10
+  logging: ^1.2.0
   yaml: ^3.1.2
 
 dev_dependencies:

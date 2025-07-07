@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:snug_logger/snug_logger.dart';
+import 'package:logging/logging.dart';
 
 /// An abstract class for upload services.
 abstract class UploadService {
@@ -11,16 +11,17 @@ abstract class UploadService {
 /// An implementation of [UploadService] for Diawi.
 class DiawiUploadService implements UploadService {
   final String apiToken;
+  static final Logger _logger = Logger('DiawiUploadService');
 
   DiawiUploadService(this.apiToken);
 
   @override
   Future<String> upload(String filePath) async {
-    snugLog('Uploading to Diawi...', logType: LogType.info);
+    _logger.info('Uploading to Diawi...');
 
     final file = File(filePath);
     if (!await file.exists()) {
-      snugLog('File not found: $filePath', logType: LogType.error);
+      _logger.severe('File not found: $filePath');
       throw Exception('File not found.');
     }
 
@@ -38,21 +39,20 @@ class DiawiUploadService implements UploadService {
         final jsonResponse = json.decode(responseBody);
         if (jsonResponse['job'] != null) {
           final downloadLink = 'https://i.diawi.com/app/${jsonResponse['job']}';
-          snugLog('Upload successful: $downloadLink', logType: LogType.info);
+          _logger.info('Upload successful: $downloadLink');
           return downloadLink;
         } else {
-          snugLog('Diawi upload failed: ${jsonResponse['message']}', logType: LogType.error);
+          _logger.severe('Diawi upload failed: ${jsonResponse['message']}');
           throw Exception('Diawi upload failed.');
         }
       } else {
-        snugLog(
+        _logger.severe(
           'Diawi upload failed with status: ${response.statusCode}',
-          logType: LogType.error,
         );
         throw Exception('Diawi upload failed.');
       }
     } catch (e) {
-      snugLog('Error uploading to Diawi: $e', logType: LogType.error);
+      _logger.severe('Error uploading to Diawi: $e');
       throw Exception('Error uploading to Diawi.');
     }
   }

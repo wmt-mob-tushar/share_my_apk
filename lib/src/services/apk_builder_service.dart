@@ -1,8 +1,10 @@
 import 'package:process_run/process_run.dart';
-import 'package:snug_logger/snug_logger.dart';
+import 'package:logging/logging.dart';
 
 /// A service class for building Flutter APKs.
 class ApkBuilderService {
+  static final Logger _logger = Logger('ApkBuilderService');
+
   /// Builds the APK and returns the path to the generated file.
   ///
   /// Throws an [Exception] if the build fails.
@@ -10,25 +12,24 @@ class ApkBuilderService {
     final shell = Shell(workingDirectory: projectPath);
     final buildType = release ? 'release' : 'debug';
 
-    snugLog('Starting APK build (mode: $buildType)...', logType: LogType.info);
+    _logger.info('Starting APK build (mode: $buildType)...');
 
     final result = await shell.run('flutter build apk --$buildType');
 
     if (result.first.exitCode == 0) {
       final apkPath = _getApkPath(result.outText, buildType, projectPath);
       if (apkPath != null) {
-        snugLog('APK built successfully: $apkPath', logType: LogType.info);
+        _logger.info('APK built successfully: $apkPath');
         return apkPath;
       } else {
-        snugLog(
+        _logger.severe(
           'Could not find APK path in build output.',
-          logType: LogType.error,
         );
         throw Exception('APK build failed: Could not find APK path.');
       }
     } else {
-      snugLog('APK build failed:', logType: LogType.error);
-      snugLog(result.errText, logType: LogType.error);
+      _logger.severe('APK build failed:');
+      _logger.severe(result.errText);
       throw Exception('APK build failed.');
     }
   }

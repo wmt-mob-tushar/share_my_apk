@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:share_my_apk/src/services/apk_builder_service.dart';
 import 'package:share_my_apk/src/services/upload_service_factory.dart';
 import 'package:share_my_apk/src/utils/arg_parser_util.dart';
-import 'package:snug_logger/snug_logger.dart';
+import 'package:logging/logging.dart';
 
 void main(List<String> arguments) async {
   final argParserUtil = ArgParserUtil();
+  final Logger logger = Logger('main');
 
   try {
     final options = argParserUtil.parse(arguments);
@@ -22,9 +23,8 @@ void main(List<String> arguments) async {
     var provider = options.provider;
 
     if (provider == 'diawi' && fileSize > 70 * 1024 * 1024) {
-      snugLog(
+      logger.severe(
         'APK size is greater than 70MB. Forcefully using gofile.io instead of diawi.',
-        logType: LogType.error,
       );
       provider = 'gofile';
     }
@@ -36,13 +36,13 @@ void main(List<String> arguments) async {
 
     final downloadLink = await uploader.upload(apkPath);
 
-    snugLog('APK successfully uploaded to $provider!', logType: LogType.info);
-    snugLog('Download link: $downloadLink', logType: LogType.info);
+    logger.info('APK successfully uploaded to $provider!');
+    logger.info('Download link: $downloadLink');
   } on ArgumentError catch (e) {
-    snugLog(e.message, logType: LogType.error);
+    logger.severe(e.message);
     exit(1);
   } catch (e) {
-    snugLog('An unexpected error occurred: $e', logType: LogType.error);
+    logger.severe('An unexpected error occurred: $e');
     exit(1);
   }
 }

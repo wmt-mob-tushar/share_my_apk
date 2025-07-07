@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:share_my_apk/share_my_apk.dart';
-import 'package:snug_logger/snug_logger.dart';
+import 'package:share_my_apk/src/services/upload_service_factory.dart';
+import 'package:logging/logging.dart';
 
 void main() async {
+  final Logger logger = Logger('main');
   // 1. Initialize the services
   final apkBuilder = ApkBuilderService();
 
@@ -14,21 +16,20 @@ void main() async {
       projectPath: '.', // Use '.' for the current directory
     );
 
-    snugLog('APK built successfully: $apkPath', logType: LogType.info);
+    logger.info('APK built successfully: $apkPath');
 
     // 3. Check the file size
     final apkFile = File(apkPath);
     final fileSize = await apkFile.length();
     final fileSizeMb = (fileSize / (1024 * 1024)).toStringAsFixed(2);
 
-    snugLog('APK size: $fileSizeMb MB', logType: LogType.info);
+    logger.info('APK size: $fileSizeMb MB');
 
     // 4. Choose the upload provider
     var provider = 'diawi'; // Or 'gofile'
     if (provider == 'diawi' && fileSize > 70 * 1024 * 1024) {
-      snugLog(
+      logger.severe(
         'APK size is >70MB, switching to gofile.io for upload.',
-        logType: LogType.warning,
       );
       provider = 'gofile';
     }
@@ -42,11 +43,11 @@ void main() async {
 
     final downloadLink = await uploader.upload(apkPath);
 
-    snugLog('Upload successful!', logType: LogType.success);
-    snugLog('Download Link: $downloadLink', logType: LogType.info);
+    logger.info('Upload successful!');
+    logger.info('Download Link: $downloadLink');
   } on ProcessException catch (e) {
-    snugLog('Failed to build APK: ${e.message}', logType: LogType.error);
+    logger.severe('Failed to build APK: ${e.message}');
   } catch (e) {
-    snugLog('An error occurred: $e', logType: LogType.error);
+    logger.severe('An error occurred: $e');
   }
 }
