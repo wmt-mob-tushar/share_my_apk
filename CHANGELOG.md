@@ -1,3 +1,9 @@
+## 🚀 0.3.1 - The "Oops, We Fixed It" Release
+
+-   **🐛 Bug Fix:** Corrected the import paths to resolve build failures. The hamster is back on its wheel.
+-   **⬆️ Dependencies Updated:** Tightened dependency constraints to the latest versions.
+-   **📝 Documentation:** Added more detailed documentation to the code.
+
 ## 🚀 0.3.0 - The "Let's Get Serious (About Fun)" Release
 
 -   **✨ Major Refactor:** We've tidied up the codebase. It's so clean now, you could eat off of it (but please don't).

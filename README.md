@@ -34,7 +34,7 @@ Or, if you're the "keep your friends close" type, add it to your project's `dev_
 
 ```yaml
 dev_dependencies:
-  share_my_apk: ^0.3.0 # Always check for the latest version!
+  share_my_apk: ^0.3.1 # Always check for the latest version!
 ```
 
 Then, run `dart pub get`.
