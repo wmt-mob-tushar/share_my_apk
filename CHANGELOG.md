@@ -1,9 +1,3 @@
-## 🚀 0.3.2 - The "Squashing Bugs" Release
-
--   **🐛 Bug Fix:** Resolved a series of build and validation errors.
--   **🔧 CI/CD:** Addressed `.gitignore` and `pubspec.yaml` validation issues.
--   **📝 Documentation:** Updated documentation and examples to reflect the latest changes.
-
 ## 🚀 0.3.1 - The "Oops, We Fixed It" Release
 
 -   **🐛 Bug Fix:** Corrected the import paths to resolve build failures. The hamster is back on its wheel.
