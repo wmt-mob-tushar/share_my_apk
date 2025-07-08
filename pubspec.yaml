@@ -17,6 +17,9 @@ topics:
   - diawi
   - gofile
 
+platforms: 
+  android:
+
 environment:
   sdk: ^3.8.1
 

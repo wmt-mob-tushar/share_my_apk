@@ -2,23 +2,29 @@ import 'package:share_my_apk/share_my_apk.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Services', () {
-    test('FlutterBuildService can be instantiated', () {
-      expect(FlutterBuildService(), isA<FlutterBuildService>());
+  group('UploadServiceFactory', () {
+    test('creates DiawiUploadService with token', () {
+      final service = UploadServiceFactory.create('diawi', token: 'test-token');
+      expect(service, isA<DiawiUploadService>());
     });
 
-    test('UploadServiceFactory creates GofileUploadService', () {
+    test('creates GofileUploadService', () {
       final service = UploadServiceFactory.create('gofile');
       expect(service, isA<GofileUploadService>());
     });
 
-    test('UploadServiceFactory creates DiawiUploadService', () {
-      final service = UploadServiceFactory.create('diawi', token: 'fake_token');
-      expect(service, isA<DiawiUploadService>());
+    test('throws for diawi without token', () {
+      expect(
+        () => UploadServiceFactory.create('diawi'),
+        throwsArgumentError,
+      );
     });
 
-    test('UploadServiceFactory throws for Diawi without a token', () {
-      expect(() => UploadServiceFactory.create('diawi'), throwsArgumentError);
+    test('throws for unknown provider', () {
+      expect(
+        () => UploadServiceFactory.create('unknown'),
+        throwsArgumentError,
+      );
     });
   });
 }
