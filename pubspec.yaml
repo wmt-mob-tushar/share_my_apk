@@ -10,16 +10,12 @@ documentation: https://github.com/wm-jenildgohel/share_my_apk/tree/main/doc
 
 # Topics for better discoverability
 topics:
-  - flutter
-  - apk
-  - build
+  - apk builder
   - upload
   - diawi
   - gofile
   - ci-cd
   - deployment
-  - mobile
-  - android
 
 # Screenshots for pub.dev (uncomment when screenshots are available)
 # screenshots:
