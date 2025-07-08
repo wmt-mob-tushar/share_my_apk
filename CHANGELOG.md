@@ -1,4 +1,4 @@
-## 🚀 0.3.0-alpha - The "Let's Get Serious (About Fun)" Release
+## 🚀 0.3.0 - The "Let's Get Serious (About Fun)" Release
 
 -   **✨ Major Refactor:** We've tidied up the codebase. It's so clean now, you could eat off of it (but please don't).
 -   **⬆️ Dependencies Updated:** Bumped dependencies to the latest versions. They're so fresh, so clean.
