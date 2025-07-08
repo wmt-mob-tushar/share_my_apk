@@ -16,7 +16,7 @@ class GofileUploadService implements UploadService {
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       if (jsonResponse['status'] == 'ok') {
-        return jsonResponse['data']['server'];
+        return jsonResponse['data']['server']?.toString() ?? '';
       }
     }
     throw Exception('Failed to get gofile.io server.');
@@ -47,7 +47,7 @@ class GofileUploadService implements UploadService {
         final responseBody = await response.stream.bytesToString();
         final jsonResponse = json.decode(responseBody);
         if (jsonResponse['status'] == 'ok') {
-          final downloadLink = jsonResponse['data']['downloadPage'];
+          final downloadLink = jsonResponse['data']['downloadPage']?.toString() ?? '';
           _logger.info('Upload successful: $downloadLink');
           return downloadLink;
         } else {

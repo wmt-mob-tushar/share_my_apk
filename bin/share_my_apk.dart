@@ -16,6 +16,9 @@ void main(List<String> arguments) async {
     final apkPath = await apkBuilder.build(
       release: options.isRelease,
       projectPath: options.path ?? '.',
+      customName: options.customName,
+      environment: options.environment,
+      outputDir: options.outputDir,
     );
 
     final apkFile = File(apkPath);

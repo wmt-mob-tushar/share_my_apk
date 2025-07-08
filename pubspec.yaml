@@ -1,25 +1,50 @@
 name: share_my_apk
-description: "A powerful command-line tool to build and upload your Flutter APKs directly to Diawi. This package can also be used as a library."
-version: 1.0.0
-homepage: https://github.com/your-username/share_my_apk
+description: "A powerful command-line tool to build and upload your Flutter APKs directly to various services like Diawi and Gofile.io. This package can also be used as a library."
+version: 0.1.0-alpha
+
+# Package metadata for pub.dev
+homepage: https://github.com/wm-jenildgohel/share_my_apk
+repository: https://github.com/wm-jenildgohel/share_my_apk
+issue_tracker: https://github.com/wm-jenildgohel/share_my_apk/issues
+documentation: https://github.com/wm-jenildgohel/share_my_apk/tree/main/doc
+
+# Topics for better discoverability
+topics:
+  - flutter
+  - apk
+  - build
+  - upload
+  - diawi
+  - gofile
+  - ci-cd
+  - deployment
+  - mobile
+  - android
+
+# Screenshots for pub.dev (uncomment when screenshots are available)
+# screenshots:
+#   - description: 'Command-line interface in action'
+#     path: screenshots/cli_example.png
+#   - description: 'APK organization structure'
+#     path: screenshots/file_organization.png
 
 environment:
   sdk: ^3.8.1
   flutter: ">=1.17.0"
 
 dependencies:
+  args: ^2.5.0
   flutter:
     sdk: flutter
   http: ^1.2.2
-  process_run: ^1.0.0
-  args: ^2.5.0
   logging: ^1.2.0
+  process_run: ^1.0.0
   yaml: ^3.1.2
 
 dev_dependencies:
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

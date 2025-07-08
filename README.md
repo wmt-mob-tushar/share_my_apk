@@ -1,11 +1,17 @@
 # share_my_apk
 
-A powerful command-line tool to build and upload your Flutter APKs directly to various services like Diawi and Gofile.io, inspired by `flutter_build_uploader`. This package can also be used as a library to integrate the APK building and uploading functionality into your own Dart applications.
+A powerful command-line tool to build and upload your Flutter APKs directly to various services like Diawi and Gofile.io. This package can also be used as a library to integrate the APK building and uploading functionality into your own Dart applications.
+
+**Developed by the Mobile Department at [Webmob Technologies](https://www.webmobtech.com/)**
+
+> **Note:** This package is currently in alpha version. Please test thoroughly before using in production environments.
 
 ## Features
 
 - **Build & Upload:** Seamlessly build your Flutter application (in release or debug mode) and upload the generated APK.
 - **Multiple Providers:** Supports Diawi and Gofile.io for APK uploads, with automatic switching to Gofile.io for large files (over 70MB) when Diawi is selected.
+- **Custom File Naming:** Generate APK files with custom names, timestamps, and version information.
+- **Directory Organization:** Organize builds by environment (dev, prod, staging) and custom output directories.
 - **Command-Line Interface:** A user-friendly CLI for quick and easy use.
 - **Extensible Library:** Use the underlying services as a library in your own projects.
 - **Professional Logging:** Structured and informative logging using the standard `logging` package.
@@ -24,7 +30,7 @@ Or, you can add it to your project's `dev_dependencies` in `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  share_my_apk: ^1.0.0 # Replace with the latest version
+  share_my_apk: ^0.1.0-alpha # Replace with the latest version
 ```
 
 Then, run `dart pub get`.
@@ -41,12 +47,15 @@ share_my_apk [options]
 
 **Options:**
 
-| Option      | Abbreviation | Description                                                                 |
-|-------------|--------------|-----------------------------------------------------------------------------|
-| `--token`   | `-t`         | Your API token (required for Diawi, optional for Gofile.io).                |
-| `--path`    | `-p`         | Path to your Flutter project. Defaults to the current directory.            |
-| `--release` |              | Build in release mode (default). Use `--no-release` for debug mode.       |
-| `--provider`|              | The upload provider to use ('diawi' or 'gofile'). Defaults to 'diawi'. |
+| Option         | Abbreviation | Description                                                                 |
+|----------------|--------------|-----------------------------------------------------------------------------|
+| `--token`      | `-t`         | Your API token (required for Diawi, optional for Gofile.io).                |
+| `--path`       | `-p`         | Path to your Flutter project. Defaults to the current directory.            |
+| `--release`    |              | Build in release mode (default). Use `--no-release` for debug mode.       |
+| `--provider`   |              | The upload provider to use ('diawi' or 'gofile'). Defaults to 'diawi'.    |
+| `--name`       | `-n`         | Custom name for the APK file (without extension).                          |
+| `--environment`| `-e`         | Environment folder (dev, prod, staging, etc.).                             |
+| `--output-dir` | `-o`         | Output directory for the built APK.                                        |
 
 **Examples:**
 
@@ -56,6 +65,12 @@ share_my_apk --token YOUR_SECRET_DIAWI_TOKEN
 
 # Build and upload a debug APK to Gofile.io from a specific project path
 share_my_apk --no-release --path /path/to/your/project --provider gofile
+
+# Build with custom name and environment organization
+share_my_apk --token YOUR_SECRET_DIAWI_TOKEN --name "MyApp_Beta" --environment "staging"
+
+# Build with custom output directory and file naming
+share_my_apk --token YOUR_SECRET_DIAWI_TOKEN --output-dir "/path/to/builds" --name "Release_v1.2.3"
 
 # Build and upload a release APK to Diawi, even if it's larger than 70MB (will switch to gofile.io automatically)
 share_my_apk --token YOUR_SECRET_DIAWI_TOKEN --provider diawi
@@ -84,8 +99,14 @@ void main() async {
     // 1. Initialize the APK builder service
     final apkBuilder = ApkBuilderService();
 
-    // 2. Build the APK
-    final apkPath = await apkBuilder.build(release: true, projectPath: '.');
+    // 2. Build the APK with custom naming and organization
+    final apkPath = await apkBuilder.build(
+      release: true, 
+      projectPath: '.',
+      customName: 'MyApp_Beta',
+      environment: 'staging',
+      outputDir: '/path/to/builds',
+    );
     logger.info('APK built successfully: $apkPath');
 
     // 3. Choose the upload provider and upload the APK
@@ -108,8 +129,47 @@ void main() async {
 }
 ```
 
+## File Naming and Organization
+
+### Custom File Naming
+When you use the `--name` option, the APK will be named using the format:
+- **Custom name:** `{customName}_{version}_{timestamp}.apk`
+- **Default name:** `{appName}_{version}_{timestamp}.apk`
+
+The timestamp format is: `YYYY_MM_DD_HH_MM_SS`
+
+### Directory Organization
+- **Environment folders:** Use `--environment` to organize builds by environment (dev, prod, staging, etc.)
+- **Custom output directory:** Use `--output-dir` to specify where APK files should be saved
+- **Default structure:** `{projectPath}/build/apk/{environment}/`
+
+### Examples of Generated Files
+```bash
+# Default naming
+my_app_1.0.0_2024_01_15_14_30_45.apk
+
+# Custom naming
+MyApp_Beta_1.0.0_2024_01_15_14_30_45.apk
+
+# With environment organization
+/path/to/builds/staging/MyApp_Beta_1.0.0_2024_01_15_14_30_45.apk
+```
+
+## Testing
+
+This package is currently in alpha version. Please test it thoroughly in your development environment before using in production. We recommend:
+
+1. Testing with different Flutter project structures
+2. Verifying uploads work correctly with both providers
+3. Testing both release and debug builds
+4. Checking the automatic provider switching feature
+
 ## Contributing
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please file an issue or submit a pull request on the project's repository.
+Contributions are welcome! If you find any issues or have suggestions for improvements, please file an issue or submit a pull request on the [project's repository](https://github.com/wm-jenildgohel/share_my_apk).
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
