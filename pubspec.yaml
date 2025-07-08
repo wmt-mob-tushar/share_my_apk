@@ -5,8 +5,6 @@ version: 0.3.2
 # Package metadata for pub.dev
 homepage: https://github.com/wm-jenildgohel/share_my_apk
 repository: https://github.com/wm-jenildgohel/share_my_apk
-issue_tracker: https://github.com/wm-jenildgohel/share_my_apk/issues
-documentation: https://github.com/wm-jenildgohel/share_my_apk/blob/master/README.md
 
 
 # Topics for better discoverability
