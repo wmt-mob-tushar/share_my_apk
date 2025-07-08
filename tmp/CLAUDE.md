@@ -1,7 +1,7 @@
 # CLAUDE.md - Share My APK Project Knowledge Base
 
 > **Last Updated:** 2025-07-08  
-> **Version:** 0.3.2  
+> **Version:** 0.3.1  
 > **Status:** Production Ready - Alpha Release
 
 ## Project Overview
@@ -483,7 +483,7 @@ void main() async {
 
 ### Publishing Details
 - **Package Name**: `share_my_apk`
-- **Current Version**: `0.3.2`
+- **Current Version**: `0.3.1`
 - **Repository**: https://github.com/wm-jenildgohel/share_my_apk
 - **Pub.dev**: Ready for publishing
 - **License**: As specified in LICENSE file
@@ -494,7 +494,7 @@ void main() async {
 - **Flutter Version**: Compatible with current stable Flutter
 
 ### Version History
-- **0.3.2**: Bug fixes, improved documentation, test coverage
+- **0.3.1**: Bug fixes, improved documentation, test coverage
 - **0.3.0**: Major refactor, improved code organization
 - **0.2.0-alpha**: Init command, provider-specific tokens
 - **0.1.0-alpha**: Initial release with core functionality

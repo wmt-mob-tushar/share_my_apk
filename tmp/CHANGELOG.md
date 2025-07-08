@@ -1,9 +1,3 @@
-## 🚀 0.3.2 - The "Format Fix" Release
-
--   **🎨 Code Formatting:** Ran `dart format` to make the code more beautiful.
--   **📝 Documentation:** Added `CLAUDE.md` to the project.
--   **🔧 Chore:** Added `tmp/` to the `.gitignore` file.
-
 ## 🚀 0.3.1 - The "Oops, We Fixed It" Release
 
 -   **🐛 Bug Fix:** Corrected the import paths to resolve build failures. The hamster is back on its wheel.
