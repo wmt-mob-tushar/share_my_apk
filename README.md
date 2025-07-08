@@ -1,14 +1,14 @@
 # share_my_apk
 
-A powerful command-line tool to build and upload your Flutter APKs directly to various services like Diawi and Gofile.io. This package can also be used as a library to integrate the APK building and uploading functionality into your own Dart applications.
+A powerful command-line tool to build and upload your Flutter Android APKs directly to various services like Diawi and Gofile.io. This package can also be used as a library to integrate the APK building and uploading functionality into your own Dart applications.
 
 **Developed by the Mobile Department at [Webmob Technologies](https://www.webmobtech.com/)**
 
-> **Note:** This package is currently in alpha version. Please test thoroughly before using in production environments.
+> **Note:** This package is currently in alpha version and only supports Android APKs. Please test thoroughly before using in production environments.
 
 ## Features
 
-- **Build & Upload:** Seamlessly build your Flutter application (in release or debug mode) and upload the generated APK.
+- **Build & Upload:** Seamlessly build your Flutter Android application (in release or debug mode) and upload the generated APK.
 - **Multiple Providers:** Supports Diawi and Gofile.io for APK uploads, with automatic switching to Gofile.io for large files (over 70MB) when Diawi is selected.
 - **Custom File Naming:** Generate APK files with custom names, timestamps, and version information.
 - **Directory Organization:** Organize builds by environment (dev, prod, staging) and custom output directories.
@@ -30,7 +30,7 @@ Or, you can add it to your project's `dev_dependencies` in `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  share_my_apk: ^0.1.0-alpha # Replace with the latest version
+  share_my_apk: ^0.2.0-alpha # Replace with the latest version
 ```
 
 Then, run `dart pub get`.
@@ -39,34 +39,15 @@ Then, run `dart pub get`.
 
 ### Configuration File (Recommended)
 
-For easier project-specific configuration, you can create a `share_my_apk.yaml` file in the root of your project. This allows you to set default values for any of the command-line options.
+For easier project-specific configuration, you can generate a `share_my_apk.yaml` file in the root of your project. This allows you to set default values for any of the command-line options.
 
-**Example `share_my_apk.yaml`:**
+To generate the configuration file, run:
 
-```yaml
-# Default provider to use for uploads ('diawi' or 'gofile').
-provider: diawi
-
-# API tokens for different providers.
-# Get your Diawi token from: https://dashboard.diawi.com/profile/api
-diawi_token: your_secret_diawi_token
-gofile_token: your_gofile_token
-
-# Default path to your Flutter project.
-# path: .
-
-# Whether to build in release mode by default.
-# release: true
-
-# Custom name for the APK file (without extension).
-# name: my-cool-app
-
-# Environment folder (e.g., dev, prod, staging).
-# environment: staging
-
-# Output directory for the built APK.
-# output-dir: build/my_apks
+```bash
+share_my_apk --init
 ```
+
+This will create a `share_my_apk.yaml` file with all the available options, commented out and ready to be configured.
 
 ### As a Command-Line Tool
 
@@ -81,6 +62,7 @@ share_my_apk [options]
 | Option           | Abbreviation | Description                                                                 |
 |------------------|--------------|-----------------------------------------------------------------------------|
 | `--help`         | `-h`         | Displays the help message.                                                  |
+| `--init`         |              | Generates a `share_my_apk.yaml` configuration file.                         |
 | `--diawi-token`  |              | Your API token for Diawi.                                                   |
 | `--gofile-token` |              | Your API token for Gofile.                                                  |
 | `--path`         | `-p`         | Path to your Flutter project. Defaults to the current directory.            |
@@ -93,6 +75,9 @@ share_my_apk [options]
 **Examples:**
 
 ```bash
+# Generate a configuration file
+share_my_apk --init
+
 # Build and upload a release APK using settings from share_my_apk.yaml
 share_my_apk
 
@@ -201,5 +186,3 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
----

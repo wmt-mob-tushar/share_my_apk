@@ -1,10 +1,9 @@
 import 'dart:io';
 
-import 'package:share_my_apk/src/models/cli_options.dart';
-import 'package:share_my_apk/src/services/apk_builder_service.dart';
-import 'package:share_my_apk/src/services/upload_service_factory.dart';
-import 'package:share_my_apk/src/utils/arg_parser_util.dart';
 import 'package:logging/logging.dart';
+import 'package:share_my_apk/src/services/build/flutter_build_service.dart';
+import 'package:share_my_apk/src/services/upload/upload_service_factory.dart';
+import 'package:share_my_apk/src/utils/command_line/arg_parser_util.dart';
 
 void main(List<String> arguments) async {
   final argParserUtil = ArgParserUtil();
@@ -12,7 +11,7 @@ void main(List<String> arguments) async {
 
   try {
     final options = argParserUtil.parse(arguments);
-    final apkBuilder = ApkBuilderService();
+    final apkBuilder = FlutterBuildService();
 
     final apkPath = await apkBuilder.build(
       release: options.isRelease,
@@ -41,10 +40,7 @@ void main(List<String> arguments) async {
       }
     }
 
-    final uploader = UploadServiceFactory.create(
-      provider,
-      token: token,
-    );
+    final uploader = UploadServiceFactory.create(provider, token: token);
 
     final downloadLink = await uploader.upload(apkPath);
 

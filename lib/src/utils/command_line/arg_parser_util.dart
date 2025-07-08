@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:share_my_apk/src/models/cli_options.dart';
 import 'package:share_my_apk/src/services/config_service.dart';
+import 'package:share_my_apk/src/utils/command_line/help_util.dart';
+import 'package:share_my_apk/src/utils/command_line/init_util.dart';
 
 /// A utility class for parsing command-line arguments.
 class ArgParserUtil {
   static const _help = 'help';
+  static const _init = 'init';
   static const _diawiToken = 'diawi-token';
   static const _gofileToken = 'gofile-token';
   static const _path = 'path';
@@ -29,6 +32,11 @@ class ArgParserUtil {
             abbr: 'h',
             negatable: false,
             help: 'Displays this help message.',
+          )
+          ..addFlag(
+            _init,
+            negatable: false,
+            help: 'Generates a `share_my_apk.yaml` configuration file.',
           )
           ..addOption(
             _diawiToken,
@@ -77,7 +85,12 @@ class ArgParserUtil {
     final argResults = _parser.parse(args);
 
     if (argResults[_help] as bool) {
-      _printHelp();
+      HelpUtil.printHelp(_parser.usage);
+      exit(0);
+    }
+
+    if (argResults[_init] as bool) {
+      InitUtil.generateConfigFile();
       exit(0);
     }
 
@@ -124,45 +137,5 @@ class ArgParserUtil {
       diawiToken: diawiToken,
       gofileToken: gofileToken,
     );
-  }
-
-  void _printHelp() {
-    print('''
-A powerful command-line tool to build and upload your Flutter APKs.
-
-Usage: share_my_apk [options]
-
-Options:
-${_parser.usage}
-
-Configuration:
-  You can set default values for the options in a `share_my_apk.yaml` file in your project's root directory.
-
-  Example `share_my_apk.yaml`:
-  
-  # Default provider to use for uploads.
-  # Allowed values: diawi, gofile
-  # provider: diawi
-
-  # API tokens for different providers.
-  # Get your Diawi token from: https://dashboard.diawi.com/profile/api
-  # diawi_token: your_diawi_token
-  # gofile_token: your_gofile_token
-
-  # Default path to your Flutter project.
-  # path: .
-
-  # Whether to build in release mode by default.
-  # release: true
-
-  # Custom name for the APK file (without extension).
-  # name: my-cool-app
-
-  # Environment folder (e.g., dev, prod, staging).
-  # environment: staging
-
-  # Output directory for the built APK.
-  # output-dir: build/my_apks
-''');
   }
 }

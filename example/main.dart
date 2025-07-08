@@ -1,53 +1,43 @@
-import 'dart:io';
 import 'package:share_my_apk/share_my_apk.dart';
-import 'package:share_my_apk/src/services/upload_service_factory.dart';
 import 'package:logging/logging.dart';
 
 void main() async {
-  final Logger logger = Logger('main');
-  // 1. Initialize the services
-  final apkBuilder = ApkBuilderService();
+  // Configure logging to see detailed output from the tool.
+  _setupLogging();
+
+  final logger = Logger('main');
 
   try {
-    // 2. Build the APK
-    // You can specify the project path and build mode (release or debug)
+    // 1. Initialize the Flutter build service.
+    final apkBuilder = FlutterBuildService();
+
+    // 2. Build the APK.
+    // This assumes you are running the command from the root of a Flutter project.
     final apkPath = await apkBuilder.build(
       release: true,
-      projectPath: '.', // Use '.' for the current directory
+      customName: 'MyAwesomeApp',
+      environment: 'production',
     );
 
-    logger.info('APK built successfully: $apkPath');
+    logger.info('✅ APK built successfully: $apkPath');
 
-    // 3. Check the file size
-    final apkFile = File(apkPath);
-    final fileSize = await apkFile.length();
-    final fileSizeMb = (fileSize / (1024 * 1024)).toStringAsFixed(2);
-
-    logger.info('APK size: $fileSizeMb MB');
-
-    // 4. Choose the upload provider
-    var provider = 'diawi'; // Or 'gofile'
-    if (provider == 'diawi' && fileSize > 70 * 1024 * 1024) {
-      logger.severe(
-        'APK size is >70MB, switching to gofile.io for upload.',
-      );
-      provider = 'gofile';
-    }
-
-    // 5. Create the uploader and upload the APK
-    // The token is only required for Diawi.
-    final uploader = UploadServiceFactory.create(
-      provider,
-      token: 'YOUR_DIAWI_TOKEN', // Replace with your token if using Diawi
-    );
-
+    // 3. Upload the APK to a service (e.g., Gofile.io).
+    final uploader = UploadServiceFactory.create('gofile');
     final downloadLink = await uploader.upload(apkPath);
 
-    logger.info('Upload successful!');
-    logger.info('Download Link: $downloadLink');
-  } on ProcessException catch (e) {
-    logger.severe('Failed to build APK: ${e.message}');
+    logger.info('🚀 Upload successful!');
+    logger.info('🔗 Download Link: $downloadLink');
   } catch (e) {
-    logger.severe('An error occurred: $e');
+    logger.severe('❌ An error occurred: $e');
   }
+}
+
+/// Configures logging to display all messages with timestamps.
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    final logger = Logger('main');
+    final timestamp = record.time.toIso8601String().substring(0, 19);
+    logger.info('[$timestamp] ${record.level.name}: ${record.message}');
+  });
 }

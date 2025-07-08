@@ -29,3 +29,11 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 build/
+
+# Explicitly un-ignore files that are incorrectly reported as ignored.
+!example/comprehensive_example.dart
+!lib/src/services/apk_builder_service.dart
+!lib/src/services/gofile_upload_service.dart
+!lib/src/services/upload_service.dart
+!lib/src/services/upload_service_factory.dart
+!lib/src/utils/arg_parser_util.dart

@@ -1,18 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:share_my_apk/src/services/upload_service.dart';
+import 'package:share_my_apk/src/services/upload/upload_service.dart';
 import 'package:logging/logging.dart';
 
+/// An [UploadService] for uploading APKs to Gofile.io.
 class GofileUploadService implements UploadService {
+  /// The API token for authenticating with the Gofile.io API.
   final String? apiToken;
   static final Logger _logger = Logger('GofileUploadService');
 
+  /// Creates a new [GofileUploadService].
   GofileUploadService({this.apiToken});
 
   Future<String> _getServer() async {
-    final response =
-        await http.get(Uri.parse('https://api.gofile.io/getServer'));
+    final response = await http.get(
+      Uri.parse('https://api.gofile.io/getServer'),
+    );
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       if (jsonResponse['status'] == 'ok') {
@@ -47,7 +51,8 @@ class GofileUploadService implements UploadService {
         final responseBody = await response.stream.bytesToString();
         final jsonResponse = json.decode(responseBody);
         if (jsonResponse['status'] == 'ok') {
-          final downloadLink = jsonResponse['data']['downloadPage']?.toString() ?? '';
+          final downloadLink =
+              jsonResponse['data']['downloadPage']?.toString() ?? '';
           _logger.info('Upload successful: $downloadLink');
           return downloadLink;
         } else {
