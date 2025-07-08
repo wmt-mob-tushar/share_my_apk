@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:share_my_apk/src/models/cli_options.dart';
 import 'package:share_my_apk/src/services/apk_builder_service.dart';
 import 'package:share_my_apk/src/services/upload_service_factory.dart';
 import 'package:share_my_apk/src/utils/arg_parser_util.dart';
@@ -24,17 +25,25 @@ void main(List<String> arguments) async {
     final apkFile = File(apkPath);
     final fileSize = await apkFile.length();
     var provider = options.provider;
+    String? token;
 
     if (provider == 'diawi' && fileSize > 70 * 1024 * 1024) {
-      logger.severe(
+      logger.warning(
         'APK size is greater than 70MB. Forcefully using gofile.io instead of diawi.',
       );
       provider = 'gofile';
+      token = options.gofileToken;
+    } else {
+      if (provider == 'diawi') {
+        token = options.diawiToken;
+      } else {
+        token = options.gofileToken;
+      }
     }
 
     final uploader = UploadServiceFactory.create(
       provider,
-      token: options.token,
+      token: token,
     );
 
     final downloadLink = await uploader.upload(apkPath);

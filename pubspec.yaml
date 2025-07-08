@@ -1,6 +1,6 @@
 name: share_my_apk
 description: "A powerful command-line tool to build and upload your Flutter APKs directly to various services like Diawi and Gofile.io. This package can also be used as a library."
-version: 0.1.0-alpha
+version: 0.2.0-alpha
 
 # Package metadata for pub.dev
 homepage: https://github.com/wm-jenildgohel/share_my_apk
@@ -10,11 +10,10 @@ documentation: https://github.com/wm-jenildgohel/share_my_apk/tree/main/doc
 
 # Topics for better discoverability
 topics:
-  - apk builder
+  - apk-builder
   - upload
   - diawi
   - gofile
-  - ci-cd
   - deployment
 
 # Screenshots for pub.dev (uncomment when screenshots are available)

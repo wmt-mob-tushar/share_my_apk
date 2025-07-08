@@ -24,6 +24,12 @@ class CliOptions {
   /// Get your Diawi token from: https://dashboard.diawi.com/profile/api
   final String? token;
 
+  /// API token for Diawi.
+  final String? diawiToken;
+
+  /// API token for Gofile.io.
+  final String? gofileToken;
+
   /// Path to the Flutter project directory.
   ///
   /// If not specified, the current working directory will be used.
@@ -76,6 +82,8 @@ class CliOptions {
   /// The [isRelease] parameter defaults to `true` and [provider] defaults to `'diawi'`.
   const CliOptions({
     this.token,
+    this.diawiToken,
+    this.gofileToken,
     this.path,
     this.isRelease = true,
     this.provider = 'diawi',
@@ -90,6 +98,8 @@ class CliOptions {
   /// without modifying the original instance.
   CliOptions copyWith({
     String? token,
+    String? diawiToken,
+    String? gofileToken,
     String? path,
     bool? isRelease,
     String? provider,
@@ -99,6 +109,8 @@ class CliOptions {
   }) {
     return CliOptions(
       token: token ?? this.token,
+      diawiToken: diawiToken ?? this.diawiToken,
+      gofileToken: gofileToken ?? this.gofileToken,
       path: path ?? this.path,
       isRelease: isRelease ?? this.isRelease,
       provider: provider ?? this.provider,
@@ -112,6 +124,8 @@ class CliOptions {
   String toString() {
     return 'CliOptions('
         'token: ${token != null ? '***' : 'null'}, '
+        'diawiToken: ${diawiToken != null ? '***' : 'null'}, '
+        'gofileToken: ${gofileToken != null ? '***' : 'null'}, '
         'path: $path, '
         'isRelease: $isRelease, '
         'provider: $provider, '

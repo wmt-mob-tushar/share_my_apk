@@ -37,9 +37,40 @@ Then, run `dart pub get`.
 
 ## Usage
 
+### Configuration File (Recommended)
+
+For easier project-specific configuration, you can create a `share_my_apk.yaml` file in the root of your project. This allows you to set default values for any of the command-line options.
+
+**Example `share_my_apk.yaml`:**
+
+```yaml
+# Default provider to use for uploads ('diawi' or 'gofile').
+provider: diawi
+
+# API tokens for different providers.
+# Get your Diawi token from: https://dashboard.diawi.com/profile/api
+diawi_token: your_secret_diawi_token
+gofile_token: your_gofile_token
+
+# Default path to your Flutter project.
+# path: .
+
+# Whether to build in release mode by default.
+# release: true
+
+# Custom name for the APK file (without extension).
+# name: my-cool-app
+
+# Environment folder (e.g., dev, prod, staging).
+# environment: staging
+
+# Output directory for the built APK.
+# output-dir: build/my_apks
+```
+
 ### As a Command-Line Tool
 
-Once activated, you can use the `share_my_apk` command in your terminal:
+Once activated, you can use the `share_my_apk` command in your terminal. Use `share_my_apk --help` to see all available options.
 
 ```bash
 share_my_apk [options]
@@ -47,33 +78,32 @@ share_my_apk [options]
 
 **Options:**
 
-| Option         | Abbreviation | Description                                                                 |
-|----------------|--------------|-----------------------------------------------------------------------------|
-| `--token`      | `-t`         | Your API token (required for Diawi, optional for Gofile.io).                |
-| `--path`       | `-p`         | Path to your Flutter project. Defaults to the current directory.            |
-| `--release`    |              | Build in release mode (default). Use `--no-release` for debug mode.       |
-| `--provider`   |              | The upload provider to use ('diawi' or 'gofile'). Defaults to 'diawi'.    |
-| `--name`       | `-n`         | Custom name for the APK file (without extension).                          |
-| `--environment`| `-e`         | Environment folder (dev, prod, staging, etc.).                             |
-| `--output-dir` | `-o`         | Output directory for the built APK.                                        |
+| Option           | Abbreviation | Description                                                                 |
+|------------------|--------------|-----------------------------------------------------------------------------|
+| `--help`         | `-h`         | Displays the help message.                                                  |
+| `--diawi-token`  |              | Your API token for Diawi.                                                   |
+| `--gofile-token` |              | Your API token for Gofile.                                                  |
+| `--path`         | `-p`         | Path to your Flutter project. Defaults to the current directory.            |
+| `--release`      |              | Build in release mode (default). Use `--no-release` for debug mode.       |
+| `--provider`     |              | The upload provider to use ('diawi' or 'gofile'). Defaults to 'diawi'.    |
+| `--name`         | `-n`         | Custom name for the APK file (without extension).                          |
+| `--environment`  | `-e`         | Environment folder (dev, prod, staging, etc.).                             |
+| `--output-dir`   | `-o`         | Output directory for the built APK.                                        |
 
 **Examples:**
 
 ```bash
-# Build and upload a release APK to Diawi from the current project
-share_my_apk --token YOUR_SECRET_DIAWI_TOKEN
+# Build and upload a release APK using settings from share_my_apk.yaml
+share_my_apk
 
-# Build and upload a debug APK to Gofile.io from a specific project path
-share_my_apk --no-release --path /path/to/your/project --provider gofile
+# Override the provider from the config file
+share_my_apk --provider gofile
 
-# Build with custom name and environment organization
-share_my_apk --token YOUR_SECRET_DIAWI_TOKEN --name "MyApp_Beta" --environment "staging"
+# Build a debug APK
+share_my_apk --no-release
 
-# Build with custom output directory and file naming
-share_my_apk --token YOUR_SECRET_DIAWI_TOKEN --output-dir "/path/to/builds" --name "Release_v1.2.3"
-
-# Build and upload a release APK to Diawi, even if it's larger than 70MB (will switch to gofile.io automatically)
-share_my_apk --token YOUR_SECRET_DIAWI_TOKEN --provider diawi
+# Provide a token via the command line
+share_my_apk --diawi-token YOUR_SECRET_DIAWI_TOKEN
 ```
 
 ### As a Library
