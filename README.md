@@ -1,99 +1,102 @@
-# share_my_apk
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wm-jenildgohel/share_my_apk/master/assets/logo.png" alt="Share My APK Logo" width="200">
+</p>
 
-A powerful command-line tool to build and upload your Flutter Android APKs directly to various services like Diawi and Gofile.io. This package can also be used as a library to integrate the APK building and uploading functionality into your own Dart applications.
+<h1 align="center">Share My APK</h1>
 
-**Developed by the Mobile Department at [Webmob Technologies](https://www.webmobtech.com/)**
+<p align="center">
+  <strong>Tired of the build-and-drag-drop dance? 🕺💃</strong>
+  <br />
+  Share My APK is your new best friend! This command-line tool automates building and uploading your Flutter Android APKs to services like Diawi and Gofile.io, so you can share your builds faster than you can say "It's compiling!"
+  <br />
+  <br />
+  <a href="https://pub.dev/packages/share_my_apk"><img src="https://img.shields.io/pub/v/share_my_apk.svg" alt="Pub Version"></a>
+  <a href="https://github.com/wm-jenildgohel/share_my_apk/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+  <a href="https://github.com/wm-jenildgohel/share_my_apk/actions"><img src="https://github.com/wm-jenildgohel/share_my_apk/workflows/build/badge.svg" alt="Build Status"></a>
+</p>
 
-> **Note:** This package is currently in alpha version and only supports Android APKs. Please test thoroughly before using in production environments.
+> **Note:** This package is currently in its alpha stage and only supports Android APKs. Please use with a dash of adventurous spirit! 🧪
 
-## Features
+## ✨ Features
 
-- **Build & Upload:** Seamlessly build your Flutter Android application (in release or debug mode) and upload the generated APK.
-- **Multiple Providers:** Supports Diawi and Gofile.io for APK uploads, with automatic switching to Gofile.io for large files (over 70MB) when Diawi is selected.
-- **Custom File Naming:** Generate APK files with custom names, timestamps, and version information.
-- **Directory Organization:** Organize builds by environment (dev, prod, staging) and custom output directories.
-- **Command-Line Interface:** A user-friendly CLI for quick and easy use.
-- **Extensible Library:** Use the underlying services as a library in your own projects.
-- **Professional Logging:** Structured and informative logging using the standard `logging` package.
+-   **🚀 Build & Upload:** Seamlessly build your Flutter app and upload the APK.
+-   **☁️ Multiple Providers:** Supports Diawi and Gofile.io. It even auto-switches to Gofile.io for larger files!
+-   **📝 Smart Configuration:** Use a `share_my_apk.yaml` file for project-specific settings.
+-   **🎨 Customization Galore:** Customize file names, directory structures, and build environments.
+-   **💻 User-Friendly CLI:** A simple and intuitive command-line interface.
+-   **🔧 Extensible Library:** Use the core services in your own Dart projects.
 
-## Getting Started
+## 📦 Installation
 
-### Installation
-
-To use `share_my_apk` as a command-line tool, you can activate it globally:
+Activate `share_my_apk` globally to use it from anywhere:
 
 ```bash
 dart pub global activate share_my_apk
 ```
 
-Or, you can add it to your project's `dev_dependencies` in `pubspec.yaml`:
+Or, add it to your project's `dev_dependencies` in `pubspec.yaml`:
 
 ```yaml
 dev_dependencies:
-  share_my_apk: ^0.2.0-alpha # Replace with the latest version
+  share_my_apk: ^0.3.0-alpha # Get the latest version from pub.dev
 ```
 
 Then, run `dart pub get`.
 
-## Usage
+## 🚀 Usage
 
-### Configuration File (Recommended)
+### 1. Initialize (Recommended)
 
-For easier project-specific configuration, you can generate a `share_my_apk.yaml` file in the root of your project. This allows you to set default values for any of the command-line options.
-
-To generate the configuration file, run:
+Generate a `share_my_apk.yaml` config file in your project root. It's the best way to manage your settings.
 
 ```bash
 share_my_apk --init
 ```
 
-This will create a `share_my_apk.yaml` file with all the available options, commented out and ready to be configured.
+This creates a `share_my_apk.yaml` file with all available options, ready for you to customize.
 
-### As a Command-Line Tool
+### 2. Run from the Command Line
 
-Once activated, you can use the `share_my_apk` command in your terminal. Use `share_my_apk --help` to see all available options.
+Once activated, use the `share_my_apk` command. Check out `share_my_apk --help` for all the options.
 
 ```bash
 share_my_apk [options]
 ```
 
-**Options:**
+**Key Options:**
 
-| Option           | Abbreviation | Description                                                                 |
-|------------------|--------------|-----------------------------------------------------------------------------|
-| `--help`         | `-h`         | Displays the help message.                                                  |
-| `--init`         |              | Generates a `share_my_apk.yaml` configuration file.                         |
-| `--diawi-token`  |              | Your API token for Diawi.                                                   |
-| `--gofile-token` |              | Your API token for Gofile.                                                  |
-| `--path`         | `-p`         | Path to your Flutter project. Defaults to the current directory.            |
-| `--release`      |              | Build in release mode (default). Use `--no-release` for debug mode.       |
-| `--provider`     |              | The upload provider to use ('diawi' or 'gofile'). Defaults to 'diawi'.    |
-| `--name`         | `-n`         | Custom name for the APK file (without extension).                          |
-| `--environment`  | `-e`         | Environment folder (dev, prod, staging, etc.).                             |
-| `--output-dir`   | `-o`         | Output directory for the built APK.                                        |
+| Option           | Alias | Description                                                  |
+| ---------------- | ----- | ------------------------------------------------------------ |
+| `--help`         | `-h`  | Shows the help message.                                      |
+| `--init`         |       | Generates a `share_my_apk.yaml` config file.                 |
+| `--diawi-token`  |       | Your Diawi API token.                                        |
+| `--gofile-token` |       | Your Gofile API token.                                       |
+| `--path`         | `-p`  | Path to your Flutter project (defaults to current dir).      |
+| `--release`      |       | Build in release mode (use `--no-release` for debug).        |
+| `--provider`     |       | Upload provider: `diawi` or `gofile` (defaults to `diawi`).  |
+| `--name`         | `-n`  | Custom name for the APK file.                                |
+| `--environment`  | `-e`  | Environment folder (e.g., `dev`, `prod`, `staging`).         |
+| `--output-dir`   | `-o`  | Output directory for the built APK.                          |
 
 **Examples:**
 
 ```bash
-# Generate a configuration file
+# Generate a config file
 share_my_apk --init
 
-# Build and upload a release APK using settings from share_my_apk.yaml
+# Build and upload using your config file
 share_my_apk
 
-# Override the provider from the config file
+# Override the provider
 share_my_apk --provider gofile
 
 # Build a debug APK
 share_my_apk --no-release
-
-# Provide a token via the command line
-share_my_apk --diawi-token YOUR_SECRET_DIAWI_TOKEN
 ```
 
-### As a Library
+### 3. Use as a Library
 
-You can also use the core services of this package in your own Dart code.
+Integrate `share_my_apk`'s services directly into your Dart code.
 
 **Example:**
 
@@ -102,87 +105,55 @@ import 'package:share_my_apk/share_my_apk.dart';
 import 'package:logging/logging.dart';
 
 void main() async {
-  // Configure logging (optional)
-  Logger.root.level = Level.ALL; // Set to desired logging level
-  Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
+  // Set up logging
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
 
-  final logger = Logger('main');
+  final logger = Logger('MyApp');
 
   try {
-    // 1. Initialize the APK builder service
-    final apkBuilder = ApkBuilderService();
-
-    // 2. Build the APK with custom naming and organization
-    final apkPath = await apkBuilder.build(
-      release: true, 
+    // 1. Build the APK
+    final apkPath = await FlutterBuildService().build(
+      release: true,
       projectPath: '.',
-      customName: 'MyApp_Beta',
+      customApkName: 'MyApp_Beta',
       environment: 'staging',
-      outputDir: '/path/to/builds',
+      outputDir: 'build/my_apks',
     );
-    logger.info('APK built successfully: $apkPath');
+    logger.info('✅ APK built: $apkPath');
 
-    // 3. Choose the upload provider and upload the APK
-    // The token is only required for Diawi.
+    // 2. Upload the APK
     final uploader = UploadServiceFactory.create(
       'gofile', // or 'diawi'
-      token: 'YOUR_DIAWI_TOKEN', // Replace with your token if using Diawi
+      token: 'YOUR_DIAWI_TOKEN', // Only for Diawi
     );
 
     final downloadLink = await uploader.upload(apkPath);
+    logger.info('🚀 Upload successful! Download here: $downloadLink');
 
-    logger.info('Upload successful!');
-    logger.info('Download Link: $downloadLink');
-
-  } on ProcessException catch (e) {
-    logger.severe('Failed to build APK: ${e.message}');
   } catch (e) {
-    logger.severe('An unexpected error occurred: $e');
+    logger.severe('🔥 An error occurred: $e');
   }
 }
 ```
 
-## File Naming and Organization
+## 📁 File Naming & Organization
 
-### Custom File Naming
-When you use the `--name` option, the APK will be named using the format:
-- **Custom name:** `{customName}_{version}_{timestamp}.apk`
-- **Default name:** `{appName}_{version}_{timestamp}.apk`
+-   **Custom Naming:** Use `--name` to get `{customName}_{version}_{timestamp}.apk`.
+-   **Default Naming:** Get `{appName}_{version}_{timestamp}.apk`.
+-   **Environments:** Use `--environment` to sort builds into folders like `dev`, `prod`, etc.
+-   **Custom Output:** Use `--output-dir` to save APKs wherever you want.
 
-The timestamp format is: `YYYY_MM_DD_HH_MM_SS`
+## 🧪 Testing
 
-### Directory Organization
-- **Environment folders:** Use `--environment` to organize builds by environment (dev, prod, staging, etc.)
-- **Custom output directory:** Use `--output-dir` to specify where APK files should be saved
-- **Default structure:** `{projectPath}/build/apk/{environment}/`
+This package is in alpha. Please test it in your dev environment before relying on it for production.
 
-### Examples of Generated Files
-```bash
-# Default naming
-my_app_1.0.0_2024_01_15_14_30_45.apk
+## 🤝 Contributing
 
-# Custom naming
-MyApp_Beta_1.0.0_2024_01_15_14_30_45.apk
+Got ideas? Found a bug? Contributions are welcome! Please file an issue or submit a pull request on our [GitHub repo](https://github.com/wm-jenildgohel/share_my_apk).
 
-# With environment organization
-/path/to/builds/staging/MyApp_Beta_1.0.0_2024_01_15_14_30_45.apk
-```
+## 📜 License
 
-## Testing
-
-This package is currently in alpha version. Please test it thoroughly in your development environment before using in production. We recommend:
-
-1. Testing with different Flutter project structures
-2. Verifying uploads work correctly with both providers
-3. Testing both release and debug builds
-4. Checking the automatic provider switching feature
-
-## Contributing
-
-Contributions are welcome! If you find any issues or have suggestions for improvements, please file an issue or submit a pull request on the [project's repository](https://github.com/wm-jenildgohel/share_my_apk).
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
