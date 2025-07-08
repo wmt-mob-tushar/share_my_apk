@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/wm-jenildgohel/share_my_apk/master/assets/logo.png" alt="Share My APK Logo" width="200">
-</p>
-
 <h1 align="center">Share My APK</h1>
 
 <p align="center">
@@ -38,7 +34,7 @@ Or, if you're the "keep your friends close" type, add it to your project's `dev_
 
 ```yaml
 dev_dependencies:
-  share_my_apk: ^0.3.0-alpha # Always check for the latest version!
+  share_my_apk: ^0.3.0 # Always check for the latest version!
 ```
 
 Then, run `dart pub get`.
