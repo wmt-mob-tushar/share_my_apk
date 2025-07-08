@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:logging/logging.dart';
-import 'package:share_my_apk/src/services/build/flutter_build_service.dart';
-import 'package:share_my_apk/src/services/upload/upload_service_factory.dart';
-import 'package:share_my_apk/src/utils/command_line/arg_parser_util.dart';
+import 'package:share_my_apk/share_my_apk.dart';
 
 void main(List<String> arguments) async {
   final argParserUtil = ArgParserUtil();

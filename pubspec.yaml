@@ -16,7 +16,6 @@ topics:
   - upload
   - diawi
   - gofile
-  - deployment
 
 environment:
   sdk: ^3.8.1
