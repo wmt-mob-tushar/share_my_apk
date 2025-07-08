@@ -14,17 +14,11 @@ void main() {
     });
 
     test('throws for diawi without token', () {
-      expect(
-        () => UploadServiceFactory.create('diawi'),
-        throwsArgumentError,
-      );
+      expect(() => UploadServiceFactory.create('diawi'), throwsArgumentError);
     });
 
     test('throws for unknown provider', () {
-      expect(
-        () => UploadServiceFactory.create('unknown'),
-        throwsArgumentError,
-      );
+      expect(() => UploadServiceFactory.create('unknown'), throwsArgumentError);
     });
   });
 }

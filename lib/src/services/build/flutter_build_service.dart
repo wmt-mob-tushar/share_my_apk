@@ -21,8 +21,8 @@ class FlutterBuildService {
   FlutterBuildService({
     ApkParserService? apkParserService,
     ApkOrganizerService? apkOrganizerService,
-  })  : _apkParserService = apkParserService ?? ApkParserService(),
-        _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService();
+  }) : _apkParserService = apkParserService ?? ApkParserService(),
+       _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService();
 
   /// Builds a Flutter Android APK.
   ///
@@ -51,8 +51,10 @@ class FlutterBuildService {
       final buildOutput = result.outText;
       _logger.fine('Build output:\n$buildOutput');
 
-      final originalApkPath =
-          _apkParserService.getApkPath(buildOutput, projectPath);
+      final originalApkPath = _apkParserService.getApkPath(
+        buildOutput,
+        projectPath,
+      );
       if (originalApkPath != null) {
         _logger.info('✅ APK built successfully: $originalApkPath');
 

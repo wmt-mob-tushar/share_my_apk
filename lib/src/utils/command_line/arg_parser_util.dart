@@ -26,57 +26,43 @@ class ArgParserUtil {
   /// Sets up all available command-line options including tokens, paths,
   /// build modes, providers, and file organization options.
   ArgParserUtil()
-      : _parser = ArgParser()
-          ..addFlag(
-            _help,
-            abbr: 'h',
-            negatable: false,
-            help: 'Displays this help message.',
-          )
-          ..addFlag(
-            _init,
-            negatable: false,
-            help: 'Generates a `share_my_apk.yaml` configuration file.',
-          )
-          ..addOption(
-            _diawiToken,
-            help: 'Your API token for Diawi.',
-          )
-          ..addOption(
-            _gofileToken,
-            help: 'Your API token for Gofile.',
-          )
-          ..addOption(
-            _path,
-            abbr: 'p',
-            help: 'Path to your Flutter project.',
-          )
-          ..addFlag(
-            _release,
-            defaultsTo: true,
-            help: 'Build in release mode.',
-          )
-          ..addOption(
-            _provider,
-            help: 'The upload provider to use.',
-            allowed: ['diawi', 'gofile'],
-            defaultsTo: 'diawi',
-          )
-          ..addOption(
-            _customName,
-            abbr: 'n',
-            help: 'Custom name for the APK file (without extension).',
-          )
-          ..addOption(
-            _environment,
-            abbr: 'e',
-            help: 'Environment folder (dev, prod, staging, etc.).',
-          )
-          ..addOption(
-            _outputDir,
-            abbr: 'o',
-            help: 'Output directory for the built APK.',
-          );
+    : _parser = ArgParser()
+        ..addFlag(
+          _help,
+          abbr: 'h',
+          negatable: false,
+          help: 'Displays this help message.',
+        )
+        ..addFlag(
+          _init,
+          negatable: false,
+          help: 'Generates a `share_my_apk.yaml` configuration file.',
+        )
+        ..addOption(_diawiToken, help: 'Your API token for Diawi.')
+        ..addOption(_gofileToken, help: 'Your API token for Gofile.')
+        ..addOption(_path, abbr: 'p', help: 'Path to your Flutter project.')
+        ..addFlag(_release, defaultsTo: true, help: 'Build in release mode.')
+        ..addOption(
+          _provider,
+          help: 'The upload provider to use.',
+          allowed: ['diawi', 'gofile'],
+          defaultsTo: 'diawi',
+        )
+        ..addOption(
+          _customName,
+          abbr: 'n',
+          help: 'Custom name for the APK file (without extension).',
+        )
+        ..addOption(
+          _environment,
+          abbr: 'e',
+          help: 'Environment folder (dev, prod, staging, etc.).',
+        )
+        ..addOption(
+          _outputDir,
+          abbr: 'o',
+          help: 'Output directory for the built APK.',
+        );
 
   /// Parses the command-line arguments and returns a [CliOptions] object.
   ///
@@ -97,12 +83,14 @@ class ArgParserUtil {
     final config = ConfigService.getConfig();
 
     final provider =
-        argResults[_provider] as String? ?? (config['provider']?.toString() ?? 'diawi');
+        argResults[_provider] as String? ??
+        (config['provider']?.toString() ?? 'diawi');
 
     final diawiToken =
         argResults[_diawiToken] as String? ?? config['diawi_token']?.toString();
     final gofileToken =
-        argResults[_gofileToken] as String? ?? config['gofile_token']?.toString();
+        argResults[_gofileToken] as String? ??
+        config['gofile_token']?.toString();
 
     String? token;
     if (provider == 'diawi') {
@@ -116,14 +104,16 @@ class ArgParserUtil {
         argResults[_release] as bool? ?? (config['release'] as bool? ?? true);
     final customName =
         argResults[_customName] as String? ?? config['name']?.toString();
-    final environment = argResults[_environment] as String? ??
+    final environment =
+        argResults[_environment] as String? ??
         config['environment']?.toString();
     final outputDir =
         argResults[_outputDir] as String? ?? config['output-dir']?.toString();
 
     if (provider == 'diawi' && token == null) {
       throw ArgumentError(
-          'Usage: share_my_apk --provider diawi --diawi-token <your_diawi_token>\n${_parser.usage}');
+        'Usage: share_my_apk --provider diawi --diawi-token <your_diawi_token>\n${_parser.usage}',
+      );
     }
 
     return CliOptions(
