@@ -78,7 +78,7 @@ class DiawiUploadService implements UploadService {
         if (response.statusCode == 200) {
           final jsonResponse = json.decode(response.body);
           
-          if (jsonResponse['status'] == 2) {
+          if (jsonResponse['status'] == 2000) {
             // Upload completed successfully
             final hash = jsonResponse['hash'];
             final downloadLink = 'https://i.diawi.com/$hash';
