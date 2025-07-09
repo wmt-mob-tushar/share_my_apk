@@ -343,6 +343,34 @@ We love contributions! Here's how you can help:
 - 🔧 **Submit Code** - [Create a pull request](https://github.com/wm-jenildgohel/share_my_apk/pulls)
 - 📚 **Improve Docs** - Help make documentation better
 
+## 👥 **Contributors**
+
+Thanks to all the amazing people who have contributed to Share My APK! 
+
+[![Contributors](https://contrib.rocks/image?repo=wm-jenildgohel/share_my_apk)](https://github.com/wm-jenildgohel/share_my_apk/graphs/contributors)
+
+<div align="center">
+
+<!-- CONTRIBUTORS-START -->
+<!-- This section is automatically updated by GitHub Actions -->
+<a href="https://github.com/wm-jenildgohel/share_my_apk/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wm-jenildgohel/share_my_apk" />
+</a>
+<!-- CONTRIBUTORS-END -->
+
+</div>
+
+**Want to be featured here?** Just make a contribution and you'll be automatically added!
+
+### 🎯 **How to Contribute**
+- 💻 **Code**: Submit bug fixes, features, or improvements
+- 📖 **Documentation**: Help improve README, guides, or code comments  
+- 🐛 **Bug Reports**: Find and report issues
+- 💡 **Ideas**: Suggest new features or improvements
+- 🧪 **Testing**: Help test new features or edge cases
+
+Contributors are automatically recognized and displayed above. The list updates weekly via GitHub Actions.
+
 ---
 
 ## 📚 **Need More Info?**

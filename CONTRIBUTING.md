@@ -184,9 +184,30 @@ We expect all contributors to:
 ## 🙏 **Recognition**
 
 All contributors will be:
-- Listed in the project's contributor list
-- Mentioned in release notes (for significant contributions)
-- Thanked in the community
+- **Automatically added** to the Contributors section in README.md
+- **Recognized with badges** showing their contribution types (code, docs, ideas, etc.)
+- **Mentioned in release notes** for significant contributions
+- **Thanked in the community**
+
+### 🤖 **Automated Recognition**
+
+We use the [All Contributors](https://allcontributors.org/) specification to recognize contributors:
+
+1. **Automatic Addition**: When you make a contribution, you can add yourself by commenting:
+   ```
+   @all-contributors please add @yourusername for code, docs, ideas
+   ```
+
+2. **Contribution Types**: We recognize various contribution types:
+   - 💻 **Code**: Bug fixes, features, tests
+   - 📖 **Documentation**: README, guides, comments
+   - 🤔 **Ideas**: Planning, feedback, suggestions
+   - 🐛 **Bug Reports**: Finding and reporting issues
+   - 🚧 **Maintenance**: Keeping the project healthy
+   - 🎨 **Design**: UI/UX improvements
+   - 📋 **Project Management**: Organization and coordination
+
+3. **Visibility**: All contributors are showcased in the README with their GitHub avatar and contribution types.
 
 ---
 

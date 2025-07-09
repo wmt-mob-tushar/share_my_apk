@@ -1,0 +1,47 @@
+name: Contributors
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    branches: [ master ]
+    paths:
+      - '.all-contributorsrc'
+  issue_comment:
+    types: [created]
+
+jobs:
+  contributors:
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'schedule' ||
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' ||
+      (github.event_name == 'issue_comment' && 
+       contains(github.event.comment.body, '@all-contributors'))
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: All Contributors
+        uses: akhilmhdh/contributors-readme-action@v2.3.6
+        with:
+          readme_path: 'README.md'
+          columns_per_row: 7
+          collaborators: 'direct'
+          commit_message: 'docs: update contributors list'
+          committer_username: 'allcontributors[bot]'
+          committer_email: 'allcontributors@users.noreply.github.com'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: All Contributors Bot
+        if: github.event_name == 'issue_comment'
+        uses: all-contributors/all-contributors-bot@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

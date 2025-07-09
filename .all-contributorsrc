@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "wm-jenildgohel",
+      "name": "Jenil Gohel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/wm-jenildgohel?v=4",
+      "profile": "https://github.com/wm-jenildgohel",
+      "contributions": [
+        "code",
+        "ideas",
+        "doc",
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "share_my_apk",
+  "projectOwner": "wm-jenildgohel",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
