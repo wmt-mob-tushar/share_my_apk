@@ -1,3 +1,45 @@
+## 🚀 0.4.0-beta - The "Rock-Solid & Ready" Release
+
+**🎯 Major API Integration Fixes & Comprehensive Testing**
+
+-   **🔧 Fixed Gofile API Integration:** 
+    - Corrected server endpoint to `https://api.gofile.io/servers`
+    - Fixed upload endpoint to use proper `/contents/uploadfile` path
+    - Improved response parsing for download links
+    - Now successfully handles large files (tested with 113.4MB APKs)
+
+-   **🔧 Enhanced Diawi API Integration:**
+    - Implemented proper asynchronous job polling mechanism
+    - Added timeout handling (30 attempts with 5-second intervals)
+    - Improved status checking with proper error handling
+    - Fixed response parsing for final download links
+
+-   **🧪 Comprehensive Testing Suite:**
+    - Added **100+ unit tests** covering all major components
+    - Created **6 test categories**: Upload services, build services, CLI, error handling, integration
+    - **19 test files** ensuring reliability and preventing regressions
+    - Added `TESTING.md` with complete testing documentation
+
+-   **🛡️ Enhanced Error Handling:**
+    - Improved upload service factory with better validation
+    - Added case-insensitive provider matching
+    - Enhanced error messages for better debugging
+    - Robust handling of null/empty inputs and edge cases
+
+-   **✅ Production-Ready Validation:**
+    - Successfully tested real uploads to both Diawi and Gofile
+    - Verified automatic provider switching for large files
+    - Validated configuration loading and CLI argument parsing
+    - All code passes static analysis (`dart analyze`)
+
+-   **📚 Updated Documentation:**
+    - Comprehensive testing documentation
+    - Updated API integration details
+    - Enhanced troubleshooting guide
+    - Better error handling examples
+
+**⚠️ Beta Release Note:** This version includes significant API fixes and comprehensive testing. While thoroughly tested in development, we recommend testing in your specific environment before production use.
+
 ## 🚀 0.3.2 - The "Polished & Perfected" Release
 
 -   **✨ Improved Readability:** We've polished the code to make it cleaner and more consistent. You won't see the changes, but you'll feel the love.

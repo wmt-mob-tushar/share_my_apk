@@ -4,6 +4,14 @@ import 'package:logging/logging.dart';
 import 'package:share_my_apk/share_my_apk.dart';
 
 void main(List<String> arguments) async {
+  // Configure logging
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((record) {
+    // Using print here is acceptable for CLI logging output
+    // ignore: avoid_print
+    print('${record.level.name}: ${record.time}: ${record.message}');
+  });
+
   final argParserUtil = ArgParserUtil();
   final Logger logger = Logger('main');
 

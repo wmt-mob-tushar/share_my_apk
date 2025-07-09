@@ -39,9 +39,11 @@ class DiawiUploadService implements UploadService {
         final jsonResponse = json.decode(responseBody);
 
         if (jsonResponse['job'] != null) {
-          final downloadLink = 'https://i.diawi.com/app/${jsonResponse['job']}';
-          _logger.info('Upload successful: $downloadLink');
-          return downloadLink;
+          final job = jsonResponse['job'];
+          _logger.info('Upload started, job ID: $job');
+          
+          // Poll for job completion
+          return await _pollJobStatus(job as String);
         } else {
           final errorMessage = jsonResponse['message'] ?? 'Unknown error';
           _logger.severe('Diawi upload failed: $errorMessage');
@@ -59,5 +61,49 @@ class DiawiUploadService implements UploadService {
       _logger.severe('Error uploading to Diawi: $e');
       throw Exception('Error uploading to Diawi: $e');
     }
+  }
+
+  Future<String> _pollJobStatus(String job) async {
+    _logger.info('Polling job status for: $job');
+    
+    const maxAttempts = 30;
+    const pollInterval = Duration(seconds: 5);
+    
+    for (int attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        final response = await http.get(
+          Uri.parse('https://upload.diawi.com/status?token=$apiToken&job=$job'),
+        );
+        
+        if (response.statusCode == 200) {
+          final jsonResponse = json.decode(response.body);
+          
+          if (jsonResponse['status'] == 2) {
+            // Upload completed successfully
+            final hash = jsonResponse['hash'];
+            final downloadLink = 'https://i.diawi.com/$hash';
+            _logger.info('Upload successful: $downloadLink');
+            return downloadLink;
+          } else if (jsonResponse['status'] == 4000) {
+            // Upload failed
+            final errorMessage = jsonResponse['message'] ?? 'Upload failed';
+            _logger.severe('Diawi upload failed: $errorMessage');
+            throw Exception('Diawi upload failed: $errorMessage');
+          } else {
+            // Still processing, continue polling
+            _logger.info('Job still processing, attempt ${attempt + 1}/$maxAttempts');
+            await Future<void>.delayed(pollInterval);
+          }
+        } else {
+          _logger.warning('Status check failed with status: ${response.statusCode}');
+          await Future<void>.delayed(pollInterval);
+        }
+      } catch (e) {
+        _logger.warning('Error checking job status: $e');
+        await Future<void>.delayed(pollInterval);
+      }
+    }
+    
+    throw Exception('Job processing timed out after ${maxAttempts * pollInterval.inSeconds} seconds');
   }
 }

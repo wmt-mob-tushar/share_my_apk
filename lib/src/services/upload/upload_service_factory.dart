@@ -6,15 +6,22 @@ import 'package:share_my_apk/src/services/upload/upload_service.dart';
 class UploadServiceFactory {
   /// Creates a new [UploadService] instance based on the given [provider].
   static UploadService create(String provider, {String? token}) {
-    switch (provider) {
+    final normalizedProvider = provider.trim().toLowerCase();
+    
+    if (normalizedProvider.isEmpty) {
+      throw ArgumentError('Provider cannot be empty.');
+    }
+    
+    switch (normalizedProvider) {
       case 'gofile':
         return GofileUploadService(apiToken: token);
       case 'diawi':
-      default:
-        if (token == null) {
+        if (token == null || token.isEmpty) {
           throw ArgumentError('Diawi provider requires a token.');
         }
         return DiawiUploadService(token);
+      default:
+        throw ArgumentError('Unknown provider: $provider');
     }
   }
 }
