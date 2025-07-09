@@ -351,10 +351,11 @@ We love contributions! Here's how you can help:
 
 | 📖 **Resource** | 🎯 **What's Inside** |
 |----------------|---------------------|
+| **[Contributing Guide](CONTRIBUTING.md)** | How to contribute to the project |
 | **[Release Notes](RELEASE_NOTES.md)** | What's new and version history |
 | **[Changelog](CHANGELOG.md)** | Detailed version changes |
 
-**Want to contribute?** Check out our [contributing guidelines](https://github.com/wm-jenildgohel/share_my_apk/blob/master/CONTRIBUTING.md)!
+**Want to contribute?** Check out our [contributing guidelines](CONTRIBUTING.md) to get started!
 
 </div>
 
