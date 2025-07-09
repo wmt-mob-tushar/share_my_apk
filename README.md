@@ -225,23 +225,7 @@ void main() async {
 
 </div>
 
----
 
-## 🌟 **Provider Comparison**
-
-<div align="center">
-
-| Feature | 🔥 **Diawi** | ⚡ **Gofile.io** |
-|---------|-------------|------------------|
-| **Token Required** | ✅ Yes | ❌ No |
-| **File Size Limit** | 70MB | Unlimited |
-| **Upload Speed** | Fast | Very Fast |
-| **Device Management** | ✅ Yes | ❌ No |
-| **Custom Install Pages** | ✅ Yes | ❌ No |
-| **Link Expiration** | 30 days | 30 days |
-| **Best For** | Team testing | Large files |
-
-</div>
 
 > **💡 Pro Tip:** Share My APK automatically switches from Diawi to Gofile for files >70MB!
 
@@ -286,22 +270,6 @@ output-directory/
 
 **Naming Pattern:** `{name}_{version}_{timestamp}.apk`
 
----
-
-## 🎯 **Use Cases**
-
-<div align="center">
-
-| 👥 **Team** | 🏢 **Company** | 🔧 **Individual** |
-|-------------|----------------|-------------------|
-| QA Testing | Client Demos | Personal Projects |
-| Beta Releases | Stakeholder Reviews | Portfolio Apps |
-| Sprint Reviews | App Store Preparation | Learning Projects |
-| Bug Reproduction | Compliance Testing | Side Projects |
-
-</div>
-
----
 
 ## 🤝 **Contributing**
 
@@ -320,7 +288,6 @@ We love contributions! Here's how you can help:
 
 | 📖 **Resource** | 🎯 **What's Inside** |
 |----------------|---------------------|
-| **[API Reference](API.md)** | Library usage and code examples |
 | **[Release Notes](RELEASE_NOTES.md)** | What's new and version history |
 | **[Changelog](CHANGELOG.md)** | Detailed version changes |
 
@@ -328,24 +295,6 @@ We love contributions! Here's how you can help:
 
 </div>
 
----
-
-## 🏆 **Why Developers Love It**
-
-<div align="center">
-
-> *"Share My APK saved me hours every week. One command and my QA team has the latest build!"*  
-> **- Flutter Developer**
-
-> *"The automatic provider switching is genius. No more failed uploads!"*  
-> **- Mobile Team Lead**
-
-> *"Finally, a tool that just works. The testing coverage gives me confidence."*  
-> **- Senior Engineer**
-
-</div>
-
----
 
 ## 🎉 **Ready to Get Started?**
 
