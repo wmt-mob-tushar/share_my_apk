@@ -76,6 +76,12 @@ class CliOptions {
   /// The directory will be created if it doesn't exist.
   final String? outputDir;
 
+  /// Whether to perform a dry run.
+  ///
+  /// When `true`, simulates the build and upload process without executing
+  /// any actual commands. Useful for testing configuration.
+  final bool dryRun;
+
   /// Creates a new [CliOptions] instance.
   ///
   /// All parameters are optional and have sensible defaults.
@@ -90,6 +96,7 @@ class CliOptions {
     this.customName,
     this.environment,
     this.outputDir,
+    this.dryRun = false,
   });
 
   /// Creates a copy of this [CliOptions] with the given fields replaced.
@@ -106,6 +113,7 @@ class CliOptions {
     String? customName,
     String? environment,
     String? outputDir,
+    bool? dryRun,
   }) {
     return CliOptions(
       token: token ?? this.token,
@@ -117,6 +125,7 @@ class CliOptions {
       customName: customName ?? this.customName,
       environment: environment ?? this.environment,
       outputDir: outputDir ?? this.outputDir,
+      dryRun: dryRun ?? this.dryRun,
     );
   }
 
@@ -131,7 +140,8 @@ class CliOptions {
         'provider: $provider, '
         'customName: $customName, '
         'environment: $environment, '
-        'outputDir: $outputDir'
+        'outputDir: $outputDir, '
+        'dryRun: $dryRun'
         ')';
   }
 }

@@ -31,7 +31,13 @@ void main(List<String> arguments) async {
 
   try {
     final options = argParserUtil.parse(arguments);
-    final apkBuilder = FlutterBuildService();
+
+    if (options.dryRun) {
+      logger.info('** DRY RUN MODE ENABLED **');
+      logger.info('No actual build or upload will be performed.');
+    }
+
+    final apkBuilder = FlutterBuildService(dryRun: options.dryRun);
 
     final apkPath = await apkBuilder.build(
       release: options.isRelease,
@@ -40,6 +46,11 @@ void main(List<String> arguments) async {
       environment: options.environment,
       outputDir: options.outputDir,
     );
+
+    if (options.dryRun) {
+      logger.info('** DRY RUN COMPLETE **');
+      exit(0);
+    }
 
     final apkFile = File(apkPath);
     final fileSize = await apkFile.length();
@@ -61,6 +72,21 @@ void main(List<String> arguments) async {
     }
 
     final uploader = UploadServiceFactory.create(provider, token: token);
+
+    // Pre-upload confirmation
+    print('');
+    logger.info('Ready to upload the following APK:');
+    print('  - File: $apkPath');
+    print('  - Size: ${(fileSize / 1024 / 1024).toStringAsFixed(2)} MB');
+    print('  - Provider: $provider');
+    print('');
+    stdout.write('Do you want to proceed with the upload? (y/N) ');
+    final confirmation = stdin.readLineSync()?.toLowerCase() ?? 'n';
+
+    if (confirmation != 'y' && confirmation != 'yes') {
+      logger.info('Upload cancelled by user.');
+      exit(0);
+    }
 
     final downloadLink = await uploader.upload(apkPath);
 

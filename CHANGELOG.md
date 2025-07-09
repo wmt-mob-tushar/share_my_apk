@@ -1,6 +1,14 @@
-## 🚀 0.5.0 - The "Eye-Catching & User-Friendly" Release
+## 🚀 0.5.0 - The "Interactive & Confident" Release
 
-**✨ Major UI/UX & Logging Improvements**
+**✨ Major UI/UX & Feature Improvements**
+
+-   **🤝 Interactive Pre-Upload Confirmation:**
+    -   Displays a summary of the APK details (file name, size, provider) before uploading.
+    -   Asks for user confirmation to prevent accidental uploads.
+
+-   **🧪 Dry Run Mode:**
+    -   Added a `--dry-run` flag to simulate the entire build and upload process.
+    -   Perfect for testing configurations without performing any actual actions.
 
 -   **🎨 Colorful & Fun Logs:**
     -   Added emojis and colors to log messages for a more engaging experience.

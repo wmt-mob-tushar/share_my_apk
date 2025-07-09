@@ -8,10 +8,6 @@
 
 [![Pub Version](https://img.shields.io/pub/v/share_my_apk?style=for-the-badge&logo=dart&logoColor=white)](https://pub.dev/packages/share_my_apk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://github.com/wm-jenildgohel/share_my_apk/blob/master/LICENSE)
-[![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
-[![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
-
-[![Quality](https://img.shields.io/badge/Quality-Production%20Ready-success?style=for-the-badge&logo=verified&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
 
 **From code to shareable link in one command** ⚡
@@ -128,7 +124,7 @@ share_my_apk
 
 ---
 
-## ���️ **Installation Options**
+##  **Installation Options**
 
 <table>
 <tr>
@@ -240,12 +236,32 @@ void main() async {
 | `--gofile-token` | - | Gofile API token | `share_my_apk --gofile-token xyz789` |
 | `--release` | - | Release build (default) | `share_my_apk --release` |
 | `--no-release` | - | Debug build | `share_my_apk --no-release` |
+| `--dry-run` | - | Simulate the process | `share_my_apk --dry-run` |
 
 </div>
 
 
 
 > **💡 Pro Tip:** Share My APK automatically switches from Diawi to Gofile for files >70MB!
+
+---
+
+## 🤝 **Interactive & Safe**
+
+<div align="center">
+
+To prevent accidental uploads, Share My APK includes an interactive confirmation step before the upload begins.
+
+```
+ℹ️ [12:56:05] Ready to upload the following APK:
+  - File: /path/to/your/app.apk
+  - Size: 55.10 MB
+  - Provider: diawi
+
+Do you want to proceed with the upload? (y/N)
+```
+
+</div>
 
 ---
 
@@ -316,9 +332,8 @@ We love contributions! Here's how you can help:
 
 ## 🎉 **Ready to Get Started?**
 
-<div align="center">
+<div align="left">
 
-### 🚀 **Join thousands of developers who've streamlined their APK sharing workflow!**
 
 ```bash
 dart pub global activate share_my_apk
@@ -328,7 +343,11 @@ share_my_apk
 
 **That's it! You're now sharing APKs like a pro!** 🎯
 
+</div>
+
 ---
+
+<div align="left">
 
 ### 💬 **Need Help?**
 
