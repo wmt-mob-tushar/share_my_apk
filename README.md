@@ -37,6 +37,8 @@
 
 ### 🚀 **After Share My APK**
 - **One command** builds and uploads
+- **Automatic** FVM detection and Flutter commands
+- **Comprehensive** build pipeline (clean, pub get, gen-l10n)
 - **Automatic** provider switching
 - **Smart** file naming with versions
 - **Robust** error handling and retries
@@ -236,6 +238,12 @@ void main() async {
 | `--gofile-token` | - | Gofile API token | `share_my_apk --gofile-token xyz789` |
 | `--release` | - | Release build (default) | `share_my_apk --release` |
 | `--no-release` | - | Debug build | `share_my_apk --no-release` |
+| `--clean` | - | Run flutter clean (default) | `share_my_apk --clean` |
+| `--no-clean` | - | Skip flutter clean | `share_my_apk --no-clean` |
+| `--pub-get` | - | Run flutter pub get (default) | `share_my_apk --pub-get` |
+| `--no-pub-get` | - | Skip flutter pub get | `share_my_apk --no-pub-get` |
+| `--gen-l10n` | - | Generate localizations (default) | `share_my_apk --gen-l10n` |
+| `--no-gen-l10n` | - | Skip localization generation | `share_my_apk --no-gen-l10n` |
 
 </div>
 

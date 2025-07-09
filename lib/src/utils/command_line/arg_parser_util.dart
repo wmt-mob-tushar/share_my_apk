@@ -18,6 +18,9 @@ class ArgParserUtil {
   static const _customName = 'name';
   static const _environment = 'environment';
   static const _outputDir = 'output-dir';
+  static const _clean = 'clean';
+  static const _getPubDeps = 'pub-get';
+  static const _generateL10n = 'gen-l10n';
 
   final ArgParser _parser;
 
@@ -61,6 +64,21 @@ class ArgParserUtil {
           _outputDir,
           abbr: 'o',
           help: 'Output directory for the built APK.',
+        )
+        ..addFlag(
+          _clean,
+          defaultsTo: true,
+          help: 'Run flutter clean before building.',
+        )
+        ..addFlag(
+          _getPubDeps,
+          defaultsTo: true,
+          help: 'Run flutter pub get before building.',
+        )
+        ..addFlag(
+          _generateL10n,
+          defaultsTo: true,
+          help: 'Generate localizations if lib/l10n exists.',
         );
 
   /// Parses the command-line arguments and returns a [CliOptions] object.
@@ -108,6 +126,12 @@ class ArgParserUtil {
         config['environment']?.toString();
     final outputDir =
         argResults[_outputDir] as String? ?? config['output-dir']?.toString();
+    final clean =
+        argResults[_clean] as bool? ?? (config['clean'] as bool? ?? true);
+    final getPubDeps =
+        argResults[_getPubDeps] as bool? ?? (config['pub-get'] as bool? ?? true);
+    final generateL10n =
+        argResults[_generateL10n] as bool? ?? (config['gen-l10n'] as bool? ?? true);
 
     if (provider == 'diawi' && token == null) {
       throw ArgumentError(
@@ -125,6 +149,9 @@ class ArgParserUtil {
       outputDir: outputDir,
       diawiToken: diawiToken,
       gofileToken: gofileToken,
+      clean: clean,
+      getPubDeps: getPubDeps,
+      generateL10n: generateL10n,
     );
   }
 }

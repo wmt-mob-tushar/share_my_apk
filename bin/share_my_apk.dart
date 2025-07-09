@@ -39,6 +39,9 @@ void main(List<String> arguments) async {
       customName: options.customName,
       environment: options.environment,
       outputDir: options.outputDir,
+      clean: options.clean,
+      getPubDeps: options.getPubDeps,
+      generateL10n: options.generateL10n,
     );
 
     final apkFile = File(apkPath);

@@ -1,4 +1,4 @@
-## 🚀 0.5.0 - The "Fully Automated" Release
+## 🚀 0.5.0 - The "Fully Automated & Comprehensive" Release
 
 **✨ Major UI/UX & Automation Improvements**
 
@@ -6,6 +6,13 @@
     -   Removed pre-upload confirmation dialog for streamlined, non-interactive operation.
     -   Tool now proceeds directly to upload after build completion.
     -   Perfect for CI/CD pipelines and automated workflows.
+
+-   **🔧 Comprehensive Build Pipeline:**
+    -   Added automatic FVM detection - uses `fvm flutter` if `.fvm` directory exists.
+    -   Integrated `flutter clean` before builds for fresh, reliable builds.
+    -   Added automatic `flutter pub get` to ensure dependencies are up-to-date.
+    -   Implemented automatic localization generation (`flutter gen-l10n`) when `lib/l10n` exists.
+    -   New CLI flags: `--no-clean`, `--no-pub-get`, `--no-gen-l10n` to disable individual steps.
 
 -   **🎨 Colorful & Fun Logs:**
     -   Added emojis and colors to log messages for a more engaging experience.

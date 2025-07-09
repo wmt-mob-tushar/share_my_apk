@@ -76,10 +76,31 @@ class CliOptions {
   /// The directory will be created if it doesn't exist.
   final String? outputDir;
 
+  /// Whether to run `flutter clean` before building.
+  ///
+  /// When `true`, cleans the project before building to ensure a fresh build.
+  /// This removes build artifacts and can help resolve build issues.
+  /// Defaults to `true`.
+  final bool clean;
+
+  /// Whether to run `flutter pub get` before building.
+  ///
+  /// When `true`, fetches dependencies before building to ensure all
+  /// packages are up to date. Defaults to `true`.
+  final bool getPubDeps;
+
+  /// Whether to generate localizations before building.
+  ///
+  /// When `true`, runs `flutter gen-l10n` if a `lib/l10n` directory exists.
+  /// This ensures localization files are generated before building.
+  /// Defaults to `true`.
+  final bool generateL10n;
+
   /// Creates a new [CliOptions] instance.
   ///
   /// All parameters are optional and have sensible defaults.
   /// The [isRelease] parameter defaults to `true` and [provider] defaults to `'diawi'`.
+  /// Build pipeline options default to `true` for comprehensive builds.
   const CliOptions({
     this.token,
     this.diawiToken,
@@ -90,6 +111,9 @@ class CliOptions {
     this.customName,
     this.environment,
     this.outputDir,
+    this.clean = true,
+    this.getPubDeps = true,
+    this.generateL10n = true,
   });
 
   /// Creates a copy of this [CliOptions] with the given fields replaced.
@@ -106,6 +130,9 @@ class CliOptions {
     String? customName,
     String? environment,
     String? outputDir,
+    bool? clean,
+    bool? getPubDeps,
+    bool? generateL10n,
   }) {
     return CliOptions(
       token: token ?? this.token,
@@ -117,6 +144,9 @@ class CliOptions {
       customName: customName ?? this.customName,
       environment: environment ?? this.environment,
       outputDir: outputDir ?? this.outputDir,
+      clean: clean ?? this.clean,
+      getPubDeps: getPubDeps ?? this.getPubDeps,
+      generateL10n: generateL10n ?? this.generateL10n,
     );
   }
 
@@ -131,7 +161,10 @@ class CliOptions {
         'provider: $provider, '
         'customName: $customName, '
         'environment: $environment, '
-        'outputDir: $outputDir'
+        'outputDir: $outputDir, '
+        'clean: $clean, '
+        'getPubDeps: $getPubDeps, '
+        'generateL10n: $generateL10n'
         ')';
   }
 }
