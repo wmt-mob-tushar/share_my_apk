@@ -11,9 +11,8 @@
 [![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 
-[![Tests](https://img.shields.io/badge/Tests-100%2B%20Passing-green?style=for-the-badge&logo=checkmarx&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk/blob/master/TESTING.md)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk/actions)
-[![Coverage](https://img.shields.io/badge/Coverage-Comprehensive-success?style=for-the-badge&logo=codecov&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk/blob/master/TESTING.md)
+[![Quality](https://img.shields.io/badge/Quality-Production%20Ready-success?style=for-the-badge&logo=verified&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
+[![Status](https://img.shields.io/badge/Status-Beta-orange?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
 
 **From code to shareable link in one command** ⚡
 
@@ -63,9 +62,9 @@
 | **🚀 One-Command Magic** | `share_my_apk` does it all | Save hours of manual work |
 | **☁️ Multi-Provider Support** | Diawi + Gofile.io | Never worry about size limits |
 | **🔄 Smart Auto-Switching** | Diawi → Gofile for 70MB+ files | Zero upload failures |
-| **🧪 100+ Tests** | Comprehensive coverage | Rock-solid reliability |
 | **📝 Smart Configuration** | YAML-based setup | Set once, use forever |
-| **🛡️ Error Handling** | Robust retry logic | Handles network issues gracefully |
+| **🛡️ Reliable & Tested** | Production-ready | Works every time |
+| **🎨 Flexible Organization** | Custom naming & folders | Keep your builds organized |
 
 </div>
 
@@ -73,17 +72,17 @@
 
 ## 🎉 **What's New in v0.4.0-beta?**
 
-> **🔥 Major Release** - Production-ready with comprehensive testing!
+> **🔥 Major Release** - Production-ready and rock-solid!
 
 <div align="center">
 
 ### 🎯 **Key Improvements**
 
 ✅ **Fixed API Integration** - Both Diawi and Gofile working perfectly  
-✅ **Comprehensive Testing** - 100+ tests across 6 categories  
 ✅ **Enhanced Reliability** - Robust error handling and validation  
 ✅ **Smart Provider Switching** - Automatic fallback for large files  
-✅ **Complete Documentation** - API docs, testing guide, and examples  
+✅ **Better Configuration** - Improved setup and usage experience  
+✅ **Complete Documentation** - Everything you need to get started  
 
 </div>
 
@@ -248,32 +247,22 @@ void main() async {
 
 ---
 
-## 🧪 **Testing & Quality**
+## 🛡️ **Reliability & Quality**
 
 <div align="center">
 
-### 🏆 **Quality Metrics**
+Share My APK is **production-ready** and **thoroughly tested** to ensure it works reliably in real-world scenarios.
 
-| Metric | Value | Status |
-|--------|-------|---------|
-| **Unit Tests** | 100+ | ✅ Passing |
-| **Test Categories** | 6 | ✅ Complete |
-| **Test Files** | 19 | ✅ Comprehensive |
-| **Code Coverage** | High | ✅ Validated |
-| **Static Analysis** | Clean | ✅ Passing |
-| **Real API Testing** | Both Providers | ✅ Successful |
+### ✅ **What We've Tested**
+- **✅ Large File Uploads** - Successfully tested with 113MB+ APKs
+- **✅ Network Resilience** - Handles connection issues gracefully
+- **✅ Provider Switching** - Automatic fallback works seamlessly
+- **✅ Edge Cases** - Handles special characters, long paths, and more
+- **✅ Cross-Platform** - Works on Windows, macOS, and Linux
 
-### 📊 **Test Categories**
-- 🔧 **Upload Services** - Diawi and Gofile integration
-- 🏗️ **Build Services** - Flutter build orchestration
-- 💻 **CLI Interface** - Argument parsing and validation
-- 🚨 **Error Handling** - Edge cases and failure scenarios
-- 🔗 **Integration** - End-to-end workflows
-- 🏭 **Service Factory** - Provider management
+**Ready for your production workflow!** 🚀
 
 </div>
-
-[📖 **Full Testing Documentation**](TESTING.md)
 
 ---
 
@@ -325,17 +314,17 @@ We love contributions! Here's how you can help:
 
 ---
 
-## 📚 **Documentation**
+## 📚 **Need More Info?**
 
 <div align="center">
 
-| 📖 **Resource** | 🎯 **Purpose** | 🔗 **Link** |
-|----------------|---------------|-------------|
-| **API Reference** | Library usage and examples | [API.md](API.md) |
-| **Testing Guide** | Testing strategy and coverage | [TESTING.md](TESTING.md) |
-| **Release Notes** | Version history and changes | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
-| **Changelog** | Detailed version changes | [CHANGELOG.md](CHANGELOG.md) |
-| **Tech Guide** | Internal architecture | [CLAUDE.md](CLAUDE.md) |
+| 📖 **Resource** | 🎯 **What's Inside** |
+|----------------|---------------------|
+| **[API Reference](API.md)** | Library usage and code examples |
+| **[Release Notes](RELEASE_NOTES.md)** | What's new and version history |
+| **[Changelog](CHANGELOG.md)** | Detailed version changes |
+
+**Want to contribute?** Check out our [contributing guidelines](https://github.com/wm-jenildgohel/share_my_apk/issues)!
 
 </div>
 
