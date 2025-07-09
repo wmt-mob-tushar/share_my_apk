@@ -1,3 +1,21 @@
+## 🚀 0.5.0 - The "Eye-Catching & User-Friendly" Release
+
+**✨ Major UI/UX & Logging Improvements**
+
+-   **🎨 Colorful & Fun Logs:**
+    -   Added emojis and colors to log messages for a more engaging experience.
+    -   Assigned specific emojis and colors to each log level for better structure.
+    -   Re-introduced timestamps in a friendly format.
+    -   Improved layout with indentation and spacing for readability.
+    -   Created a special, highlighted box for the final success message.
+
+-   **🔧 Bug Fixes & Configuration Improvements:**
+    -   Fixed a critical bug where the `provider` from `share_my_apk.yaml` was ignored.
+    -   Corrected the Diawi upload success status code to prevent timeouts.
+
+-   **📦 Dependency Updates:**
+    -   Added the `intl` package for date formatting.
+
 ## 🚀 0.4.0-beta - The "Rock-Solid & Ready" Release
 
 **🎯 Major API Integration Fixes & Comprehensive Testing**

@@ -1,6 +1,6 @@
 name: share_my_apk
 description: "Build and upload Flutter Android APKs to Diawi and Gofile.io faster than you can say 'It's compiling!' A fun and powerful CLI tool with comprehensive testing."
-version: 0.4.0-beta
+version: 0.5.0
 
 # Package metadata for pub.dev
 homepage: https://github.com/wm-jenildgohel/share_my_apk
