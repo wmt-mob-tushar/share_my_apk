@@ -12,12 +12,9 @@ topics:
   - apk-builder
   - android
   - upload
-  - diawi
-  - gofile
   - flutter
   - cli
   - testing
-  - beta
 
 platforms: 
   android:
