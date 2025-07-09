@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'dart:math';
 
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 import 'package:share_my_apk/share_my_apk.dart';
 
@@ -14,18 +14,16 @@ const String magenta = '\x1B[35m';
 const String cyan = '\x1B[36m';
 
 void main(List<String> arguments) async {
-  // A list of creative emojis for logging
-  final funEmojis = ['🎉', '🚀', '🤖', '🍕', '👾', '🔥', '💡', '⭐', '✅', '✨'];
-  final random = Random();
-
   // Configure logging
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    final emoji = funEmojis[random.nextInt(funEmojis.length)];
+    final emoji = _getEmojiForLevel(record.level);
     final color = _getColorForLevel(record.level);
+    final time = DateFormat('HH:mm:ss').format(record.time);
+
     // Using print here is acceptable for CLI logging output
     // ignore: avoid_print
-    print('$color$emoji ${record.level.name}: ${record.message}$reset');
+    print('$color$emoji [$time] ${record.message}$reset');
   });
 
   final argParserUtil = ArgParserUtil();
@@ -66,8 +64,7 @@ void main(List<String> arguments) async {
 
     final downloadLink = await uploader.upload(apkPath);
 
-    logger.info('APK successfully uploaded to $provider!');
-    logger.info('Download link: $downloadLink');
+    _printSuccessBox(provider, downloadLink);
   } on ArgumentError catch (e) {
     logger.severe(e.message);
     exit(1);
@@ -94,4 +91,36 @@ String _getColorForLevel(Level level) {
     return magenta;
   }
   return reset;
+}
+
+String _getEmojiForLevel(Level level) {
+  if (level == Level.SEVERE) {
+    return '💥';
+  } else if (level == Level.WARNING) {
+    return '⚠️';
+  } else if (level == Level.INFO) {
+    return 'ℹ️';
+  } else if (level == Level.CONFIG) {
+    return '⚙️';
+  } else if (level == Level.FINE) {
+    return '✨';
+  } else if (level == Level.FINER) {
+    return '🔍';
+  } else if (level == Level.FINEST) {
+    return '🔬';
+  }
+  return '✅';
+}
+
+void _printSuccessBox(String provider, String downloadLink) {
+  final message = 'APK successfully uploaded to $provider!';
+  final link = 'Download link: $downloadLink';
+  final boxWidth = message.length > link.length ? message.length + 4 : link.length + 4;
+
+  print(green);
+  print('╔${'═' * (boxWidth - 2)}╗');
+  print('║ ${message.padRight(boxWidth - 3)}║');
+  print('║ ${link.padRight(boxWidth - 3)}║');
+  print('╚${'═' * (boxWidth - 2)}╝');
+  print(reset);
 }
