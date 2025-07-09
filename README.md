@@ -39,7 +39,7 @@
 - **One command** builds and uploads
 - **Automatic** FVM detection and Flutter commands
 - **Comprehensive** build pipeline (clean, pub get, gen-l10n)
-- **Automatic** provider switching
+- **Fully automated** - no manual confirmations needed
 - **Smart** file naming with versions
 - **Robust** error handling and retries
 - **Unified** configuration management
@@ -58,6 +58,7 @@
 | 🏆 **Feature** | 🎯 **Benefit** | 🔥 **Why It Matters** |
 |---|---|---|
 | **🚀 One-Command Magic** | `share_my_apk` does it all | Save hours of manual work |
+| **🔧 Comprehensive Pipeline** | Clean, deps, l10n, build | Enterprise-grade reliability |
 | **☁️ Multi-Provider Support** | Diawi + Gofile.io | Never worry about size limits |
 | **🔄 Smart Auto-Switching** | Diawi → Gofile for 70MB+ files | Zero upload failures |
 | **📝 Smart Configuration** | YAML-based setup | Set once, use forever |
@@ -70,15 +71,16 @@
 
 ## 🎉 **What's New in v0.5.0?**
 
-> **🎨 Colorful & Engaging Logs!**
+> **🚀 Fully Automated & Comprehensive Build Pipeline!**
 
 <div align="center">
 
 ### ✨ **Key Improvements**
 
-✅ **Eye-Catching Logs** - New colorful and structured logs for a better experience.  
-✅ **Critical Bug Fixes** - Resolved issues with configuration and uploads.  
-✅ **Enhanced Stability** - Improved reliability for production workflows.  
+✅ **Comprehensive Build Pipeline** - Automatic FVM detection, flutter clean, pub get, and localization generation  
+✅ **Fully Automated Uploads** - Removed confirmation dialog for streamlined CI/CD workflows  
+✅ **Enhanced Reliability** - Professional-grade build process with step-by-step logging  
+✅ **Enterprise-Ready** - Perfect for production environments and automated deployments  
 
 </div>
 
@@ -86,14 +88,19 @@
 <summary>👀 Click to see the new logs in action!</summary>
 
 ```ansi
- [32mℹ️ [12:55:55] Starting APK build (mode: release)... [0m
- [36m✨ [12:56:05] Build output: ✓ Built build/app/outputs/flutter-apk/app-release.apk (55.1MB) [0m
- [32mℹ️ [12:56:05] Found APK at: ./build/app/outputs/flutter-apk/app-release.apk [0m
- [32mℹ️ [12:56:05] ✅ APK built successfully: ./build/app/outputs/flutter-apk/app-release.apk [0m
- [32mℹ️ [12:56:05] Organizing APK to: ./moonnote_1.0.1+a2_2025_07_09_12_55_55.apk [0m
- [32mℹ️ [12:56:05] Successfully copied APK to final destination. [0m
- [32mℹ️ [12:56:05] Starting upload to Diawi... [0m
- [32mℹ️ [12:56:15] Upload successful: https://i.diawi.com/SzSiZc [0m
+ [32mℹ️ [12:55:55] 🚀 Starting comprehensive APK build (mode: release)... [0m
+ [32mℹ️ [12:55:55] Using Flutter command: fvm flutter [0m
+ [32mℹ️ [12:55:55] 🧹 [1/4] Cleaning project... [0m
+ [32mℹ️ [12:55:58] 📦 [2/4] Getting dependencies... [0m
+ [32mℹ️ [12:56:02] 🌍 [3/4] Generating localizations... [0m
+ [32mℹ️ [12:56:04] 🔨 [4/4] Building APK (release mode)... [0m
+ [36m✨ [12:56:15] Build output: ✓ Built build/app/outputs/flutter-apk/app-release.apk (55.1MB) [0m
+ [32mℹ️ [12:56:15] ✅ APK built successfully: ./build/app/outputs/flutter-apk/app-release.apk [0m
+ [32mℹ️ [12:56:15] Uploading APK... [0m
+ [32mℹ️ [12:56:15] File: ./moonnote_1.0.1+a2_2025_07_09_12_55_55.apk [0m
+ [32mℹ️ [12:56:15] Size: 55.10 MB [0m
+ [32mℹ️ [12:56:15] Provider: diawi [0m
+ [32mℹ️ [12:56:25] Upload successful: https://i.diawi.com/SzSiZc [0m
  [32m╔═════════════════════╗ [0m
  [32m║ APK successfully uploaded to diawi!                                    ║ [0m
  [32m║ Download link: https://i.diawi.com/SzSiZc                              ║ [0m
@@ -146,7 +153,7 @@ dart pub global activate share_my_apk
 dev_dependencies:
   share_my_apk: ^0.5.0
 ```
-*Ideal for team projects and CI/CD*
+*Perfect for team projects and CI/CD pipelines*
 
 </td>
 </tr>
@@ -173,6 +180,9 @@ share_my_apk --name MyApp_Beta --environment staging
 
 # Debug build
 share_my_apk --no-release
+
+# Skip build pipeline steps (for faster builds)
+share_my_apk --no-clean --no-pub-get
 ```
 
 ### ⚙️ **Advanced Configuration**
@@ -191,6 +201,11 @@ gofile_token: your_gofile_token_here
 release: true
 path: .
 
+# Build pipeline controls
+clean: true          # Run flutter clean
+pub-get: true        # Run flutter pub get
+gen-l10n: true       # Generate localizations
+
 # File organization
 name: MyApp_Production
 environment: prod
@@ -203,12 +218,15 @@ output-dir: build/releases
 import 'package:share_my_apk/share_my_apk.dart';
 
 void main() async {
-  // Build APK
+  // Build APK with comprehensive pipeline
   final buildService = FlutterBuildService();
   final apkPath = await buildService.build(
     release: true,
     customName: 'MyApp_Beta',
     environment: 'staging',
+    clean: true,           // Run flutter clean
+    getPubDeps: true,      // Run flutter pub get
+    generateL10n: true,    // Generate localizations
   );
 
   // Upload to cloud
@@ -253,19 +271,21 @@ void main() async {
 
 ---
 
-## 🤝 **Interactive & Safe**
+## 🚀 **Fully Automated Workflow**
 
 <div align="center">
 
-To prevent accidental uploads, Share My APK includes an interactive confirmation step before the upload begins.
+Share My APK now provides a completely automated experience, perfect for CI/CD pipelines and production workflows.
 
 ```
-ℹ️ [12:56:05] Ready to upload the following APK:
-  - File: /path/to/your/app.apk
-  - Size: 55.10 MB
-  - Provider: diawi
-
-Do you want to proceed with the upload? (y/N)
+🧹 [1/4] Cleaning project...
+📦 [2/4] Getting dependencies...
+🌍 [3/4] Generating localizations...
+🔨 [4/4] Building APK (release mode)...
+ℹ️ [12:56:05] Uploading APK...
+ℹ️ [12:56:05] File: /path/to/your/app.apk
+ℹ️ [12:56:05] Size: 55.10 MB
+ℹ️ [12:56:05] Provider: diawi
 ```
 
 </div>
@@ -274,7 +294,7 @@ Do you want to proceed with the upload? (y/N)
 
 ## 🛡️ **Reliability & Quality**
 
-<div align="center">
+<div align="left">
 
 Share My APK is **production-ready** and **thoroughly tested** to ensure it works reliably in real-world scenarios.
 
@@ -282,8 +302,10 @@ Share My APK is **production-ready** and **thoroughly tested** to ensure it work
 - **✅ Large File Uploads** - Successfully tested with 113MB+ APKs
 - **✅ Network Resilience** - Handles connection issues gracefully
 - **✅ Provider Switching** - Automatic fallback works seamlessly
+- **✅ Build Pipeline** - Comprehensive testing with FVM, clean builds, dependencies
 - **✅ Edge Cases** - Handles special characters, long paths, and more
 - **✅ Cross-Platform** - Works on Windows, macOS, and Linux
+- **✅ CI/CD Ready** - Fully automated for production deployments
 
 **Ready for your production workflow!** 🚀
 
@@ -332,7 +354,7 @@ We love contributions! Here's how you can help:
 | **[Release Notes](RELEASE_NOTES.md)** | What's new and version history |
 | **[Changelog](CHANGELOG.md)** | Detailed version changes |
 
-**Want to contribute?** Check out our [contributing guidelines](https://github.com/wm-jenildgohel/share_my_apk/issues)!
+**Want to contribute?** Check out our [contributing guidelines](https://github.com/wm-jenildgohel/share_my_apk/blob/master/CONTRIBUTING.md)!
 
 </div>
 
