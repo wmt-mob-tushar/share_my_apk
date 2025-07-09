@@ -46,7 +46,6 @@ class ArgParserUtil {
           _provider,
           help: 'The upload provider to use.',
           allowed: ['diawi', 'gofile'],
-          defaultsTo: 'diawi',
         )
         ..addOption(
           _customName,
