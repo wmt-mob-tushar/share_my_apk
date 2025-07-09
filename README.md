@@ -12,7 +12,7 @@
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 
 [![Quality](https://img.shields.io/badge/Quality-Production%20Ready-success?style=for-the-badge&logo=verified&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
-[![Status](https://img.shields.io/badge/Status-Beta-orange?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
+[![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/wm-jenildgohel/share_my_apk)
 
 **From code to shareable link in one command** ⚡
 
@@ -70,21 +70,39 @@
 
 ---
 
-## 🎉 **What's New in v0.4.0-beta?**
+## 🎉 **What's New in v0.5.0?**
 
-> **🔥 Major Release** - Production-ready and rock-solid!
+> **🎨 Colorful & Engaging Logs!**
 
 <div align="center">
 
-### 🎯 **Key Improvements**
+### ✨ **Key Improvements**
 
-✅ **Fixed API Integration** - Both Diawi and Gofile working perfectly  
-✅ **Enhanced Reliability** - Robust error handling and validation  
-✅ **Smart Provider Switching** - Automatic fallback for large files  
-✅ **Better Configuration** - Improved setup and usage experience  
-✅ **Complete Documentation** - Everything you need to get started  
+✅ **Eye-Catching Logs** - New colorful and structured logs for a better experience.  
+✅ **Critical Bug Fixes** - Resolved issues with configuration and uploads.  
+✅ **Enhanced Stability** - Improved reliability for production workflows.  
 
 </div>
+
+<details>
+<summary>👀 Click to see the new logs in action!</summary>
+
+```ansi
+ [32mℹ️ [12:55:55] Starting APK build (mode: release)... [0m
+ [36m✨ [12:56:05] Build output: ✓ Built build/app/outputs/flutter-apk/app-release.apk (55.1MB) [0m
+ [32mℹ️ [12:56:05] Found APK at: ./build/app/outputs/flutter-apk/app-release.apk [0m
+ [32mℹ️ [12:56:05] ✅ APK built successfully: ./build/app/outputs/flutter-apk/app-release.apk [0m
+ [32mℹ️ [12:56:05] Organizing APK to: ./moonnote_1.0.1+a2_2025_07_09_12_55_55.apk [0m
+ [32mℹ️ [12:56:05] Successfully copied APK to final destination. [0m
+ [32mℹ️ [12:56:05] Starting upload to Diawi... [0m
+ [32mℹ️ [12:56:15] Upload successful: https://i.diawi.com/SzSiZc [0m
+ [32m╔═════════════════════╗ [0m
+ [32m║ APK successfully uploaded to diawi!                                    ║ [0m
+ [32m║ Download link: https://i.diawi.com/SzSiZc                              ║ [0m
+ [32m╚═════════════════════╝ [0m
+```
+
+</details>
 
 ---
 
@@ -110,7 +128,7 @@ share_my_apk
 
 ---
 
-## 🛠️ **Installation Options**
+## ���️ **Installation Options**
 
 <table>
 <tr>
@@ -128,7 +146,7 @@ dart pub global activate share_my_apk
 ### 📦 **Project Dependency**
 ```yaml
 dev_dependencies:
-  share_my_apk: ^0.4.0-beta
+  share_my_apk: ^0.5.0
 ```
 *Ideal for team projects and CI/CD*
 
