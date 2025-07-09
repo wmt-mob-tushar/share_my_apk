@@ -334,44 +334,6 @@ output-directory/
 **Naming Pattern:** `{name}_{version}_{timestamp}.apk`
 
 
-## 🤝 **Contributing**
-
-We love contributions! Here's how you can help:
-
-- 🐛 **Report Bugs** - [Open an issue](https://github.com/wm-jenildgohel/share_my_apk/issues)
-- 💡 **Request Features** - [Start a discussion](https://github.com/wm-jenildgohel/share_my_apk/discussions)
-- 🔧 **Submit Code** - [Create a pull request](https://github.com/wm-jenildgohel/share_my_apk/pulls)
-- 📚 **Improve Docs** - Help make documentation better
-
-## 👥 **Contributors**
-
-Thanks to all the amazing people who have contributed to Share My APK! 
-
-[![Contributors](https://contrib.rocks/image?repo=wm-jenildgohel/share_my_apk)](https://github.com/wm-jenildgohel/share_my_apk/graphs/contributors)
-
-<div align="center">
-
-<!-- CONTRIBUTORS-START -->
-<!-- This section is automatically updated by GitHub Actions -->
-<a href="https://github.com/wm-jenildgohel/share_my_apk/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=wm-jenildgohel/share_my_apk" />
-</a>
-<!-- CONTRIBUTORS-END -->
-
-</div>
-
-**Want to be featured here?** Just make a contribution and you'll be automatically added!
-
-### 🎯 **How to Contribute**
-- 💻 **Code**: Submit bug fixes, features, or improvements
-- 📖 **Documentation**: Help improve README, guides, or code comments  
-- 🐛 **Bug Reports**: Find and report issues
-- 💡 **Ideas**: Suggest new features or improvements
-- 🧪 **Testing**: Help test new features or edge cases
-
-Contributors are automatically recognized and displayed above. The list updates weekly via GitHub Actions.
-
----
 
 ## 📚 **Need More Info?**
 
@@ -379,11 +341,8 @@ Contributors are automatically recognized and displayed above. The list updates 
 
 | 📖 **Resource** | 🎯 **What's Inside** |
 |----------------|---------------------|
-| **[Contributing Guide](CONTRIBUTING.md)** | How to contribute to the project |
 | **[Release Notes](RELEASE_NOTES.md)** | What's new and version history |
 | **[Changelog](CHANGELOG.md)** | Detailed version changes |
-
-**Want to contribute?** Check out our [contributing guidelines](CONTRIBUTING.md) to get started!
 
 </div>
 
