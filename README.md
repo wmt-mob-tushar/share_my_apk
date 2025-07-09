@@ -236,7 +236,6 @@ void main() async {
 | `--gofile-token` | - | Gofile API token | `share_my_apk --gofile-token xyz789` |
 | `--release` | - | Release build (default) | `share_my_apk --release` |
 | `--no-release` | - | Debug build | `share_my_apk --no-release` |
-| `--dry-run` | - | Simulate the process | `share_my_apk --dry-run` |
 
 </div>
 

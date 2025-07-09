@@ -13,7 +13,6 @@ class FlutterBuildService {
 
   final ApkParserService _apkParserService;
   final ApkOrganizerService _apkOrganizerService;
-  final bool _dryRun;
 
   /// Creates a new [FlutterBuildService].
   ///
@@ -22,10 +21,8 @@ class FlutterBuildService {
   FlutterBuildService({
     ApkParserService? apkParserService,
     ApkOrganizerService? apkOrganizerService,
-    bool dryRun = false,
   })  : _apkParserService = apkParserService ?? ApkParserService(),
-        _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService(),
-        _dryRun = dryRun;
+        _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService();
 
   /// Builds a Flutter Android APK.
   ///
@@ -43,22 +40,12 @@ class FlutterBuildService {
     String? environment,
     String? outputDir,
   }) async {
-    final buildType = release ? 'release' : 'debug';
-    final buildCommand = 'flutter build apk --$buildType';
-
-    if (_dryRun) {
-      _logger.info('[DRY RUN] Would execute build command: `$buildCommand`');
-      _logger.info(
-        '[DRY RUN] Would organize APK with name: `$customName`, env: `$environment`, output: `$outputDir`',
-      );
-      return 'dry_run_apk_path.apk';
-    }
-
     final shell = Shell(workingDirectory: projectPath);
+    final buildType = release ? 'release' : 'debug';
 
     _logger.info('🚀 Starting APK build (mode: $buildType)...');
 
-    final result = await shell.run(buildCommand);
+    final result = await shell.run('flutter build apk --$buildType');
 
     if (result.first.exitCode == 0) {
       final buildOutput = result.outText;

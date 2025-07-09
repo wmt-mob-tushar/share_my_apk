@@ -18,7 +18,6 @@ class ArgParserUtil {
   static const _customName = 'name';
   static const _environment = 'environment';
   static const _outputDir = 'output-dir';
-  static const _dryRun = 'dry-run';
 
   final ArgParser _parser;
 
@@ -38,11 +37,6 @@ class ArgParserUtil {
           _init,
           negatable: false,
           help: 'Generates a `share_my_apk.yaml` configuration file.',
-        )
-        ..addFlag(
-          _dryRun,
-          negatable: false,
-          help: 'Simulates the build and upload process without executing.',
         )
         ..addOption(_diawiToken, help: 'Your API token for Diawi.')
         ..addOption(_gofileToken, help: 'Your API token for Gofile.')
@@ -114,7 +108,6 @@ class ArgParserUtil {
         config['environment']?.toString();
     final outputDir =
         argResults[_outputDir] as String? ?? config['output-dir']?.toString();
-    final dryRun = argResults[_dryRun] as bool;
 
     if (provider == 'diawi' && token == null) {
       throw ArgumentError(
@@ -132,7 +125,6 @@ class ArgParserUtil {
       outputDir: outputDir,
       diawiToken: diawiToken,
       gofileToken: gofileToken,
-      dryRun: dryRun,
     );
   }
 }

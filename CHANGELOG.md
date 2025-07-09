@@ -1,14 +1,11 @@
-## 🚀 0.5.0 - The "Interactive & Confident" Release
+## 🚀 0.5.0 - The "Fully Automated" Release
 
-**✨ Major UI/UX & Feature Improvements**
+**✨ Major UI/UX & Automation Improvements**
 
--   **🤝 Interactive Pre-Upload Confirmation:**
-    -   Displays a summary of the APK details (file name, size, provider) before uploading.
-    -   Asks for user confirmation to prevent accidental uploads.
-
--   **🧪 Dry Run Mode:**
-    -   Added a `--dry-run` flag to simulate the entire build and upload process.
-    -   Perfect for testing configurations without performing any actual actions.
+-   **🚀 Fully Automated Uploads:**
+    -   Removed pre-upload confirmation dialog for streamlined, non-interactive operation.
+    -   Tool now proceeds directly to upload after build completion.
+    -   Perfect for CI/CD pipelines and automated workflows.
 
 -   **🎨 Colorful & Fun Logs:**
     -   Added emojis and colors to log messages for a more engaging experience.
