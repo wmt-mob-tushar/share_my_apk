@@ -1,4 +1,4 @@
-<div align="center">
+<div align="start">
 
 # 🚀 Share My APK
 
@@ -73,8 +73,8 @@
 
 > **🚀 Fully Automated & Comprehensive Build Pipeline!**
 
-<div align="center">
-
+<div align="start">
+ 
 ### ✨ **Key Improvements**
 
 ✅ **Comprehensive Build Pipeline** - Automatic FVM detection, flutter clean, pub get, and localization generation  
@@ -273,7 +273,7 @@ void main() async {
 
 ## 🚀 **Fully Automated Workflow**
 
-<div align="center">
+<div align="start">
 
 Share My APK now provides a completely automated experience, perfect for CI/CD pipelines and production workflows.
 
