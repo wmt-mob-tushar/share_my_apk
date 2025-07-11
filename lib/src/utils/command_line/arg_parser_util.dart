@@ -21,65 +21,83 @@ class ArgParserUtil {
   static const _clean = 'clean';
   static const _getPubDeps = 'pub-get';
   static const _generateL10n = 'gen-l10n';
+  static const _verbose = 'verbose';
 
-  final ArgParser _parser;
-
-  /// Creates a new [ArgParserUtil] with pre-configured argument definitions.
-  ///
-  /// Sets up all available command-line options including tokens, paths,
-  /// build modes, providers, and file organization options.
-  ArgParserUtil()
-    : _parser = ArgParser()
-        ..addFlag(
-          _help,
-          abbr: 'h',
-          negatable: false,
-          help: 'Displays this help message.',
-        )
-        ..addFlag(
-          _init,
-          negatable: false,
-          help: 'Generates a `share_my_apk.yaml` configuration file.',
-        )
-        ..addOption(_diawiToken, help: 'Your API token for Diawi.')
-        ..addOption(_gofileToken, help: 'Your API token for Gofile.')
-        ..addOption(_path, abbr: 'p', help: 'Path to your Flutter project.')
-        ..addFlag(_release, defaultsTo: true, help: 'Build in release mode.')
-        ..addOption(
-          _provider,
-          help: 'The upload provider to use.',
-          allowed: ['diawi', 'gofile'],
-        )
-        ..addOption(
-          _customName,
-          abbr: 'n',
-          help: 'Custom name for the APK file (without extension).',
-        )
-        ..addOption(
-          _environment,
-          abbr: 'e',
-          help: 'Environment folder (dev, prod, staging, etc.).',
-        )
-        ..addOption(
-          _outputDir,
-          abbr: 'o',
-          help: 'Output directory for the built APK.',
-        )
-        ..addFlag(
-          _clean,
-          defaultsTo: true,
-          help: 'Run flutter clean before building.',
-        )
-        ..addFlag(
-          _getPubDeps,
-          defaultsTo: true,
-          help: 'Run flutter pub get before building.',
-        )
-        ..addFlag(
-          _generateL10n,
-          defaultsTo: true,
-          help: 'Generate localizations if lib/l10n exists.',
-        );
+  ArgParserUtil() {
+    _parser = ArgParser();
+    _parser.addFlag(
+      _help,
+      abbr: 'h',
+      help: 'Show this help message.',
+      negatable: false,
+    );
+    _parser.addFlag(
+      _init,
+      help: 'Generate a `share_my_apk.yaml` configuration file.',
+      negatable: false,
+    );
+    _parser.addOption(
+      _provider,
+      help: 'The upload provider to use.',
+      allowed: ['diawi', 'gofile'],
+      defaultsTo: 'diawi',
+    );
+    _parser.addOption(
+      _diawiToken,
+      help: 'Your Diawi API token.',
+    );
+    _parser.addOption(
+      _gofileToken,
+      help: 'Your Gofile API token.',
+    );
+    _parser.addOption(
+      _path,
+      abbr: 'p',
+      help: 'The path to your Flutter project.',
+      defaultsTo: '.',
+    );
+    _parser.addFlag(
+      _release,
+      help: 'Build the APK in release mode.',
+      defaultsTo: true,
+    );
+    _parser.addOption(
+      _name,
+      abbr: 'n',
+      help: 'Custom name for the APK file.',
+    );
+    _parser.addOption(
+      _environment,
+      abbr: 'e',
+      help: 'Environment folder for organizing builds.',
+    );
+    _parser.addOption(
+      _outputDir,
+      abbr: 'o',
+      help: 'Output directory for the built APK.',
+    );
+    _parser.addFlag(
+      _clean,
+      help: 'Run `flutter clean` before building.',
+      defaultsTo: true,
+    );
+    _parser.addFlag(
+      _getPubDeps,
+      help: 'Run `flutter pub get` before building.',
+      defaultsTo: true,
+    );
+    _parser.addFlag(
+      _generateL10n,
+      help: 'Run `flutter gen-l10n` before building.',
+      defaultsTo: true,
+    );
+    _parser.addFlag(
+      _verbose,
+      abbr: 'v',
+      help: 'Show verbose output.',
+      defaultsTo: false,
+    );
+  }
 
   /// Parses the command-line arguments and returns a [CliOptions] object.
   ///
@@ -134,6 +152,8 @@ class ArgParserUtil {
     final generateL10n =
         argResults[_generateL10n] as bool? ??
         (config['gen-l10n'] as bool? ?? true);
+    final verbose =
+        argResults[_verbose] as bool? ?? (config['verbose'] as bool? ?? false);
 
     // Enhanced validation with helpful messaging
     if (provider == 'diawi' && token == null) {
@@ -186,6 +206,7 @@ class ArgParserUtil {
       clean: clean,
       getPubDeps: getPubDeps,
       generateL10n: generateL10n,
+      verbose: verbose,
     );
   }
 }
