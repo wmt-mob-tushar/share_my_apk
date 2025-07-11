@@ -8,6 +8,7 @@ import 'package:share_my_apk/src/utils/command_line/init_util.dart';
 
 /// A utility class for parsing command-line arguments.
 class ArgParserUtil {
+  late final ArgParser _parser;
   static const _help = 'help';
   static const _init = 'init';
   static const _diawiToken = 'diawi-token';
@@ -62,7 +63,7 @@ class ArgParserUtil {
       defaultsTo: true,
     );
     _parser.addOption(
-      _name,
+      _customName,
       abbr: 'n',
       help: 'Custom name for the APK file.',
     );
