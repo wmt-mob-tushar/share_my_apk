@@ -7,11 +7,11 @@ class UploadServiceFactory {
   /// Creates a new [UploadService] instance based on the given [provider].
   static UploadService create(String provider, {String? token}) {
     final normalizedProvider = provider.trim().toLowerCase();
-    
+
     if (normalizedProvider.isEmpty) {
       throw ArgumentError('Provider cannot be empty.');
     }
-    
+
     switch (normalizedProvider) {
       case 'gofile':
         return GofileUploadService(apiToken: token);

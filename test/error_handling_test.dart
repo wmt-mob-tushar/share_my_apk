@@ -33,16 +33,11 @@ void main() {
 
       test('handles empty and null paths', () {
         final service = UploadServiceFactory.create('gofile');
-        
-        expect(
-          () => service.upload(''),
-          throwsA(isA<Exception>()),
-        );
-        
-        expect(
-          () => service.upload(null as String),
-          throwsA(isA<TypeError>()),
-        );
+
+        expect(() => service.upload(''), throwsA(isA<Exception>()));
+
+        // ignore: cast_from_null_always_fails
+        expect(() => service.upload(null as String), throwsA(isA<TypeError>()));
       });
 
       test('handles files without proper extensions', () {
@@ -55,10 +50,7 @@ void main() {
         ];
 
         for (final path in paths) {
-          expect(
-            () => service.upload(path),
-            throwsA(isA<Exception>()),
-          );
+          expect(() => service.upload(path), throwsA(isA<Exception>()));
         }
       });
     });
@@ -130,7 +122,7 @@ void main() {
         expect(updated.token, equals('new-token'));
         expect(updated.provider, equals('gofile'));
         expect(updated.isRelease, equals(false));
-        
+
         // Unchanged values should remain the same
         expect(updated.diawiToken, equals('original-diawi'));
         expect(updated.gofileToken, equals('original-gofile'));
@@ -147,8 +139,11 @@ void main() {
         // This is a structural test - actual network testing would require mocks
         final service = UploadServiceFactory.create('gofile');
         expect(service, isNotNull);
-        
-        final diawiService = UploadServiceFactory.create('diawi', token: 'test-token');
+
+        final diawiService = UploadServiceFactory.create(
+          'diawi',
+          token: 'test-token',
+        );
         expect(diawiService, isNotNull);
       });
 
@@ -157,8 +152,11 @@ void main() {
         // This ensures proper error handling structure is in place
         final service = UploadServiceFactory.create('gofile');
         expect(service, isNotNull);
-        
-        final diawiService = UploadServiceFactory.create('diawi', token: 'test-token');
+
+        final diawiService = UploadServiceFactory.create(
+          'diawi',
+          token: 'test-token',
+        );
         expect(diawiService, isNotNull);
       });
     });
@@ -168,23 +166,29 @@ void main() {
         // Test service creation for large file handling
         final service = UploadServiceFactory.create('gofile');
         expect(service, isNotNull);
-        
+
         // Test that Diawi service properly validates file size limits
-        final diawiService = UploadServiceFactory.create('diawi', token: 'test-token');
+        final diawiService = UploadServiceFactory.create(
+          'diawi',
+          token: 'test-token',
+        );
         expect(diawiService, isNotNull);
       });
 
       test('handles multiple service instances', () {
         // Test creating multiple service instances
         final services = <String, dynamic>{};
-        
+
         for (int i = 0; i < 10; i++) {
           services['gofile_$i'] = UploadServiceFactory.create('gofile');
-          services['diawi_$i'] = UploadServiceFactory.create('diawi', token: 'token_$i');
+          services['diawi_$i'] = UploadServiceFactory.create(
+            'diawi',
+            token: 'token_$i',
+          );
         }
-        
+
         expect(services.length, equals(20));
-        
+
         // Verify all services are properly created
         for (final entry in services.entries) {
           expect(entry.value, isNotNull);
@@ -195,13 +199,13 @@ void main() {
     group('Platform Compatibility', () {
       test('handles different path separators', () {
         final service = UploadServiceFactory.create('gofile');
-        
+
         // Test Windows-style paths
         expect(
           () => service.upload('C:\\Users\\test\\file.apk'),
           throwsA(isA<Exception>()),
         );
-        
+
         // Test mixed separators
         expect(
           () => service.upload('/unix/path\\windows\\file.apk'),
@@ -211,17 +215,19 @@ void main() {
 
       test('handles different file extensions', () {
         final service = UploadServiceFactory.create('gofile');
-        
+
         final validExtensions = ['.apk', '.APK'];
         final invalidExtensions = ['.exe', '.dmg', '.deb', '.rpm'];
-        
+
         for (final ext in validExtensions) {
           expect(
             () => service.upload('/path/to/file$ext'),
-            throwsA(isA<Exception>()), // File doesn't exist, but extension is valid
+            throwsA(
+              isA<Exception>(),
+            ), // File doesn't exist, but extension is valid
           );
         }
-        
+
         for (final ext in invalidExtensions) {
           expect(
             () => service.upload('/path/to/file$ext'),
@@ -234,15 +240,19 @@ void main() {
     group('Concurrent Operations', () {
       test('handles multiple concurrent service creations', () async {
         final futures = <Future<dynamic>>[];
-        
+
         for (int i = 0; i < 50; i++) {
           futures.add(Future(() => UploadServiceFactory.create('gofile')));
-          futures.add(Future(() => UploadServiceFactory.create('diawi', token: 'token_$i')));
+          futures.add(
+            Future(
+              () => UploadServiceFactory.create('diawi', token: 'token_$i'),
+            ),
+          );
         }
-        
+
         final results = await Future.wait(futures);
         expect(results.length, equals(100));
-        
+
         for (final result in results) {
           expect(result, isNotNull);
         }

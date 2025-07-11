@@ -26,20 +26,19 @@ void main() {
         // Act & Assert
         expect(
           () => service.upload('/non/existent/file.apk'),
-          throwsA(isA<Exception>().having(
-            (e) => e.toString(),
-            'message',
-            contains('File not found'),
-          )),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'message',
+              contains('File not found'),
+            ),
+          ),
         );
       });
 
       test('handles empty file path', () async {
         // Act & Assert
-        expect(
-          () => service.upload(''),
-          throwsA(isA<Exception>()),
-        );
+        expect(() => service.upload(''), throwsA(isA<Exception>()));
       });
 
       test('validates file path format', () async {
@@ -63,7 +62,9 @@ void main() {
       });
 
       test('service with valid token is created correctly', () {
-        final validTokenService = GofileUploadService(apiToken: 'valid-token-123');
+        final validTokenService = GofileUploadService(
+          apiToken: 'valid-token-123',
+        );
         expect(validTokenService.apiToken, equals('valid-token-123'));
       });
     });

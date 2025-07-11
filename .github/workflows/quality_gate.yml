@@ -1,0 +1,72 @@
+name: Quality Gate
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality_gate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🎯 Setup Dart
+      uses: dart-lang/setup-dart@v1
+      with:
+        sdk: stable
+        
+    - name: 📦 Install dependencies
+      run: dart pub get
+      
+    - name: 🔍 Run static analysis
+      run: dart analyze --fatal-warnings
+      
+    - name: 🎨 Check formatting
+      run: dart format --output=none --set-exit-if-changed .
+      
+    - name: 🧪 Run tests with coverage
+      run: |
+        dart test --coverage=coverage
+        dart run coverage:format_coverage --lcov --in=coverage --out=coverage/lcov.info --packages=.dart_tool/package_config.json
+        
+    - name: 📊 Check coverage threshold
+      run: dart run tool/coverage.dart
+      
+    - name: ⚡ Run performance benchmarks
+      run: dart run tool/benchmark.dart
+      
+    - name: 📦 Check package quality  
+      run: dart run tool/package_quality.dart
+      
+    - name: ✅ Quality gate passed
+      run: echo "🎉 All quality checks passed!"
+
+  security_scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🔒 Run security audit
+      run: dart pub deps --json | dart analyze --packages
+
+  dependency_check:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+      
+    - name: 🎯 Setup Dart
+      uses: dart-lang/setup-dart@v1
+      
+    - name: 📦 Check for outdated dependencies
+      run: dart pub outdated --mode=null-safety
+      
+    - name: 🔍 Validate pubspec
+      run: dart pub publish --dry-run

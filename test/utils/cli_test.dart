@@ -13,22 +13,27 @@ void main() {
     group('ArgParserUtil', () {
       test('parses basic arguments correctly', () {
         final args = [
-          '--provider', 'gofile',
-          '--path', '/test/path',
-          '--name', 'test-app',
+          '--provider',
+          'gofile',
+          '--path',
+          '.',
+          '--name',
+          'test-app',
         ];
 
         final options = argParser.parse(args);
 
         expect(options.provider, equals('gofile'));
-        expect(options.path, equals('/test/path'));
+        expect(options.path, equals('.'));
         expect(options.customName, equals('test-app'));
       });
 
       test('parses token arguments correctly', () {
         final args = [
-          '--diawi-token', 'diawi-test-token',
-          '--gofile-token', 'gofile-test-token',
+          '--diawi-token',
+          'diawi-test-token',
+          '--gofile-token',
+          'gofile-test-token',
         ];
 
         final options = argParser.parse(args);
@@ -50,43 +55,42 @@ void main() {
 
       test('handles short argument aliases', () {
         final args = [
-          '-p', '/short/path',
-          '-n', 'short-name',
-          '-e', 'dev',
-          '-o', '/output/dir',
-          '--diawi-token', 'test-token',
+          '-p',
+          '.',
+          '-n',
+          'short-name',
+          '-e',
+          'dev',
+          '-o',
+          'build',
+          '--diawi-token',
+          'test-token',
         ];
 
         final options = argParser.parse(args);
 
-        expect(options.path, equals('/short/path'));
+        expect(options.path, equals('.'));
         expect(options.customName, equals('short-name'));
         expect(options.environment, equals('dev'));
-        expect(options.outputDir, equals('/output/dir'));
+        expect(options.outputDir, equals('build'));
       });
 
       test('handles help flag', () {
         final args = ['--help'];
-        
-        expect(
-          () => argParser.parse(args),
-          throwsA(isA<ArgumentError>()),
-        );
+
+        expect(() => argParser.parse(args), throwsA(isA<ArgumentError>()));
       });
 
       test('handles init flag', () {
         final args = ['--init'];
-        
-        expect(
-          () => argParser.parse(args),
-          throwsA(isA<ArgumentError>()),
-        );
+
+        expect(() => argParser.parse(args), throwsA(isA<ArgumentError>()));
       });
 
       test('handles empty arguments', () {
         final args = ['--gofile-token', 'test-token'];
         final options = argParser.parse(args);
-        
+
         expect(options.provider, equals('diawi')); // Default provider
         expect(options.isRelease, isTrue); // Default release mode
         expect(options.path, equals('.')); // Default path
@@ -94,11 +98,8 @@ void main() {
 
       test('handles unknown arguments gracefully', () {
         final args = ['--unknown-arg', 'value', '--diawi-token', 'test-token'];
-        
-        expect(
-          () => argParser.parse(args),
-          throwsA(isA<ArgumentError>()),
-        );
+
+        expect(() => argParser.parse(args), throwsA(isA<ArgumentError>()));
       });
     });
 
@@ -259,12 +260,18 @@ void main() {
     group('Configuration Integration', () {
       test('handles complex argument combinations', () {
         final args = [
-          '--provider', 'gofile',
-          '--gofile-token', 'gofile-token-123',
-          '--path', '/complex/project/path',
-          '--name', 'complex-app-name',
-          '--environment', 'production',
-          '--output-dir', '/custom/output/directory',
+          '--provider',
+          'gofile',
+          '--gofile-token',
+          'gofile-token-123',
+          '--path',
+          '/complex/project/path',
+          '--name',
+          'complex-app-name',
+          '--environment',
+          'production',
+          '--output-dir',
+          '/custom/output/directory',
           '--no-release',
         ];
 
@@ -281,11 +288,15 @@ void main() {
 
       test('handles argument precedence correctly', () {
         final args = [
-          '--provider', 'diawi',
-          '--diawi-token', 'diawi-token-456',
-          '--gofile-token', 'gofile-token-789',
+          '--provider',
+          'diawi',
+          '--diawi-token',
+          'diawi-token-456',
+          '--gofile-token',
+          'gofile-token-789',
           '--release',
-          '--path', '/precedence/test/path',
+          '--path',
+          '/precedence/test/path',
         ];
 
         final options = argParser.parse(args);

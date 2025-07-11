@@ -23,8 +23,8 @@ class FlutterBuildService {
   FlutterBuildService({
     ApkParserService? apkParserService,
     ApkOrganizerService? apkOrganizerService,
-  })  : _apkParserService = apkParserService ?? ApkParserService(),
-        _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService();
+  }) : _apkParserService = apkParserService ?? ApkParserService(),
+       _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService();
 
   /// Builds a Flutter Android APK with comprehensive build pipeline.
   ///
@@ -150,7 +150,9 @@ class FlutterBuildService {
       _logger.info('🌍 [3/4] Generating localizations...');
       final l10nResult = await shell.run('$flutterCommand gen-l10n');
       if (l10nResult.first.exitCode != 0) {
-        _logger.warning('⚠️  Localization generation failed, continuing anyway...');
+        _logger.warning(
+          '⚠️  Localization generation failed, continuing anyway...',
+        );
       }
     }
 

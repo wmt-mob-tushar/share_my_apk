@@ -17,6 +17,9 @@ export 'package:share_my_apk/src/utils/command_line/arg_parser_util.dart';
 export 'package:share_my_apk/src/utils/command_line/help_util.dart';
 export 'package:share_my_apk/src/utils/command_line/init_util.dart';
 
+// Utility Classes
+export 'package:share_my_apk/src/utils/retry_util.dart';
+
 // Configuration and Models
 export 'package:share_my_apk/src/models/cli_options.dart';
 export 'package:share_my_apk/src/services/config_service.dart';
