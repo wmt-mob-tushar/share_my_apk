@@ -12,6 +12,7 @@ This file contains the context of the `share_my_apk` project, used by the Gemini
 -   **Multiple Providers:** Supports Diawi and Gofile.io, with automatic switching to Gofile.io for large files.
 -   **Configuration:** Uses a `share_my_apk.yaml` file for project-specific configurations.
 -   **Command-Line Interface:** Provides a user-friendly CLI with commands like `init` and `help`.
+-   **Clean Output:** Provides clean, non-colored console output for better readability across various terminals.
 -   **Customization:** Allows custom file naming, directory organization, and environment-based builds.
 -   **Extensible Library:** The core services can be used as a library in other Dart projects.
 
@@ -19,7 +20,7 @@ This file contains the context of the `share_my_apk` project, used by the Gemini
 
 ### 1. `bin/share_my_apk.dart`
 
-The main entry point for the command-line tool. It parses arguments, builds the APK, and uploads it.
+The main entry point for the command-line tool. It parses arguments, builds the APK, and uploads it. The CLI banner has been removed from this file.
 
 ### 2. `lib/src/utils/command_line`
 
@@ -47,6 +48,10 @@ Reads the `share_my_apk.yaml` configuration file to get default values for the c
 ### 6. `lib/src/models/cli_options.dart`
 
 A data class that encapsulates all the configurable options for the command-line tool.
+
+### 7. `lib/src/utils/console_logger.dart`
+
+Handles console logging, now providing clean, non-colored output.
 
 ## How to Use
 
