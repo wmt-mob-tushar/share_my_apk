@@ -4,6 +4,7 @@ import 'package:share_my_apk/share_my_apk.dart';
 import 'package:share_my_apk/src/utils/console_logger.dart';
 import 'package:share_my_apk/src/utils/message_util.dart' as message_util;
 import 'package:yaml/yaml.dart';
+import 'package:share_my_apk/src/utils/ansi_codes.dart';
 
 class CliRunner {
   final ConsoleLogger _logger;
@@ -49,7 +50,7 @@ class CliRunner {
 
       if (provider == 'diawi' && fileSize > 70 * 1024 * 1024) {
         _logger.warning(
-          '⚡ Smart Provider Switch: APK size (${fileSizeMB.toStringAsFixed(1)} MB) exceeds Diawi's 70MB limit.',
+          '⚡ Smart Provider Switch: APK size (${fileSizeMB.toStringAsFixed(1)} MB) exceeds Diawi\'s 70MB limit.',
         );
         _logger.info(
           '🔄 Automatically switching to Gofile.io for better compatibility...',
@@ -87,8 +88,7 @@ class CliRunner {
 
       final downloadLink = await uploader.upload(apkPath);
 
-      print('
-' * 3);
+      stdout.writeln('\n' * 3);
       message_util.MessageUtil.printSuccessBox(provider, downloadLink);
     } on ArgumentError catch (e) {
       _logger.severe('❌ Configuration Error: ${e.message}');
@@ -114,8 +114,8 @@ class CliRunner {
   }
 
   void _printWelcomeMessage(String version) {
-    _logger.info('${cyan}🚀 Share My APK v$version$reset');
-    _logger.info('$blue   Flutter APK Build & Upload Tool$reset');
+    _logger.info('$ansiCyan🚀 Share My APK v$version$ansiReset');
+    _logger.info('$ansiBlue   Flutter APK Build & Upload Tool$ansiReset');
     _logger.info('');
   }
 
@@ -126,7 +126,9 @@ class CliRunner {
       final yamlMap = loadYaml(yamlString);
       return yamlMap['version'] as String;
     } catch (e) {
-      _logger.warning('⚠️  Could not read package version from pubspec.yaml: $e');
+      _logger.warning(
+        '⚠️  Could not read package version from pubspec.yaml: $e',
+      );
       return 'Unknown';
     }
   }
@@ -160,6 +162,6 @@ class CliRunner {
       _logger.info('   • Output dir: ${options.outputDir}');
     }
 
-    print('');
+    stdout.writeln('');
   }
 }

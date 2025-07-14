@@ -1,18 +1,12 @@
 import 'dart:io';
 
 // ANSI color codes
-const String reset = '
-[0m';
-const String red = '
-[31m';
-const String green = '
-[32m';
-const String yellow = '
-[33m';
-const String blue = '
-[34m';
-const String cyan = '
-[36m';
+const String reset = '\x1B[0m';
+const String red = '\x1B[31m';
+const String green = '\x1B[32m';
+const String yellow = '\x1B[33m';
+const String blue = '\x1B[34m';
+const String cyan = '\x1B[36m';
 
 class MessageUtil {
   static void printSuccessBox(String provider, String downloadLink) {
@@ -31,211 +25,152 @@ class MessageUtil {
     ].map((s) => s.length).reduce((a, b) => a > b ? a : b);
     final boxWidth = maxLength + 4;
 
-    // Using print here is acceptable for CLI success display
-    // ignore: avoid_print
-    print(green);
-    // ignore: avoid_print
-    print('╔${'═' * (boxWidth - 2)}╗');
-    // ignore: avoid_print
-    print('║ ${message.padRight(boxWidth - 3)}║');
-    // ignore: avoid_print
-    print('║${' ' * (boxWidth - 2)}║');
-    // ignore: avoid_print
-    print('║ ${link.padRight(boxWidth - 3)}║');
-    // ignore: avoid_print
-    print('║ ${share.padRight(boxWidth - 3)}║');
-    // ignore: avoid_print
-    print('║${' ' * (boxWidth - 2)}║');
-    // ignore: avoid_print
-    print('║ ${tips.padRight(boxWidth - 3)}║');
-    // ignore: avoid_print
-    print('╚${'═' * (boxWidth - 2)}╝');
-    // ignore: avoid_print
-    print(reset);
+    stdout.writeln(green);
+    stdout.writeln('╔${'═' * (boxWidth - 2)}╗');
+    stdout.writeln('║ ${message.padRight(boxWidth - 3)}║');
+    stdout.writeln('║${' ' * (boxWidth - 2)}║');
+    stdout.writeln('║ ${link.padRight(boxWidth - 3)}║');
+    stdout.writeln('║ ${share.padRight(boxWidth - 3)}║');
+    stdout.writeln('║${' ' * (boxWidth - 2)}║');
+    stdout.writeln('║ ${tips.padRight(boxWidth - 3)}║');
+    stdout.writeln('╚${'═' * (boxWidth - 2)}╝');
+    stdout.writeln(reset);
   }
 
   static void printHelpfulSuggestions() {
-    // Using print here is acceptable for CLI error display
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow╔═══════════════════════════════════════════════════════════════╗$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow║                     💡 TROUBLESHOOTING HELP                   ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow╠═══════════════════════════════════════════════════════════════╣$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow║  • Run "share_my_apk --init" to create a config file          ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow║  • For Diawi: Get token at https://dashboard.diawi.com/...    ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow║  • Use "share_my_apk --help" for all available options        ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow║  • Try "share_my_apk --provider gofile" (no token required)   ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$yellow╚═══════════════════════════════════════════════════════════════╝$reset',
     );
   }
 
   static void printBuildErrorSuggestions() {
-    // Using print here is acceptable for CLI error display
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╔═══════════════════════════════════════════════════════════════╗$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║                     🔧 BUILD ERROR HELP                       ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╠═══════════════════════════════════════════════════════════════╣$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Run "flutter doctor" to check Flutter installation         ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try "flutter clean && flutter pub get" in your project     ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Ensure you\'re in a valid Flutter project directory         ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Check if Android toolchain is properly configured          ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try building manually: "flutter build apk --release"       ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╚═══════════════════════════════════════════════════════════════╝$reset',
     );
   }
 
   static void printNetworkErrorSuggestions() {
-    // Using print here is acceptable for CLI error display
-    // ignore: avoid_print
-    print(
-      '$red╔══════════════════════════
-════════════════════════════════════╗$reset',
+    stdout.writeln(
+      '$red╔═══════════════════════════════════════════════════════════════╗$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║                     🌐 NETWORK ERROR HELP                     ║$reset',
     );
-    // ignore: a
-      void print(
+    stdout.writeln(
       '$red╠═══════════════════════════════════════════════════════════════╣$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Check your internet connection                             ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try again in a few minutes (server might be busy)          ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Check if you\'re behind a firewall or proxy                 ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try switching providers (--provider gofile or diawi)       ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╚═══════════════════════════════════════════════════════════════╝$reset',
     );
   }
 
   static void printUploadErrorSuggestions() {
-    // Using print here is acceptable for CLI error display
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╔═══════════════════════════════════════════════════════════════╗$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║                     📤 UPLOAD ERROR HELP                      ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╠═══════════════════════════════════════════════════════════════╣$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Verify your API token is correct and active                ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Check if file size exceeds provider limits (Diawi: 70MB)   ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try using Gofile.io: "share_my_apk --provider gofile"       ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Ensure APK file exists and is not corrupted                ║$reset',
     );
-    // ignore: avoid_print
-    print(
-      '$red
-═══════════════════════════════════════════════════════════════╝$reset',
+    stdout.writeln(
+      '$red╚═══════════════════════════════════════════════════════════════╝$reset',
     );
   }
 
   static void printGeneralErrorSuggestions() {
-    // Using print here is acceptable for CLI error display
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╔═══════════════════════════════════════════════════════════════╗$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║                     ⚠️  GENERAL ERROR HELP                     ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╠═══════════════════════════════════════════════════════════════╣$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try running with --help for usage information              ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Ensure all dependencies are up to date                     ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Check GitHub issues: github.com/wm-jenildgohel/share_my_apk║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red║  • Try running the command again                              ║$reset',
     );
-    // ignore: avoid_print
-    print(
+    stdout.writeln(
       '$red╚═══════════════════════════════════════════════════════════════╝$reset',
     );
   }

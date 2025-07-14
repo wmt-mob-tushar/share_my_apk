@@ -43,14 +43,8 @@ class ArgParserUtil {
       allowed: ['diawi', 'gofile'],
       defaultsTo: 'diawi',
     );
-    _parser.addOption(
-      _diawiToken,
-      help: 'Your Diawi API token.',
-    );
-    _parser.addOption(
-      _gofileToken,
-      help: 'Your Gofile API token.',
-    );
+    _parser.addOption(_diawiToken, help: 'Your Diawi API token.');
+    _parser.addOption(_gofileToken, help: 'Your Gofile API token.');
     _parser.addOption(
       _path,
       abbr: 'p',

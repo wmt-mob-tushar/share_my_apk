@@ -65,7 +65,8 @@ class DiawiUploadService implements UploadService {
           // Poll for job completion
           return await _pollJobStatus(job as String);
         } else {
-          final errorMessage = jsonResponse['message']?.toString() ?? 'Unknown error';
+          final errorMessage =
+              jsonResponse['message']?.toString() ?? 'Unknown error';
           _logger.severe('❌ Diawi upload failed: $errorMessage');
           if (errorMessage.contains('token')) {
             _logger.info(
@@ -181,9 +182,7 @@ class DiawiUploadService implements UploadService {
       }
     }
 
-    _logger.severe(
-      '❌ Processing timed out after $totalTimeoutMinutes minutes',
-    );
+    _logger.severe('❌ Processing timed out after $totalTimeoutMinutes minutes');
     _logger.info(
       '💡 The job might still be processing. Check Diawi dashboard or try again later.',
     );

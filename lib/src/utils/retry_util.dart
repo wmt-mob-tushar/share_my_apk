@@ -31,7 +31,7 @@ class RetryUtil {
         return await operation();
       } on Exception catch (e) {
         lastException = e;
-        
+
         // Check if we should retry this exception
         if (retryIf != null && !retryIf(e)) {
           rethrow;
@@ -44,7 +44,7 @@ class RetryUtil {
 
         // Calculate delay with exponential backoff and jitter
         final delay = _calculateDelay(attempt, baseDelay, maxDelay);
-        
+
         _logger.warning(
           '🔄 Retry attempt ${attempt + 1}/$maxRetries after ${delay}ms delay. Error: ${e.toString()}',
         );
@@ -62,14 +62,14 @@ class RetryUtil {
   static int _calculateDelay(int attempt, int baseDelay, int maxDelay) {
     // Exponential backoff: baseDelay * 2^attempt
     final exponentialDelay = baseDelay * pow(2, attempt).toInt();
-    
+
     // Add jitter (±25% random variation)
     final random = Random();
     final jitter = exponentialDelay * 0.25 * (random.nextDouble() - 0.5);
-    
+
     // Apply jitter and cap at maxDelay
     final finalDelay = (exponentialDelay + jitter).round();
-    
+
     return finalDelay.clamp(baseDelay, maxDelay);
   }
 
@@ -83,19 +83,19 @@ class RetryConditions {
 
   /// Retry on network-related exceptions.
   bool network(Exception e) {
-    return e is SocketException || 
-           e is HttpException ||
-           e.toString().toLowerCase().contains('network');
+    return e is SocketException ||
+        e is HttpException ||
+        e.toString().toLowerCase().contains('network');
   }
 
   /// Retry on temporary server errors (5xx HTTP status codes).
   bool serverError(Exception e) {
     if (e is HttpException) {
       final message = e.message.toLowerCase();
-      return message.contains('500') || 
-             message.contains('502') || 
-             message.contains('503') || 
-             message.contains('504');
+      return message.contains('500') ||
+          message.contains('502') ||
+          message.contains('503') ||
+          message.contains('504');
     }
     return false;
   }
@@ -103,15 +103,14 @@ class RetryConditions {
   /// Retry on timeout-related errors.
   bool timeout(Exception e) {
     final message = e.toString().toLowerCase();
-    return message.contains('timeout') || 
-           message.contains('timed out');
+    return message.contains('timeout') || message.contains('timed out');
   }
 
   /// Retry on rate limiting errors.
   bool rateLimit(Exception e) {
     if (e is HttpException) {
-      return e.message.contains('429') || 
-             e.message.toLowerCase().contains('rate limit');
+      return e.message.contains('429') ||
+          e.message.toLowerCase().contains('rate limit');
     }
     return false;
   }

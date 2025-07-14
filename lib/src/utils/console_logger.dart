@@ -5,26 +5,30 @@ import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
 // ANSI color codes
-const String reset = '
-[0m';
-const String red = '
-[31m';
-const String green = '
-[32m';
-const String yellow = '
-[33m';
-const String blue = '
-[34m';
-const String cyan = '
-[36m';
-const String magenta = '
-[35m';
+const String reset = '[0m';
+const String red = '[31m';
+const String green = '[32m';
+const String yellow = '[33m';
+const String blue = '[34m';
+const String cyan = '[36m';
+const String magenta = '[35m';
 
 class ConsoleLogger {
   final Logger _logger;
   Timer? _spinnerTimer;
   int _spinnerIndex = 0;
-  final List<String> _spinner = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+  final List<String> _spinner = [
+    '⠋',
+    '⠙',
+    '⠹',
+    '⠸',
+    '⠼',
+    '⠴',
+    '⠦',
+    '⠧',
+    '⠇',
+    '⠏',
+  ];
 
   ConsoleLogger(String name) : _logger = Logger(name);
 
@@ -46,14 +50,14 @@ class ConsoleLogger {
 
   void startSpinner(String message) {
     _spinnerTimer = Timer.periodic(const Duration(milliseconds: 80), (timer) {
-      stdout.write('${_spinner[_spinnerIndex]} $message');
+      stdout.write('\r${_spinner[_spinnerIndex]} $message');
       _spinnerIndex = (_spinnerIndex + 1) % _spinner.length;
     });
   }
 
   void stopSpinner({bool success = true, String? message}) {
     _spinnerTimer?.cancel();
-    stdout.write('');
+    stdout.write('\r');
     if (success) {
       info(message ?? 'Done.');
     } else {

@@ -5,4 +5,3 @@ void main(List<String> arguments) {
   ConsoleLogger.initialize();
   CliRunner().run(arguments);
 }
-

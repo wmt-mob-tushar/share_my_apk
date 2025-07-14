@@ -16,10 +16,9 @@ class FlutterBuildService {
     ApkParserService? apkParserService,
     ApkOrganizerService? apkOrganizerService,
     ConsoleLogger? logger,
-  })  : _apkParserService = apkParserService ?? ApkParserService(),
-        _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService(),
-        _logger = logger;
-
+  }) : _apkParserService = apkParserService ?? ApkParserService(),
+       _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService(),
+       _logger = logger;
 
   /// Builds a Flutter Android APK with comprehensive build pipeline.
   ///
@@ -176,70 +175,5 @@ class FlutterBuildService {
       _logger?.fine('No FVM config found, using global flutter command.');
       return 'flutter';
     }
-  }
-
-  /// Detects whether to use FVM or regular Flutter command.
-  String _detectFlutterCommand(String projectPath) {
-    final fvmDir = Directory(path.join(projectPath, '.fvm'));
-    if (fvmDir.existsSync()) {
-      _logger.info('📦 FVM detected - using "fvm flutter" command');
-      return 'fvm flutter';
-    } else {
-      _logger.info('📦 Using standard "flutter" command');
-      return 'flutter';
-    }
-  }
-
-  /// Runs the comprehensive build pipeline.
-  Future<void> _runBuildPipeline(
-    Shell shell,
-    String flutterCommand,
-    String projectPath,
-    String buildType,
-    bool clean,
-    bool getPubDeps,
-    bool generateL10n,
-  ) async {
-    // Step 1: Clean project (if enabled)
-    if (clean) {
-      _logger.info('🧹 [1/4] Cleaning project...');
-      final cleanResult = await shell.run('$flutterCommand clean');
-      if (cleanResult.first.exitCode != 0) {
-        _logger.warning('⚠️  Flutter clean failed, continuing anyway...');
-      }
-    }
-
-    // Step 2: Get dependencies (if enabled)
-    if (getPubDeps) {
-      _logger.info('📦 [2/4] Getting dependencies...');
-      final pubGetResult = await shell.run('$flutterCommand pub get');
-      if (pubGetResult.first.exitCode != 0) {
-        _logger.severe('🔥 Failed to get dependencies');
-        throw Exception('Failed to get dependencies');
-      }
-    }
-
-    // Step 3: Generate localizations (if enabled and l10n exists)
-    if (generateL10n && _hasLocalizations(projectPath)) {
-      _logger.info('🌍 [3/4] Generating localizations...');
-      final l10nResult = await shell.run('$flutterCommand gen-l10n');
-      if (l10nResult.first.exitCode != 0) {
-        _logger.warning(
-          '⚠️  Localization generation failed, continuing anyway...',
-        );
-      }
-    }
-
-    _logger.info('🔨 [4/4] Building APK ($buildType mode)...');
-  }
-
-  /// Checks if the project has localizations.
-  bool _hasLocalizations(String projectPath) {
-    final l10nDir = Directory(path.join(projectPath, 'lib', 'l10n'));
-    final hasL10n = l10nDir.existsSync();
-    if (hasL10n) {
-      _logger.info('🌍 Found localizations directory, will generate l10n');
-    }
-    return hasL10n;
   }
 }
