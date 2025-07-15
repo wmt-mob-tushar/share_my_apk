@@ -4,7 +4,6 @@ import 'package:share_my_apk/share_my_apk.dart';
 import 'package:share_my_apk/src/utils/console_logger.dart';
 import 'package:share_my_apk/src/utils/message_util.dart' as message_util;
 import 'package:yaml/yaml.dart';
-import 'package:share_my_apk/src/utils/ansi_codes.dart';
 
 class CliRunner {
   final ConsoleLogger _logger;
@@ -114,8 +113,8 @@ class CliRunner {
   }
 
   void _printWelcomeMessage(String version) {
-    _logger.info('${ansiCyan}Share My APK v$version$ansiReset');
-    _logger.info('$ansiBlue   Flutter APK Build & Upload Tool$ansiReset');
+    _logger.info('Share My APK v$version');
+    _logger.info('Flutter APK Build & Upload Tool');
     _logger.info('');
   }
 
