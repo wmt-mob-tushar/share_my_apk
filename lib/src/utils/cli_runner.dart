@@ -125,9 +125,7 @@ class CliRunner {
       final yamlMap = loadYaml(yamlString);
       return yamlMap['version'] as String;
     } catch (e) {
-      _logger.warning(
-        'Could not read package version from pubspec.yaml: $e',
-      );
+      _logger.warning('Could not read package version from pubspec.yaml: $e');
       return 'Unknown';
     }
   }

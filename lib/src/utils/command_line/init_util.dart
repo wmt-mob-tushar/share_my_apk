@@ -9,9 +9,7 @@ class InitUtil {
 
     final configFile = File('share_my_apk.yaml');
     if (configFile.existsSync()) {
-      _logger.warning(
-        'Configuration file already exists: share_my_apk.yaml',
-      );
+      _logger.warning('Configuration file already exists: share_my_apk.yaml');
       _logger.info('Edit the existing file or delete it to regenerate');
       return;
     }

@@ -39,7 +39,8 @@ class ArgParserUtil {
     );
     _parser.addOption(
       _provider,
-      help: 'The upload provider to use.\n[diawi, gofile] (reads from config file)',
+      help:
+          'The upload provider to use.\n[diawi, gofile] (reads from config file)',
       allowed: ['diawi', 'gofile'],
     );
     _parser.addOption(_diawiToken, help: 'Your Diawi API token.');

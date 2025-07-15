@@ -5,7 +5,6 @@ void main(List<String> arguments) {
   ConsoleLogger.initialize();
 
   // Display the CLI banner
-  
 
   CliRunner().run(arguments);
 }

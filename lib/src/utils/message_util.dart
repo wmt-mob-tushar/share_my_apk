@@ -7,7 +7,7 @@ class MessageUtil {
     print('Provider: $provider');
     print('Download URL: $downloadLink');
     print('Share this link to install the APK');
-    
+
     if (provider == 'diawi') {
       print('Note: Diawi links expire after 30 days');
     } else {
