@@ -152,12 +152,12 @@ class ArgParserUtil {
     // Enhanced validation with helpful messaging
     if (provider == 'diawi' && token == null) {
       throw ArgumentError(
-        '🔑 Diawi requires an API token!\n\n'
-        '📋 Quick Setup:\n'
+        'Diawi requires an API token!\n\n'
+        'Quick Setup:\n'
         '1. Get your token at: https://dashboard.diawi.com/profile/api\n'
         '2. Use: share_my_apk --provider diawi --diawi-token YOUR_TOKEN\n'
         '3. Or add "diawi_token: YOUR_TOKEN" to share_my_apk.yaml\n\n'
-        '💡 Alternative: Use Gofile.io (no token required):\n'
+        'Alternative: Use Gofile.io (no token required):\n'
         '   share_my_apk --provider gofile\n\n'
         'Available options:\n${_parser.usage}',
       );
@@ -166,8 +166,8 @@ class ArgParserUtil {
     // Validate paths if provided
     if (path != null && !Directory(path).existsSync()) {
       throw ArgumentError(
-        '📁 Project path does not exist: $path\n\n'
-        '💡 Make sure the path points to a valid Flutter project directory.',
+        'Project path does not exist: $path\n\n'
+        'Make sure the path points to a valid Flutter project directory.',
       );
     }
 
@@ -179,9 +179,9 @@ class ArgParserUtil {
           outputDirectory.createSync(recursive: true);
         } catch (e) {
           throw ArgumentError(
-            '📁 Cannot create output directory: $outputDir\n'
+            'Cannot create output directory: $outputDir\n'
             'Error: $e\n\n'
-            '💡 Make sure you have write permissions to the parent directory.',
+            'Make sure you have write permissions to the parent directory.',
           );
         }
       }

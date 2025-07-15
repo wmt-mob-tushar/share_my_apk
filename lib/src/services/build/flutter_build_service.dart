@@ -47,7 +47,7 @@ class FlutterBuildService {
     final shell = Shell(workingDirectory: workingDir);
     final buildType = release ? 'release' : 'debug';
 
-    _logger?.info('🚀 Starting comprehensive APK build (mode: $buildType)...');
+    _logger?.info('Starting comprehensive APK build (mode: $buildType)...');
 
     final flutterCommand = _detectFlutterCommand(workingDir);
     _logger?.fine('Using Flutter command: $flutterCommand');
@@ -79,7 +79,7 @@ class FlutterBuildService {
         projectPath,
       );
       if (originalApkPath != null) {
-        _logger?.info('✅ APK built successfully: $originalApkPath');
+        _logger?.info('APK built successfully: $originalApkPath');
 
         final finalApkPath = await _apkOrganizerService.organize(
           originalApkPath,
@@ -91,12 +91,12 @@ class FlutterBuildService {
 
         return finalApkPath;
       } else {
-        _logger?.severe('🔥 Could not find APK path in build output.');
+        _logger?.severe('Could not find APK path in build output.');
         throw Exception('APK build failed: Could not find APK path.');
       }
     } else {
       _logger?.severe(
-        '🔥 APK build failed with exit code ${result.first.exitCode}:',
+        'APK build failed with exit code ${result.first.exitCode}:',
       );
       _logger?.severe(result.errText);
       throw Exception('APK build failed.');
@@ -138,7 +138,7 @@ class FlutterBuildService {
       await _runCommand(
         shell,
         '$flutterCommand clean',
-        '🧹 [1/4] Cleaning project...',
+        'Cleaning project...',
         verbose,
       );
     }
@@ -148,7 +148,7 @@ class FlutterBuildService {
       await _runCommand(
         shell,
         '$flutterCommand pub get',
-        '📦 [2/4] Getting dependencies...',
+        'Getting dependencies...',
         verbose,
       );
     }
@@ -160,7 +160,7 @@ class FlutterBuildService {
       await _runCommand(
         shell,
         '$flutterCommand gen-l10n',
-        '🌍 [3/4] Generating localizations...',
+        'Generating localizations...',
         verbose,
       );
     }

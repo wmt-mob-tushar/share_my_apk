@@ -46,7 +46,7 @@ class RetryUtil {
         final delay = _calculateDelay(attempt, baseDelay, maxDelay);
 
         _logger.warning(
-          '🔄 Retry attempt ${attempt + 1}/$maxRetries after ${delay}ms delay. Error: ${e.toString()}',
+          'Retry attempt ${attempt + 1}/$maxRetries after ${delay}ms delay. Error: ${e.toString()}',
         );
 
         await Future<void>.delayed(Duration(milliseconds: delay));

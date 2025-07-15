@@ -1,16 +1,16 @@
-/// 🚀 **Share My APK** - The Ultimate Flutter APK Build & Upload Automation Tool
+/// **Share My APK** - The Ultimate Flutter APK Build & Upload Automation Tool
 /// 
 /// This library provides comprehensive tools for automating Flutter Android APK
 /// builds and uploads to cloud services like Diawi and Gofile.io.
 /// 
 /// ## Features
 /// 
-/// - **🚀 One-Command Automation**: Build and upload APKs with a single command
-/// - **☁️ Multi-Provider Support**: Upload to Diawi and Gofile.io with smart switching
-/// - **🔧 Comprehensive Build Pipeline**: Automatic clean, dependencies, and localization
-/// - **📁 Smart Organization**: Custom naming, versioning, and directory structure
-/// - **🛡️ Production Ready**: Enterprise-grade reliability with 100+ tests
-/// - **⚙️ Flexible Configuration**: YAML-based setup with CLI overrides
+/// - **One-Command Automation**: Build and upload APKs with a single command
+/// - **Multi-Provider Support**: Upload to Diawi and Gofile.io with smart switching
+/// - **Comprehensive Build Pipeline**: Automatic clean, dependencies, and localization
+/// - **Smart Organization**: Custom naming, versioning, and directory structure
+/// - **Production Ready**: Enterprise-grade reliability with 100+ tests
+/// - **Flexible Configuration**: YAML-based setup with CLI overrides
 /// 
 /// ## Quick Start
 /// 
@@ -43,7 +43,7 @@
 ///   final uploader = UploadServiceFactory.create('gofile');
 ///   final downloadLink = await uploader.upload(apkPath);
 ///   
-///   print('🚀 Download link: $downloadLink');
+///   print('Download link: $downloadLink');
 /// }
 /// ```
 /// 
