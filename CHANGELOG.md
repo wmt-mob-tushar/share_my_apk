@@ -10,17 +10,6 @@
 
 ---
 
-## 🚀 0.5.1-beta - The "Code Quality & Refinement" Release
-
-**✨ Codebase Polish & Test Enhancements**
-
--   **🎨 Code Formatting:** Applied `dart format` for consistent code style across the project.
--   **🧹 Linting Fixes:** Addressed `curly_braces_in_flow_control_structures` and other minor linting issues.
--   **🖥️ Console Output Refactor:** Replaced `print` statements with `stdout.writeln` for better control and consistency in console output.
--   **🧪 Test Improvements:** Updated `Future` test expectations to use `completes` and `await expectLater` for more idiomatic asynchronous testing.
--   **🗑️ Redundant Imports Removed:** Cleaned up unnecessary test imports in `test/share_my_apk_test.dart`.
--   **📖 Documentation Clarity:** Added explicit "Usage", "Installation", and "Examples" sections to `README.md` for improved navigation and clarity.
-
 ## 🚀 0.5.0 - The "Fully Automated & Comprehensive" Release
 
 **✨ Major UI/UX & Automation Improvements**
