@@ -1,30 +1,24 @@
+import 'dart:async';
 import 'dart:io';
-import 'package:logging/logging.dart';
-import 'package:path/path.dart' as path;
-import 'package:process_run/process_run.dart';
+
+import 'package:path/path.dart' as p;
+import 'package:process_run/shell.dart';
 import 'package:share_my_apk/src/services/build/apk_organizer_service.dart';
 import 'package:share_my_apk/src/services/build/apk_parser_service.dart';
+import 'package:share_my_apk/src/utils/console_logger.dart';
 
-/// A service responsible for building Flutter Android APKs.
-///
-/// This service uses the `flutter build apk` command to generate the APK,
-/// and then uses [ApkParserService] and [ApkOrganizerService] to locate
-/// and organize the final APK file.
 class FlutterBuildService {
-  static final Logger _logger = Logger('FlutterBuildService');
-
   final ApkParserService _apkParserService;
   final ApkOrganizerService _apkOrganizerService;
+  final ConsoleLogger? _logger;
 
-  /// Creates a new [FlutterBuildService].
-  ///
-  /// An optional [apkParserService] and [apkOrganizerService] can be provided
-  /// for testing or custom behavior.
   FlutterBuildService({
     ApkParserService? apkParserService,
     ApkOrganizerService? apkOrganizerService,
-  })  : _apkParserService = apkParserService ?? ApkParserService(),
-        _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService();
+    ConsoleLogger? logger,
+  }) : _apkParserService = apkParserService ?? ApkParserService(),
+       _apkOrganizerService = apkOrganizerService ?? ApkOrganizerService(),
+       _logger = logger;
 
   /// Builds a Flutter Android APK with comprehensive build pipeline.
   ///
@@ -47,18 +41,17 @@ class FlutterBuildService {
     bool clean = true,
     bool getPubDeps = true,
     bool generateL10n = true,
+    bool verbose = false,
   }) async {
     final workingDir = projectPath ?? Directory.current.path;
     final shell = Shell(workingDirectory: workingDir);
     final buildType = release ? 'release' : 'debug';
 
-    _logger.info('🚀 Starting comprehensive APK build (mode: $buildType)...');
+    _logger?.info('Starting comprehensive APK build (mode: $buildType)...');
 
-    // Detect FVM and set appropriate Flutter command
     final flutterCommand = _detectFlutterCommand(workingDir);
-    _logger.info('Using Flutter command: $flutterCommand');
+    _logger?.fine('Using Flutter command: $flutterCommand');
 
-    // Build pipeline steps
     await _runBuildPipeline(
       shell,
       flutterCommand,
@@ -67,20 +60,26 @@ class FlutterBuildService {
       clean,
       getPubDeps,
       generateL10n,
+      verbose,
     );
 
-    final result = await shell.run('$flutterCommand build apk --$buildType');
+    final result = await _runCommand(
+      shell,
+      '$flutterCommand build apk --$buildType',
+      'Building APK ($buildType mode)...',
+      verbose,
+    );
 
     if (result.first.exitCode == 0) {
       final buildOutput = result.outText;
-      _logger.fine('Build output:\n$buildOutput');
+      _logger?.fine('Build output:\n$buildOutput');
 
       final originalApkPath = _apkParserService.getApkPath(
         buildOutput,
         projectPath,
       );
       if (originalApkPath != null) {
-        _logger.info('✅ APK built successfully: $originalApkPath');
+        _logger?.info('APK built successfully: $originalApkPath');
 
         final finalApkPath = await _apkOrganizerService.organize(
           originalApkPath,
@@ -92,78 +91,89 @@ class FlutterBuildService {
 
         return finalApkPath;
       } else {
-        _logger.severe('🔥 Could not find APK path in build output.');
+        _logger?.severe('Could not find APK path in build output.');
         throw Exception('APK build failed: Could not find APK path.');
       }
     } else {
-      _logger.severe(
-        '🔥 APK build failed with exit code ${result.first.exitCode}:',
+      _logger?.severe(
+        'APK build failed with exit code ${result.first.exitCode}:',
       );
-      _logger.severe(result.errText);
+      _logger?.severe(result.errText);
       throw Exception('APK build failed.');
     }
   }
 
-  /// Detects whether to use FVM or regular Flutter command.
-  String _detectFlutterCommand(String projectPath) {
-    final fvmDir = Directory(path.join(projectPath, '.fvm'));
-    if (fvmDir.existsSync()) {
-      _logger.info('📦 FVM detected - using "fvm flutter" command');
-      return 'fvm flutter';
-    } else {
-      _logger.info('📦 Using standard "flutter" command');
-      return 'flutter';
+  Future<List<ProcessResult>> _runCommand(
+    Shell shell,
+    String command,
+    String message,
+    bool verbose,
+  ) async {
+    _logger?.startProgress(message);
+    try {
+      final result = await shell.run(command);
+      _logger?.stopProgress();
+      if (verbose) {
+        _logger?.fine(result.map((line) => line.outText).join('\n'));
+      }
+      return result;
+    } catch (e) {
+      _logger?.stopProgress(success: false);
+      rethrow;
     }
   }
 
-  /// Runs the comprehensive build pipeline.
   Future<void> _runBuildPipeline(
     Shell shell,
     String flutterCommand,
-    String projectPath,
+    String workingDir,
     String buildType,
     bool clean,
     bool getPubDeps,
     bool generateL10n,
+    bool verbose,
   ) async {
-    // Step 1: Clean project (if enabled)
+    // 1. Clean project
     if (clean) {
-      _logger.info('🧹 [1/4] Cleaning project...');
-      final cleanResult = await shell.run('$flutterCommand clean');
-      if (cleanResult.first.exitCode != 0) {
-        _logger.warning('⚠️  Flutter clean failed, continuing anyway...');
-      }
+      await _runCommand(
+        shell,
+        '$flutterCommand clean',
+        'Cleaning project...',
+        verbose,
+      );
     }
 
-    // Step 2: Get dependencies (if enabled)
+    // 2. Get dependencies
     if (getPubDeps) {
-      _logger.info('📦 [2/4] Getting dependencies...');
-      final pubGetResult = await shell.run('$flutterCommand pub get');
-      if (pubGetResult.first.exitCode != 0) {
-        _logger.severe('🔥 Failed to get dependencies');
-        throw Exception('Failed to get dependencies');
-      }
+      await _runCommand(
+        shell,
+        '$flutterCommand pub get',
+        'Getting dependencies...',
+        verbose,
+      );
     }
 
-    // Step 3: Generate localizations (if enabled and l10n exists)
-    if (generateL10n && _hasLocalizations(projectPath)) {
-      _logger.info('🌍 [3/4] Generating localizations...');
-      final l10nResult = await shell.run('$flutterCommand gen-l10n');
-      if (l10nResult.first.exitCode != 0) {
-        _logger.warning('⚠️  Localization generation failed, continuing anyway...');
-      }
+    // 3. Generate localizations if needed
+    final l10nFile = File(p.join(workingDir, 'l10n.yaml'));
+    if (generateL10n && l10nFile.existsSync()) {
+      _logger?.fine('Found localizations directory, will generate l10n');
+      await _runCommand(
+        shell,
+        '$flutterCommand gen-l10n',
+        'Generating localizations...',
+        verbose,
+      );
     }
-
-    _logger.info('🔨 [4/4] Building APK ($buildType mode)...');
   }
 
-  /// Checks if the project has localizations.
-  bool _hasLocalizations(String projectPath) {
-    final l10nDir = Directory(path.join(projectPath, 'lib', 'l10n'));
-    final hasL10n = l10nDir.existsSync();
-    if (hasL10n) {
-      _logger.info('🌍 Found localizations directory, will generate l10n');
+  String _detectFlutterCommand(String workingDir) {
+    final fvmConfig = File(p.join(workingDir, '.fvm', 'fvm_config.json'));
+    if (fvmConfig.existsSync()) {
+      _logger?.fine('FVM config found, using fvm flutter command.');
+      return 'fvm flutter';
+    } else {
+      _logger?.fine('No FVM config found, using global flutter command.');
+      return 'flutter';
     }
-    return hasL10n;
   }
 }

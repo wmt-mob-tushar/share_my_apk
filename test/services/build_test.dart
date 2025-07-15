@@ -17,64 +17,55 @@ void main() {
         expect(buildService, isA<FlutterBuildService>());
       });
 
-      test('validates build method signature', () {
+      test('validates build method signature', () async {
         // Test that the build method exists and has correct signature
         expect(buildService.build, isNotNull);
-        
+
         // Test default parameters
-        expect(
-          () => buildService.build(),
-          isA<Future<String>>(),
-        );
-        
+        await expectLater(buildService.build(), completes);
+
         // Test with all parameters
-        expect(
-          () => buildService.build(
+        await expectLater(
+          buildService.build(
             release: true,
             projectPath: '/test/path',
             customName: 'test-app',
             environment: 'staging',
             outputDir: '/output',
           ),
-          isA<Future<String>>(),
+          completes,
         );
       });
 
-      test('handles different build configurations', () {
+      test('handles different build configurations', () async {
         // Test release build
-        expect(
-          () => buildService.build(release: true),
-          isA<Future<String>>(),
-        );
+        await expectLater(buildService.build(release: true), completes);
 
         // Test debug build
-        expect(
-          () => buildService.build(release: false),
-          isA<Future<String>>(),
-        );
+        await expectLater(buildService.build(release: false), completes);
 
         // Test with custom project path
-        expect(
-          () => buildService.build(projectPath: '/custom/path'),
-          isA<Future<String>>(),
+        await expectLater(
+          buildService.build(projectPath: '/custom/path'),
+          completes,
         );
 
         // Test with custom name
-        expect(
-          () => buildService.build(customName: 'custom-app'),
-          isA<Future<String>>(),
+        await expectLater(
+          buildService.build(customName: 'custom-app'),
+          completes,
         );
 
         // Test with environment
-        expect(
-          () => buildService.build(environment: 'production'),
-          isA<Future<String>>(),
+        await expectLater(
+          buildService.build(environment: 'production'),
+          completes,
         );
 
         // Test with output directory
-        expect(
-          () => buildService.build(outputDir: '/custom/output'),
-          isA<Future<String>>(),
+        await expectLater(
+          buildService.build(outputDir: '/custom/output'),
+          completes,
         );
       });
     });
@@ -132,8 +123,9 @@ Running Gradle task 'assembleRelease'...
       });
 
       test('handles different project paths', () {
-        const buildOutput = '✓ Built build/app/outputs/flutter-apk/app-release.apk (113.4MB)';
-        
+        const buildOutput =
+            '✓ Built build/app/outputs/flutter-apk/app-release.apk (113.4MB)';
+
         final paths = [
           '/test/project',
           '/another/path',
@@ -175,90 +167,84 @@ Also found: build/app/outputs/flutter-apk/app-profile.apk
         expect(organizerService, isA<ApkOrganizerService>());
       });
 
-      test('validates organize method signature', () {
+      test('validates organize method signature', () async {
         // Test that the organize method exists and has correct signature
         expect(organizerService.organize, isNotNull);
-        
+
         // Test method signature
-        expect(
-          () => organizerService.organize(
+        await expectLater(
+          organizerService.organize(
             '/source/path/app.apk',
             '/project/path',
             'custom-name',
             'staging',
             '/output/dir',
           ),
-          isA<Future<String>>(),
+          completes,
         );
       });
 
-      test('handles different organization scenarios', () {
+      test('handles different organization scenarios', () async {
         const originalPath = '/source/path/app.apk';
-        
+
         // Test with all parameters
-        expect(
-          () => organizerService.organize(
+        await expectLater(
+          organizerService.organize(
             originalPath,
             '/project/path',
             'custom-name',
             'staging',
             '/output/dir',
           ),
-          isA<Future<String>>(),
+          completes,
         );
 
         // Test with minimal parameters
-        expect(
-          () => organizerService.organize(
-            originalPath,
-            null,
-            null,
-            null,
-            null,
-          ),
-          isA<Future<String>>(),
+        await expectLater(
+          organizerService.organize(originalPath, null, null, null, null),
+          completes,
         );
 
         // Test with custom name only
-        expect(
-          () => organizerService.organize(
+        await expectLater(
+          organizerService.organize(
             originalPath,
             null,
             'custom-app',
             null,
             null,
           ),
-          isA<Future<String>>(),
+          completes,
         );
 
         // Test with environment only
-        expect(
-          () => organizerService.organize(
+        await expectLater(
+          organizerService.organize(
             originalPath,
             null,
             null,
             'production',
             null,
           ),
-          isA<Future<String>>(),
+          completes,
         );
 
         // Test with output directory only
-        expect(
-          () => organizerService.organize(
+        await expectLater(
+          organizerService.organize(
             originalPath,
             null,
             null,
             null,
             '/custom/output',
           ),
-          isA<Future<String>>(),
+          completes,
         );
       });
 
-      test('handles special characters in parameters', () {
+      test('handles special characters in parameters', () async {
         const originalPath = '/source/path/app.apk';
-        
+
         final testCases = [
           {
             'customName': 'app-with-dashes',
@@ -278,22 +264,22 @@ Also found: build/app/outputs/flutter-apk/app-profile.apk
         ];
 
         for (final testCase in testCases) {
-          expect(
-            () => organizerService.organize(
+          await expectLater(
+            organizerService.organize(
               originalPath,
               '/project/path',
               testCase['customName'],
               testCase['environment'],
               testCase['outputDir'],
             ),
-            isA<Future<String>>(),
+            completes,
           );
         }
       });
 
-      test('handles empty and null parameters', () {
+      test('handles empty and null parameters', () async {
         const originalPath = '/source/path/app.apk';
-        
+
         final testCases = [
           [null, null, null, null],
           ['', '', '', ''],
@@ -304,15 +290,15 @@ Also found: build/app/outputs/flutter-apk/app-profile.apk
         ];
 
         for (final testCase in testCases) {
-          expect(
-            () => organizerService.organize(
+          await expectLater(
+            organizerService.organize(
               originalPath,
               testCase[0],
               testCase[1],
               testCase[2],
               testCase[3],
             ),
-            isA<Future<String>>(),
+            completes,
           );
         }
       });
@@ -334,41 +320,45 @@ Also found: build/app/outputs/flutter-apk/app-profile.apk
         expect(organizerService, isA<ApkOrganizerService>());
       });
 
-      test('services handle workflow scenarios', () {
+      test('services handle workflow scenarios', () async {
         final buildService = FlutterBuildService();
         final parserService = ApkParserService();
         final organizerService = ApkOrganizerService();
 
         // Test a typical workflow scenario
-        const mockBuildOutput = '✓ Built build/app/outputs/flutter-apk/app-release.apk (113.4MB)';
-        
+        const mockBuildOutput =
+            '✓ Built build/app/outputs/flutter-apk/app-release.apk (113.4MB)';
+
         // Step 1: Parse the build output
-        final apkPath = parserService.getApkPath(mockBuildOutput, '/test/project');
+        final apkPath = parserService.getApkPath(
+          mockBuildOutput,
+          '/test/project',
+        );
         expect(apkPath, isNotNull);
         expect(apkPath, contains('app-release.apk'));
 
         // Step 2: Organize the APK (would be called if file existed)
-        expect(
-          () => organizerService.organize(
+        await expectLater(
+          organizerService.organize(
             apkPath!,
             '/test/project',
             'test-app',
             'staging',
             '/output/dir',
           ),
-          isA<Future<String>>(),
+          completes,
         );
 
         // Step 3: Build service orchestrates everything
-        expect(
-          () => buildService.build(
+        await expectLater(
+          buildService.build(
             release: true,
             projectPath: '/test/project',
             customName: 'test-app',
             environment: 'staging',
             outputDir: '/output/dir',
           ),
-          isA<Future<String>>(),
+          completes,
         );
       });
     });

@@ -95,6 +95,7 @@ class CliOptions {
   /// This ensures localization files are generated before building.
   /// Defaults to `true`.
   final bool generateL10n;
+  final bool verbose;
 
   /// Creates a new [CliOptions] instance.
   ///
@@ -114,6 +115,7 @@ class CliOptions {
     this.clean = true,
     this.getPubDeps = true,
     this.generateL10n = true,
+    this.verbose = false,
   });
 
   /// Creates a copy of this [CliOptions] with the given fields replaced.
@@ -133,6 +135,7 @@ class CliOptions {
     bool? clean,
     bool? getPubDeps,
     bool? generateL10n,
+    bool? verbose,
   }) {
     return CliOptions(
       token: token ?? this.token,
@@ -147,6 +150,7 @@ class CliOptions {
       clean: clean ?? this.clean,
       getPubDeps: getPubDeps ?? this.getPubDeps,
       generateL10n: generateL10n ?? this.generateL10n,
+      verbose: verbose ?? this.verbose,
     );
   }
 
@@ -164,7 +168,8 @@ class CliOptions {
         'outputDir: $outputDir, '
         'clean: $clean, '
         'getPubDeps: $getPubDeps, '
-        'generateL10n: $generateL10n'
+        'generateL10n: $generateL10n, '
+        'verbose: $verbose'
         ')';
   }
 }

@@ -27,20 +27,19 @@ void main() {
         // Act & Assert
         expect(
           () => service.upload('/non/existent/file.apk'),
-          throwsA(isA<Exception>().having(
-            (e) => e.toString(),
-            'message',
-            contains('File not found'),
-          )),
+          throwsA(
+            isA<Exception>().having(
+              (e) => e.toString(),
+              'message',
+              contains('File not found'),
+            ),
+          ),
         );
       });
 
       test('handles empty file path', () async {
         // Act & Assert
-        expect(
-          () => service.upload(''),
-          throwsA(isA<Exception>()),
-        );
+        expect(() => service.upload(''), throwsA(isA<Exception>()));
       });
 
       test('validates file path format', () async {
@@ -64,25 +63,25 @@ void main() {
       });
 
       test('service with special characters in token', () {
-        final specialTokenService = DiawiUploadService('token-with-special-chars_123!');
-        expect(specialTokenService.apiToken, equals('token-with-special-chars_123!'));
+        final specialTokenService = DiawiUploadService(
+          'token-with-special-chars_123!',
+        );
+        expect(
+          specialTokenService.apiToken,
+          equals('token-with-special-chars_123!'),
+        );
       });
     });
 
     group('file validation', () {
       test('rejects null file path', () async {
-        expect(
-          () => service.upload(null as String),
-          throwsA(isA<TypeError>()),
-        );
+        // ignore: cast_from_null_always_fails
+        expect(() => service.upload(null as String), throwsA(isA<TypeError>()));
       });
 
       test('handles very long file path', () async {
         final longPath = '/very/long/path' * 100 + '/file.apk';
-        expect(
-          () => service.upload(longPath),
-          throwsA(isA<Exception>()),
-        );
+        expect(() => service.upload(longPath), throwsA(isA<Exception>()));
       });
 
       test('handles path with special characters', () async {
