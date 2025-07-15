@@ -109,16 +109,16 @@ class FlutterBuildService {
     String message,
     bool verbose,
   ) async {
-    _logger?.startSpinner(message);
+    _logger?.startProgress(message);
     try {
       final result = await shell.run(command);
-      _logger?.stopSpinner();
+      _logger?.stopProgress();
       if (verbose) {
         _logger?.fine(result.map((line) => line.outText).join('\n'));
       }
       return result;
     } catch (e) {
-      _logger?.stopSpinner(success: false);
+      _logger?.stopProgress(success: false);
       rethrow;
     }
   }
