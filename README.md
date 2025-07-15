@@ -1,5 +1,3 @@
-<div align="start">
-
 # 🚀 Share My APK
 
 **The Ultimate Flutter APK Build & Upload Automation Tool**
@@ -14,17 +12,11 @@
 
 *Automate your Flutter Android APK builds and uploads with the power of magic (and some really good code)*
 
-</div>
-
 ---
 
-## 🎯 **Why Share My APK?**
+## 🎯 Why Share My APK?
 
-<table>
-<tr>
-<td width="50%">
-
-### 😩 **Before Share My APK**
+### 😩 Before Share My APK
 - Manual `flutter build apk` commands
 - Drag & drop APKs to upload sites
 - Manually manage file names and versions
@@ -32,10 +24,7 @@
 - Remember different tokens for different services
 - Copy-paste download links manually
 
-</td>
-<td width="50%">
-
-### 🚀 **After Share My APK**
+### 🚀 After Share My APK
 - **One command** builds and uploads
 - **Automatic** FVM detection and Flutter commands
 - **Comprehensive** build pipeline (clean, pub get, gen-l10n)
@@ -45,17 +34,11 @@
 - **Unified** configuration management
 - **Instant** shareable links
 
-</td>
-</tr>
-</table>
-
 ---
 
-## ✨ **What Makes It Special?**
+## ✨ What Makes It Special?
 
-<div align="center">
-
-| 🏆 **Feature** | 🎯 **Benefit** | 🔥 **Why It Matters** |
+| 🏆 Feature | 🎯 Benefit | 🔥 Why It Matters |
 |---|---|---|
 | **🚀 One-Command Magic** | `share_my_apk` does it all | Save hours of manual work |
 | **🔧 Comprehensive Pipeline** | Clean, deps, l10n, build | Enterprise-grade reliability |
@@ -65,43 +48,19 @@
 | **🛡️ Reliable & Tested** | Production-ready | Works every time |
 | **🎨 Flexible Organization** | Custom naming & folders | Keep your builds organized |
 
-</div>
-
 ---
 
-## 📚 **Usage**
-
-See the [Quick Start](#⚡-quick-start) and [Usage Examples](#🎮-usage-examples) sections below for detailed instructions.
-
----
-
-## ⬇️ **Installation**
-
-Refer to the [Installation Options](#-installation-options) section for how to install `share_my_apk`.
-
----
-
-## 💡 **Examples**
-
-Check out the [Usage Examples](#🎮-usage-examples) section for various ways to use this tool.
-
----
-
-## 🎉 **What's New in v1.0.0?**
+## 🎉 What's New in v1.0.0?
 
 > **🚀 Production Ready - First Stable Release!**
 
-<div align="start">
- 
-### ✨ **Key Improvements**
+### ✨ Key Improvements
 
 ✅ **Production Ready** - Upgraded from beta to stable 1.0.0 release after comprehensive testing  
 ✅ **Zero Issues** - Passed all quality checks with 100+ tests and complete validation  
 ✅ **Comprehensive Documentation** - Complete API docs, examples, and guides  
 ✅ **Enterprise-Grade Quality** - Rock-solid reliability for production workflows  
-✅ **Full Pub.dev Compliance** - Maximum scoring and best practices  
-
-</div>
+✅ **Full Pub.dev Compliance** - Maximum scoring and best practices
 
 <details>
 <summary>👀 Click to see the new logs in action!</summary>
@@ -130,59 +89,48 @@ Check out the [Usage Examples](#🎮-usage-examples) section for various ways to
 
 ---
 
-## ⚡ **Quick Start**
+## ⚡ Quick Start
 
-### 1️⃣ **Install**
+### 1️⃣ Install
 ```bash
 dart pub global activate share_my_apk
 ```
 
-### 2️⃣ **Configure**
+### 2️⃣ Configure
 ```bash
 share_my_apk --init
 ```
 
-### 3️⃣ **Build & Upload**
+### 3️⃣ Build & Upload
 ```bash
 share_my_apk
 ```
 
-### 4️⃣ **Share** 
+### 4️⃣ Share
 *Get instant download link!* 🔗
 
 ---
 
-##  **Installation Options**
+## 📦 Installation Options
 
-<table>
-<tr>
-<td width="50%">
-
-### 🌍 **Global Installation**
+### 🌍 Global Installation
 ```bash
 dart pub global activate share_my_apk
 ```
 *Perfect for CLI usage across all projects*
 
-</td>
-<td width="50%">
-
-### 📦 **Project Dependency**
+### 📦 Project Dependency
 ```yaml
 dev_dependencies:
   share_my_apk: ^1.0.0
 ```
 *Perfect for team projects and CI/CD pipelines*
 
-</td>
-</tr>
-</table>
-
 ---
 
-## 🎮 **Usage Examples**
+## 🎮 Usage Examples
 
-### 🔧 **Basic Usage**
+### 🔧 Basic Usage
 
 ```bash
 # Initialize configuration (one-time setup)
@@ -204,7 +152,7 @@ share_my_apk --no-release
 share_my_apk --no-clean --no-pub-get
 ```
 
-### ⚙️ **Advanced Configuration**
+### ⚙️ Advanced Configuration
 
 Create `share_my_apk.yaml` in your project root:
 
@@ -231,7 +179,7 @@ environment: prod
 output-dir: build/releases
 ```
 
-### 🔬 **Library Usage**
+### 🔬 Library Usage
 
 ```dart
 import 'package:share_my_apk/share_my_apk.dart';
@@ -258,9 +206,7 @@ void main() async {
 
 ---
 
-## 🎯 **Command Reference**
-
-<div align="center">
+## 🎯 Command Reference
 
 | Command | Alias | Description | Example |
 |---------|-------|-------------|---------|
@@ -282,17 +228,13 @@ void main() async {
 | `--gen-l10n` | - | Generate localizations (default) | `share_my_apk --gen-l10n` |
 | `--no-gen-l10n` | - | Skip localization generation | `share_my_apk --no-gen-l10n` |
 
-</div>
-
 
 
 > **💡 Pro Tip:** Share My APK automatically switches from Diawi to Gofile for files >70MB!
 
 ---
 
-## 🚀 **Fully Automated Workflow**
-
-<div align="start">
+## 🚀 Fully Automated Workflow
 
 Share My APK now provides a completely automated experience, perfect for CI/CD pipelines and production workflows.
 
@@ -307,17 +249,13 @@ Share My APK now provides a completely automated experience, perfect for CI/CD p
 ℹ️ [12:56:05] Provider: diawi
 ```
 
-</div>
-
 ---
 
-## 🛡️ **Reliability & Quality**
-
-<div align="left">
+## 🛡️ Reliability & Quality
 
 Share My APK is **production-ready** and **thoroughly tested** to ensure it works reliably in real-world scenarios.
 
-### ✅ **What We've Tested**
+### ✅ What We've Tested
 - **✅ Large File Uploads** - Successfully tested with 113MB+ APKs
 - **✅ Network Resilience** - Handles connection issues gracefully
 - **✅ Provider Switching** - Automatic fallback works seamlessly
@@ -328,11 +266,9 @@ Share My APK is **production-ready** and **thoroughly tested** to ensure it work
 
 **Ready for your production workflow!** 🚀
 
-</div>
-
 ---
 
-## 📁 **File Organization Magic**
+## 📁 File Organization Magic
 
 Share My APK keeps your builds organized with smart naming:
 
@@ -354,24 +290,17 @@ output-directory/
 
 
 
-## 📚 **Need More Info?**
+## 📚 Need More Info?
 
-<div align="center">
-
-| 📖 **Resource** | 🎯 **What's Inside** |
+| 📖 Resource | 🎯 What's Inside |
 |----------------|---------------------|
 | **[API Documentation](https://pub.dev/documentation/share_my_apk/latest/)** | Complete API reference and guides |
 | **[Release Notes](RELEASE_NOTES.md)** | What's new and version history |
 | **[Changelog](CHANGELOG.md)** | Detailed version changes |
 | **[Examples](example/)** | Working code examples and use cases |
 
-</div>
 
-
-## 🎉 **Ready to Get Started?**
-
-<div align="left">
-
+## 🎉 Ready to Get Started?
 
 ```bash
 dart pub global activate share_my_apk
@@ -381,24 +310,16 @@ share_my_apk
 
 **That's it! You're now sharing APKs like a pro!** 🎯
 
-</div>
-
 ---
 
-<div align="left">
-
-### 💬 **Need Help?**
+### 💬 Need Help?
 
 - 📖 [Read the docs](https://github.com/wm-jenildgohel/share_my_apk#documentation)
 - 🐛 [Report issues](https://github.com/wm-jenildgohel/share_my_apk/issues)
 - 💡 [Request features](https://github.com/wm-jenildgohel/share_my_apk/discussions)
 - ⭐ [Star on GitHub](https://github.com/wm-jenildgohel/share_my_apk)
 
-</div>
-
 ---
-
-<div align="center">
 
 **Made with ❤️ for the Flutter community**
 
@@ -406,5 +327,3 @@ share_my_apk
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
 *Because sharing should be simple, not a chore* ✨
-
-</div>
