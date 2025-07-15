@@ -7,6 +7,7 @@
 -   **📦 Package Validation:** Passed all pub.dev validation checks for production publishing.
 -   **🏆 Quality Assurance:** Comprehensive audit completed with 100+ tests passing and zero issues.
 -   **📚 Documentation Complete:** All documentation updated for production release status.
+-   **🐛 Configuration Fix:** Removed hardcoded 'diawi' default that was overriding YAML configuration priority.
 
 ---
 

@@ -511,6 +511,14 @@ void main() async {
 - **Flutter Version**: Compatible with current stable Flutter
 
 ### Version History
+- **1.0.0**: **Production Ready Release with Configuration Fix**
+  - ✅ First stable production release after comprehensive testing
+  - 🐛 Fixed critical configuration bug: removed hardcoded 'diawi' default that was overriding YAML config
+  - 📚 Complete documentation suite with maximum pub.dev scoring
+  - 🏆 Zero analysis issues and 100+ tests passing
+  - 📦 Perfect pub.dev validation (0 warnings)
+  - 🎨 Improved README with left-focused UI design
+  - ⚙️ YAML configuration now properly takes precedence over CLI defaults
 - **0.4.0-beta**: **Major API fixes, comprehensive testing, production-ready**
   - Fixed Gofile API integration (server endpoints, upload paths, response parsing)
   - Enhanced Diawi API with proper polling mechanism and timeout handling
@@ -526,6 +534,23 @@ void main() async {
 ## Troubleshooting Guide
 
 ### Common Issues
+
+#### Configuration Issues (CRITICAL)
+**Problem**: Tool ignores `provider: gofile` in YAML and defaults to Diawi
+**Solution**: This was fixed in v1.0.0 - ensure you have the latest version
+```bash
+# Check version
+share_my_apk --help
+
+# Verify config is being read
+share_my_apk --init  # Generate fresh config
+```
+
+**Configuration Priority Order** (Fixed in v1.0.0):
+1. CLI Arguments (highest priority)
+2. share_my_apk.yaml 
+3. pubspec.yaml (legacy)
+4. Built-in defaults (lowest priority)
 
 #### Build Failures
 ```bash
@@ -547,10 +572,13 @@ curl -I https://store1.gofile.io/
 curl -F "token=YOUR_TOKEN" -F "file=@test.apk" https://upload.diawi.com/
 ```
 
-#### Configuration Issues
+#### YAML Configuration Issues
 ```bash
 # Validate YAML syntax
 dart run bin/share_my_apk.dart --init  # Generate valid config
+
+# Test configuration reading
+share_my_apk --provider gofile  # Should work with gofile in YAML
 ```
 
 ### Debug Mode
