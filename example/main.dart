@@ -1,4 +1,4 @@
-/// 🚀 **Share My APK - Complete Usage Examples**
+/// Share My APK - Complete Usage Examples
 /// 
 /// This example demonstrates all the ways you can use Share My APK programmatically.
 /// Run this from the root of a Flutter project to see it in action.
@@ -6,12 +6,16 @@
 /// ```bash
 /// dart run example/main.dart
 /// ```
+library;
+
+// Using print here is acceptable for CLI examples
+// ignore_for_file: avoid_print
 
 import 'package:share_my_apk/share_my_apk.dart';
 import 'package:logging/logging.dart';
 
 void main() async {
-  print('🚀 Share My APK - Library Usage Examples\n');
+  print('Share My APK - Library Usage Examples\n');
   
   // Configure logging to see detailed output
   _setupLogging();
@@ -21,13 +25,15 @@ void main() async {
   await _advancedBuildExample();
   await _configurationExample();
   await _multiProviderExample();
+  _retryExample();
+  _organizationExample();
 }
 
 /// **Example 1: Basic APK Build and Upload**
 /// 
 /// The simplest way to build and upload an APK.
 Future<void> _basicExample() async {
-  print('\n📦 Example 1: Basic Build & Upload');
+  print('\nExample 1: Basic Build & Upload');
   print('=' * 50);
   
   try {
@@ -35,15 +41,15 @@ Future<void> _basicExample() async {
     final buildService = FlutterBuildService();
     final apkPath = await buildService.build(release: true);
     
-    print('✅ APK built: $apkPath');
+    print('APK built: $apkPath');
     
     // Upload to Gofile (no token required)
     final uploader = UploadServiceFactory.create('gofile');
     final downloadLink = await uploader.upload(apkPath);
     
-    print('🔗 Download: $downloadLink');
+    print('Download: $downloadLink');
   } catch (e) {
-    print('❌ Error: $e');
+    print('Error: $e');
   }
 }
 
@@ -51,7 +57,7 @@ Future<void> _basicExample() async {
 /// 
 /// Shows all the build pipeline options available.
 Future<void> _advancedBuildExample() async {
-  print('\n🔧 Example 2: Advanced Build Pipeline');
+  print('\nExample 2: Advanced Build Pipeline');
   print('=' * 50);
   
   try {
@@ -70,9 +76,9 @@ Future<void> _advancedBuildExample() async {
       verbose: true,                    // Verbose logging
     );
     
-    print('✅ Advanced build completed: $apkPath');
+    print('Advanced build completed: $apkPath');
   } catch (e) {
-    print('❌ Build failed: $e');
+    print('Build failed: $e');
   }
 }
 
@@ -80,13 +86,13 @@ Future<void> _advancedBuildExample() async {
 /// 
 /// Demonstrates how to work with configuration files.
 Future<void> _configurationExample() async {
-  print('\n⚙️ Example 3: Configuration Management');
+  print('\nExample 3: Configuration Management');
   print('=' * 50);
   
   try {
     // Read configuration from YAML files
     final config = ConfigService.getConfig();
-    print('📄 Config loaded: ${config.keys.join(', ')}');
+    print('Config loaded: ${config.keys.join(', ')}');
     
     // Parse CLI arguments
     final argParser = ArgParserUtil();
@@ -96,7 +102,7 @@ Future<void> _configurationExample() async {
       '--provider', 'gofile',
     ]);
     
-    print('🎯 Parsed options: ${options.customName}, ${options.environment}');
+    print('Parsed options: ${options.customName}, ${options.environment}');
     
     // Use configuration in builds
     final buildService = FlutterBuildService();
@@ -106,9 +112,9 @@ Future<void> _configurationExample() async {
       release: options.isRelease,
     );
     
-    print('✅ Config-based build: $apkPath');
+    print('Config-based build: $apkPath');
   } catch (e) {
-    print('❌ Configuration error: $e');
+    print('Configuration error: $e');
   }
 }
 
@@ -116,52 +122,45 @@ Future<void> _configurationExample() async {
 /// 
 /// Shows how to handle different upload providers intelligently.
 Future<void> _multiProviderExample() async {
-  print('\n☁️ Example 4: Smart Provider Selection');
+  print('\nExample 4: Smart Provider Selection');
   print('=' * 50);
-  
-  // Example APK path (replace with actual path in real usage)
-  const exampleApkPath = './build/app/outputs/flutter-apk/app-release.apk';
   
   try {
     // Strategy 1: Use Gofile for large files (no size limit)
-    print('📤 Strategy 1: Gofile.io (unlimited size)');
+    print('Strategy 1: Gofile.io (unlimited size)');
     final gofileUploader = UploadServiceFactory.create('gofile');
-    // In real usage: await gofileUploader.upload(exampleApkPath);
-    print('   ✅ Would upload to Gofile.io');
+    print('   Gofile uploader created: ${gofileUploader.runtimeType}');
     
     // Strategy 2: Use Diawi for team sharing (requires token)
-    print('📤 Strategy 2: Diawi (team sharing)');
+    print('Strategy 2: Diawi (team sharing)');
     try {
       final diawiUploader = UploadServiceFactory.create(
         'diawi', 
-        token: 'your_diawi_token_here',
+        token: 'demo_token_here',
       );
-      // In real usage: await diawiUploader.upload(exampleApkPath);
-      print('   ✅ Would upload to Diawi');
+      print('   Diawi uploader created: ${diawiUploader.runtimeType}');
     } catch (e) {
-      print('   ⚠️ Diawi requires token: $e');
+      print('   Diawi requires token: $e');
     }
     
     // Strategy 3: Smart provider switching based on file size
-    print('📤 Strategy 3: Smart switching (recommended)');
-    print('   💡 Use Diawi for <70MB files, Gofile for larger files');
-    print('   💡 Implement size checking in your app logic');
+    print('Strategy 3: Smart switching (recommended)');
+    print('   Use Diawi for <70MB files, Gofile for larger files');
+    print('   Implement size checking in your app logic');
     
   } catch (e) {
-    print('❌ Provider error: $e');
+    print('Provider error: $e');
   }
 }
 
-/// **Utility Examples**
-
 /// Example of using retry utility for robust operations
 void _retryExample() {
-  print('\n🔄 Retry Utility Example');
+  print('\nRetry Utility Example');
   print('=' * 50);
   
   // Example: Retry a network operation with exponential backoff
   // Note: This is a conceptual example - adapt to your needs
-  print('💡 RetryUtil available for robust network operations');
+  print('RetryUtil available for robust network operations');
   print('   - Exponential backoff');
   print('   - Configurable retry conditions');
   print('   - Network error handling');
@@ -169,10 +168,10 @@ void _retryExample() {
 
 /// Example of APK organization
 void _organizationExample() {
-  print('\n📁 File Organization Example');
+  print('\nFile Organization Example');
   print('=' * 50);
   
-  print('💡 APK files are automatically organized:');
+  print('APK files are automatically organized:');
   print('   build/releases/');
   print('   ├── prod/');
   print('   │   └── MyApp_1.0.0_2025_01_15_14_30_45.apk');
@@ -186,8 +185,7 @@ void _organizationExample() {
 void _setupLogging() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((record) {
-    final logger = Logger('main');
     final timestamp = record.time.toIso8601String().substring(0, 19);
-    logger.info('[$timestamp] ${record.level.name}: ${record.message}');
+    print('[$timestamp] ${record.level.name}: ${record.message}');
   });
 }
